@@ -2,12 +2,12 @@ import { isRepo } from "../tools/path-detector";
 import Fixer from "./fixer";
 
 export default class HeaderFixer extends Fixer {
-    isApplieble(_, __, location) {
+    isApplieble(location) {
         return isRepo(location);
     }
 
-    apply(_document) {
-        let header = _document.querySelector("main > div.repohead");
+    apply() {
+        let header = document.querySelector("main > div.repohead");
         header.className = "pagehead repohead hx_repohead readability-menu bg-gray-light pb-0 pt-3";
 
         header.firstElementChild.className = "d-flex container-lg mb-4 px-3";

@@ -1,4 +1,5 @@
 import defresh from "../defresh";
+import { sleep } from "./sleep";
 
 function setLocation(link) {
     try {
@@ -30,14 +31,15 @@ async function getDocument(link) {
 
 export default async function navigate(link = window.location.href, changeLocation = true) {
     let _document = await getDocument(link);
-    defresh(_document, link);
-    
-    let oldMain = document.querySelector("main");
     let newMain = _document.querySelector("main");
-    if (oldMain && newMain)
-        oldMain.replaceWith(newMain);
-    else
-        document.body.replaceWith(_document.body);
+    newMain.style.display = "none";
+    let oldMain = document.querySelector("main");
+    oldMain.parentElement.insertBefore(newMain, oldMain);
+
+    defresh(link);
+    
+    oldMain.replaceWith(newMain);
+    newMain.style.display = "";
 
     if (changeLocation)
         setLocation(link);

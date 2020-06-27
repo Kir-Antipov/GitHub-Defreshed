@@ -3,24 +3,24 @@ import createElement from "../tools/create-element";
 import Fixer from "./fixer";
 
 export default class SummaryFixer extends Fixer {
-    isApplieble(_, __, location) {
+    isApplieble(location) {
         return isRepoRoot(location);
     }
 
-    apply(_document, sourceDocument, location) {
+    apply(location, backupDocument) {
         let summary = createElement("ul", { 
             className: "numbers-summary",
             children: [
-                this._createCommitsSummaryElement(sourceDocument),
-                this._createBranchesSummaryElement(sourceDocument),
-                this._createPackagesSummaryElement(sourceDocument),
-                this._createReleasesSummaryElement(sourceDocument, location),
-                this._createContributorsSummaryElement(sourceDocument, location),
-                this._createLicenseSummaryElement(sourceDocument)
+                this._createCommitsSummaryElement(backupDocument),
+                this._createBranchesSummaryElement(backupDocument),
+                this._createPackagesSummaryElement(backupDocument),
+                this._createReleasesSummaryElement(backupDocument, location),
+                this._createContributorsSummaryElement(backupDocument, location),
+                this._createLicenseSummaryElement(backupDocument)
             ].filter(x => x)
         });
 
-        _document
+        document
             .querySelector(".repository-content")
             .prepend(createElement("div", {
                 className: "overall-summary border-bottom-0 mb-0 rounded-bottom-0",
@@ -28,8 +28,8 @@ export default class SummaryFixer extends Fixer {
             }));
     }
 
-    _createCommitsSummaryElement(_document) {
-        let data = _document.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(1)");
+    _createCommitsSummaryElement(backupDocument) {
+        let data = backupDocument.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(1)");
         let count = data.querySelector("strong").innerText;
         let link = data.querySelector("a").href;
         let svg = `<svg class="octicon octicon-git-commit" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>`;
@@ -37,8 +37,8 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "commit", count);
     }
 
-    _createBranchesSummaryElement(_document) {
-        let data = _document.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(2)");
+    _createBranchesSummaryElement(backupDocument) {
+        let data = backupDocument.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(2)");
         let count = data.querySelector("strong").innerText;
         let link = data.querySelector("a").href;
         let svg = `<svg class="octicon octicon-git-branch" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>`;
@@ -46,8 +46,8 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "branch", count, "es");
     }
 
-    _createPackagesSummaryElement(_document) {
-        let data = [..._document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
+    _createPackagesSummaryElement(backupDocument) {
+        let data = [...backupDocument.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
             .find(x => { 
                 let link = x.querySelector("a"); 
                 return link && link.href.endsWith("packages"); 
@@ -65,8 +65,8 @@ export default class SummaryFixer extends Fixer {
         return null;
     }
 
-    _createReleasesSummaryElement(_document, location) {
-        let data = [..._document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
+    _createReleasesSummaryElement(backupDocument, location) {
+        let data = [...backupDocument.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
             .find(x => { 
                 let link = x.querySelector("a"); 
                 return link && link.href.endsWith("releases"); 
@@ -87,8 +87,8 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "release", count);
     }
 
-    _createContributorsSummaryElement(_document, location) {
-        let data = [..._document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
+    _createContributorsSummaryElement(backupDocument, location) {
+        let data = [...backupDocument.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
             .find(x => { 
                 let link = x.querySelector("a"); 
                 return link && link.href.endsWith("contributors"); 
@@ -108,8 +108,8 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "contributor", count);
     }
 
-    _createLicenseSummaryElement(_document) {
-        let data = _document.querySelector(".flex-shrink-0.col-12.col-md-3 svg.octicon-law");
+    _createLicenseSummaryElement(backupDocument) {
+        let data = backupDocument.querySelector(".flex-shrink-0.col-12.col-md-3 svg.octicon-law");
 
         if (data) {
             let link = data.parentElement.href;

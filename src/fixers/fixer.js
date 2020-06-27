@@ -1,9 +1,13 @@
 export default class Fixer {
-    isApplieble(dest, src, location = window.location.href) {
+    isApplieble(location = window.location.href, backup = null) {
         return true;
     }
 
-    apply(dest, src, location = window.location.href) {
+    waitUntilFixerReady() {
+        return true;
+    }
+
+    apply(location = window.location.href, backup = null) {
 
     }
 }

@@ -1,12 +1,11 @@
 import allFixers from "./fixers/all-fixers";
 
-export default function defresh(_document = document, location = window.location.href) {
-    let src = _document.cloneNode(true);
-    let dest = _document;
+export default async function defresh(location = window.location.href) {
+    let backupDocument = document.cloneNode(true);
     for (let fixer of allFixers) {
-        if (fixer.isApplieble(dest, src, location))
+        if (fixer.isApplieble(location, backupDocument) && await fixer.waitUntilFixerReady())
             try {
-                fixer.apply(dest, src, location);
+                fixer.apply(location, backupDocument);
             } catch (e) { 
                 console.log("Fixer exception: ", e);
             }

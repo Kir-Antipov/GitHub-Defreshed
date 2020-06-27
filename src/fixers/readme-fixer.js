@@ -2,12 +2,12 @@ import { isRepoRoot, isRepoTree } from "../tools/path-detector";
 import Fixer from "./fixer";
 
 export default class ReadmeFixer extends Fixer {
-    isApplieble(_, __, location) {
+    isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
     }
 
-    apply(_document) {
-        let readme = _document.querySelector("#readme");
+    apply() {
+        let readme = document.querySelector("#readme");
         if (readme) {
             readme.className = "Box md js-code-block-container Box--condensed";
             readme.querySelector(".Box-header").className = "Box-header d-flex flex-items-center flex-justify-between";

@@ -3,12 +3,12 @@ import createElement from "../tools/create-element";
 import Fixer from "./fixer";
 
 export default class CommitBarFixer extends Fixer {
-    isApplieble(_, __, location) {
+    isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
     }
 
-    apply(_document) {
-        let commitMessageContainer = _document.querySelector(".repository-content div.css-truncate.css-truncate-overflow.text-gray");
+    apply() {
+        let commitMessageContainer = document.querySelector(".repository-content div.css-truncate.css-truncate-overflow.text-gray");
         this._moveCommitDate(commitMessageContainer);
         this._fixCommitMessage(commitMessageContainer);
     }

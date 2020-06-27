@@ -3,11 +3,11 @@ import createElement from "../tools/create-element";
 import Fixer from "./fixer";
 
 export default class LanguageBarFixer extends Fixer {
-    isApplieble(_, __, location) {
+    isApplieble(location) {
         return isRepoRoot(location);
     }
 
-    apply(_document) {
+    apply() {
         let langsBar = createElement("div", "d-flex repository-lang-stats-graph");
         let langsContainer = createElement("ol", "repository-lang-stats-numbers");
         let langsWrapper = createElement("details", { 
@@ -24,7 +24,7 @@ export default class LanguageBarFixer extends Fixer {
             ]
         });
 
-        let languagesData = [..._document.querySelector(".flex-shrink-0.col-12.col-md-3 .Progress").parentElement.nextElementSibling.children];
+        let languagesData = [...document.querySelector(".flex-shrink-0.col-12.col-md-3 .Progress").parentElement.nextElementSibling.children];
         for (let langData of languagesData.map(this._extractLanguageData)) {
             let barItem = createElement("span", {
                 className: "language-color",
@@ -62,7 +62,7 @@ export default class LanguageBarFixer extends Fixer {
             langsContainer.append(createElement("li", { children: [langItem] }));
         }
 
-        _document.querySelector(".repository-content").prepend(langsWrapper);
+        document.querySelector(".repository-content").prepend(langsWrapper);
     }
 
     _extractLanguageData(element) {
