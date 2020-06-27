@@ -8,7 +8,7 @@ async function waitUntilElementReady(container, selector, interval, timeout) {
     return !!container.querySelector(selector);
 }
 
-export function waitUntilReady(options) {
+export default function waitUntilReady(options) {
     if (typeof options == "string")
         options = {
             container: document,
