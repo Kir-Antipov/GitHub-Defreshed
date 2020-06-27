@@ -11,7 +11,6 @@ async function waitUntilElementReady(container, selector, interval, timeout) {
 export default function waitUntilReady(options) {
     if (typeof options == "string")
         options = {
-            container: document,
             selectors: [...arguments]
         };
     else if (options instanceof Node)
@@ -20,6 +19,7 @@ export default function waitUntilReady(options) {
             selectors: [...arguments].splice(1)
         };
     
+    options.container = options.container || document;
     options.interval = options.interval || 100;
     options.timeout = options.timeout || 1500;
     if (!Array.isArray(options.selectors))
