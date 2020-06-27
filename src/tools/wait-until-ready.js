@@ -8,7 +8,7 @@ async function waitUntilElementReady(container, selector, interval, timeout) {
     return !!container.querySelector(selector);
 }
 
-export default function waitUntilReady(options) {
+export default async function waitUntilReady(options) {
     if (typeof options == "string")
         options = {
             selectors: [...arguments]
@@ -25,5 +25,6 @@ export default function waitUntilReady(options) {
     if (!Array.isArray(options.selectors))
         options.selectors = [...options.selectors];
 
-    return Promise.all(options.selectors.map(selector => waitUntilElementReady(options.container, selector, options.interval, options.timeout)));
+    let results = await Promise.all(options.selectors.map(selector => waitUntilElementReady(options.container, selector, options.interval, options.timeout)));
+    return results.every(x => x);
 }
