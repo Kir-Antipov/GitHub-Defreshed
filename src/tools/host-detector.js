@@ -10,7 +10,7 @@ export function isGivenHost(location, host) {
 
 export function isAbsoluteURL(url) {
     try {
-        path = new URL(path);
+        new URL(url);
         return true;
     } catch (_) {
         return false;
