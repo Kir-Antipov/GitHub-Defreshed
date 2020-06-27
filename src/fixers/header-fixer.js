@@ -1,9 +1,14 @@
 import { isRepo } from "../tools/path-detector";
+import waitUntilReady from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class HeaderFixer extends Fixer {
     isApplieble(location) {
         return isRepo(location);
+    }
+
+    waitUntilFixerReady() {
+        return waitUntilReady("main > div.repohead");
     }
 
     apply() {

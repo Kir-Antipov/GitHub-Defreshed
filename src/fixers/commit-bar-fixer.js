@@ -1,10 +1,15 @@
 import { isRepoRoot, isRepoTree } from "../tools/path-detector";
 import createElement from "../tools/create-element";
+import waitUntilReady from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class CommitBarFixer extends Fixer {
     isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
+    }
+
+    waitUntilFixerReady() {
+        return waitUntilReady(".repository-content .js-details-container .Details-content--hidden");
     }
 
     apply() {

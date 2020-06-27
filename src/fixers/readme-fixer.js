@@ -1,9 +1,17 @@
 import { isRepoRoot, isRepoTree } from "../tools/path-detector";
+import waitUntilReady from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class ReadmeFixer extends Fixer {
     isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
+    }
+
+    waitUntilFixerReady() {
+        return waitUntilReady({
+            selectors: "#readme",
+            timeout: 300
+        });
     }
 
     apply() {

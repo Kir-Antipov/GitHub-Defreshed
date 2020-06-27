@@ -1,10 +1,18 @@
 import { isRepoRoot } from "../tools/path-detector";
 import createElement from "../tools/create-element";
+import waitUntilReady from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class LanguageBarFixer extends Fixer {
     isApplieble(location) {
         return isRepoRoot(location);
+    }
+
+    waitUntilFixerReady() {
+        return waitUntilReady({
+            selectors: ".flex-shrink-0.col-12.col-md-3 .Progress",
+            timeout: 300
+        });
     }
 
     apply() {
