@@ -25,17 +25,20 @@ function imitateLoading() {
     }
 }
 
-async function getDocument(link) {
+async function getDocumentAndURL(link) {
     imitateLoading();
     let response = await fetch(link);
-    return new DOMParser().parseFromString(await response.text(), "text/html");
+    return {
+        document: new DOMParser().parseFromString(await response.text(), "text/html"),
+        url : response.url
+    };
 }
 
 export default async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
 
-    let _document = await getDocument(link);
-    let newMain = _document.querySelector("main");
+    let result = await getDocumentAndURL(link);
+    let newMain = result.document.querySelector("main");
     newMain.style.display = "none";
 
     if (root) {
@@ -54,7 +57,7 @@ export default async function navigate(link = window.location.href, changeLocati
     let oldMain = document.querySelector("main");
     oldMain.parentElement.insertBefore(newMain, oldMain);
 
-    await defresh(link);
+    await defresh(result.url);
     
     oldMain.replaceWith(newMain);
     if (root) {
@@ -66,5 +69,5 @@ export default async function navigate(link = window.location.href, changeLocati
     newMain.style.display = "";
 
     if (changeLocation)
-        setLocation(link);
+        setLocation(result.url);
 }
