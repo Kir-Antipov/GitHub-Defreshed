@@ -8,6 +8,7 @@ export default class SummaryFixer extends Fixer {
     }
 
     apply(location, backupDocument) {
+        let langsBar = document.querySelector(".repository-content details summary div.repository-lang-stats-graph");
         let summary = createElement("ul", { 
             className: "numbers-summary",
             children: [
@@ -23,7 +24,7 @@ export default class SummaryFixer extends Fixer {
         document
             .querySelector(".repository-content")
             .prepend(createElement("div", {
-                className: "overall-summary border-bottom-0 mb-0 rounded-bottom-0",
+                className: "overall-summary " + (langsBar ? "border-bottom-0 mb-0 rounded-bottom-0" : "mb-3"),
                 children: [summary]
             }));
     }
