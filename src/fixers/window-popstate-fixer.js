@@ -9,6 +9,8 @@ export default class WindowPopstateFixer extends Fixer {
             let link = document.location.href;
             if (isGitHub(link) && isRepo(link))
                 navigate(link, false);
+            else
+                window.location.href = document.location.href;
         };
     }
 }
