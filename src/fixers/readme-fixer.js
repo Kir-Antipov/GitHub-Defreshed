@@ -9,7 +9,7 @@ export default class ReadmeFixer extends Fixer {
 
     waitUntilFixerReady() {
         return waitUntilReady({
-            selectors: ["#readme"],
+            selectors: ["main:nth-child(1) #readme"],
             timeout: 300
         });
     }

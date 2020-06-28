@@ -10,7 +10,7 @@ export default class TopicsFixer extends Fixer {
 
     waitUntilFixerReady() {
         return waitUntilReady({ 
-            selectors: [".flex-shrink-0.col-12.col-md-3 div.list-topics-container.f6"],
+            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 div.list-topics-container.f6"],
             timeout: 300 
         });
     }

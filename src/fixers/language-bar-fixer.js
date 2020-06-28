@@ -10,7 +10,7 @@ export default class LanguageBarFixer extends Fixer {
 
     waitUntilFixerReady() {
         return waitUntilReady({
-            selectors: [".flex-shrink-0.col-12.col-md-3 .Progress"],
+            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 .Progress"],
             timeout: 300
         });
     }

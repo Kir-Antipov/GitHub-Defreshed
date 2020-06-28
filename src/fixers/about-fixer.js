@@ -10,7 +10,7 @@ export default class AboutFixer extends Fixer {
 
     waitUntilFixerReady() {
         return waitUntilReady({ 
-            selectors: [".flex-shrink-0.col-12.col-md-3 .f4"],
+            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 .f4"],
             timeout: 300 
         });
     }

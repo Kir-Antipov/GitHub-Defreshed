@@ -8,7 +8,7 @@ export default class ContainerFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady(".container-xl");
+        return waitUntilReady("main:nth-child(1) .container-xl");
     }
 
     apply() {

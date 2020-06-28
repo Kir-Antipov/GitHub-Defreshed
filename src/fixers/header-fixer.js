@@ -8,7 +8,7 @@ export default class HeaderFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady("main > div.repohead");
+        return waitUntilReady("main:nth-child(1) > div.repohead");
     }
 
     apply() {

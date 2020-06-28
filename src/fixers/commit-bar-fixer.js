@@ -9,7 +9,7 @@ export default class CommitBarFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady(".repository-content .js-details-container .Details-content--hidden");
+        return waitUntilReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden");
     }
 
     apply() {

@@ -8,7 +8,7 @@ export default class ColumnsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady(".flex-shrink-0.col-12.col-md-3");
+        return waitUntilReady("main:nth-child(1) .flex-shrink-0.col-12.col-md-3");
     }
 
     apply() {
