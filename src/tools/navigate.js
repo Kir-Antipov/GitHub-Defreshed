@@ -1,5 +1,7 @@
 import defresh from "./defresh";
 import { sleep } from "./sleep";
+import { isRoot } from "./path-detector";
+import createElement from "./create-element";
 
 function setLocation(link) {
     try {
@@ -30,15 +32,37 @@ async function getDocument(link) {
 }
 
 export default async function navigate(link = window.location.href, changeLocation = true) {
+    let root = isRoot();
+
     let _document = await getDocument(link);
     let newMain = _document.querySelector("main");
     newMain.style.display = "none";
+
+    if (root) {
+        let app = document.querySelector("body > div.application-main");
+        app.prepend(createElement("div", {
+            className: "",
+            attributes: {
+                itemscope: "",
+                itemtype: "http://schema.org/SoftwareSourceCode"
+            },
+            children: [
+                createElement("main")
+            ]
+        }));
+    }
     let oldMain = document.querySelector("main");
     oldMain.parentElement.insertBefore(newMain, oldMain);
 
-    defresh(link);
+    await defresh(link);
     
     oldMain.replaceWith(newMain);
+    if (root) {
+        let app = document.querySelector("body > div.application-main");
+        for (let child of [...app.children].splice(1))
+            app.removeChild(child);
+        document.body.className = "logged-in env-production page-responsive intent-mouse";
+    }
     newMain.style.display = "";
 
     if (changeLocation)

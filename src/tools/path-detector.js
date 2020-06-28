@@ -39,6 +39,10 @@ export function getRepoPath(path = location.pathname) {
 	return match[1];
 }
 
+export function isRoot(path = location.pathname) {
+    return !cleanPathname(path);
+}
+
 export function isDashboard(path = location.pathname) {
     return /^((orgs[/][^/]+[/])?dashboard([/]index[/]\d+)?)?$/.test(cleanPathname(path));
 }
