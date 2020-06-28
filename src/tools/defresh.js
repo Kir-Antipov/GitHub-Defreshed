@@ -1,4 +1,4 @@
-import allFixers from "./fixers/all-fixers";
+import allFixers from "../fixers/all-fixers";
 
 export default async function defresh(location = window.location.href) {
     let backupDocument = document.cloneNode(true);

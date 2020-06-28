@@ -1,4 +1,4 @@
-import defresh from "../defresh";
+import defresh from "./defresh";
 import { sleep } from "./sleep";
 
 function setLocation(link) {
