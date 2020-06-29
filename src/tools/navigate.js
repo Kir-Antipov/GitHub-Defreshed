@@ -1,5 +1,4 @@
 import defresh from "./defresh";
-import { sleep } from "./sleep";
 import { isRoot } from "./path-detector";
 import createElement from "./create-element";
 
@@ -14,14 +13,17 @@ function setLocation(link) {
 function imitateLoading() {
     let loader = document.querySelector(".progress-pjax-loader");
     if (loader) {
-        loader.firstElementChild.style.width = "0";
+        const loadingTime = 1200;
+        const step = 100;
+        
+        loader.firstElementChild.style.width = 0;
         loader.style.opacity = "100%";
-        loader.firstElementChild.style.width = "10%";
-        setTimeout(() => loader.firstElementChild.style.width = "25%", 250);
-        setTimeout(() => loader.firstElementChild.style.width = "60%", 500);
-        setTimeout(() => loader.firstElementChild.style.width = "80%", 700);
-        setTimeout(() => loader.firstElementChild.style.width = "100%", 900);
-        setTimeout(() => loader.style.opacity = 0, 1000);
+        for (let i = 0; i < loadingTime; i += step) {
+            let percentValue = Math.floor((Math.exp(i / loadingTime) - 1) / (Math.E - 1) * 100);
+            percentValue = Math.min(percentValue, 100);
+            setTimeout(() => loader.firstElementChild.style.width = `${percentValue}%`, i);
+        }
+        setTimeout(() => loader.style.opacity = 0, loadingTime + step);
     }
 }
 
