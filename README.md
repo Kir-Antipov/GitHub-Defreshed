@@ -9,7 +9,7 @@ So, Microsoft took yet another step to prove to some last doubters that **Micros
 
 This time effective managers from Microsoft (tbh, I don't think there were any UI/UX designers involved into this) turned repository page into some unusable low quality piece of :shit:.
 
-But don’t worry! Seeing this update in preview, I was horrified and began to ~~build a nuclear junker~~ develop a script that will roll back all changes, since I reasonably suspected that Microsoft would give a heck about all the negative feedback. So, here we are: 
+But don’t worry! Seeing this update in preview, I was horrified and began to develop a script that will roll back all changes, since I reasonably suspected that Microsoft would not give a heck about all the negative feedback. So, here we are: 
 
 ## Preview
 
