@@ -10,7 +10,6 @@ import ColumnsFixer from "./columns-fixer";
 import ReadmeFixer from "./readme-fixer";
 import LinksFixer from "./links-fixer";
 import WindowPopstateFixer from "./window-popstate-fixer";
-import UserCSSFixer from "./user-css-fixer";
 
 export default [
     new ContainerFixer(),
@@ -24,6 +23,5 @@ export default [
     new ColumnsFixer(),
     new ReadmeFixer(),
     new LinksFixer(),
-    new WindowPopstateFixer(),
-    new UserCSSFixer()
+    new WindowPopstateFixer()
 ];
