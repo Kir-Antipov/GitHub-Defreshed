@@ -1,22 +1,28 @@
 const path = require("path");
-const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CreateFileWebpack = require("create-file-webpack");
+const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
 const metadata = `// ==UserScript==
-// @name         GitHub Defreshed
-// @namespace    GitHub
-// @version      1.0
-// @description  Make GitHub Great Again!
-// @author       Kir_Antipov
+// @name         ${displayName}
+// @namespace    ${namespace}
+// @version      ${version}
+// @author       ${author}
+// @description  ${description}
+// @license      ${license}
+// @homepageURL  https://github.com/${githubUser}/${githubRepo}
+// @updateURL    https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js
+// @downloadURL  https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js
+// @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new
 // @match        http*://github.com/*
-// ==UserScript==`;
+// @grant        none
+// ==/UserScript==`;
 
 module.exports = {
     mode: "production",
     entry: "./src/index.js",
     output: {
-        filename: "github-defreshed.user.js",
+        filename: `${name}.user.js`,
         path: path.resolve(__dirname, "build"),
     },
     optimization: {
@@ -32,12 +38,10 @@ module.exports = {
         ],
     },
     plugins: [
-        new webpack.BannerPlugin({
-            raw: true,
-            banner: metadata,
-            entryOnly: true
-        }),
-
-        new CleanWebpackPlugin()
+        new CreateFileWebpack({
+            fileName: `${name}.meta.js`,
+            path: path.resolve(__dirname, "build"),
+            content: metadata 
+        })
     ]
 };

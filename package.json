@@ -1,20 +1,24 @@
 {
-  "name": "webpack-kir",
+  "name": "github-defreshed",
   "version": "1.0.0",
-  "description": "",
+  "namespace": "GitHub",
+  "displayName": "GitHub Defreshed",
+  "description": "Make GitHub Great Again!",
+  "author": "Kir_Antipov",
+  "githubUser": "Kir-Antipov",
+  "githubRepo": "GitHub-Defreshed",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "build": "webpack --production"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "create-file-webpack": "^1.0.2",
     "github-reserved-names": "^1.1.8",
     "terser-webpack-plugin": "^3.0.6"
   }
