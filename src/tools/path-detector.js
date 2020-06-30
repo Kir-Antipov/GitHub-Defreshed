@@ -68,3 +68,11 @@ export function isRepoRoot(path = location.pathname) {
 export function isRepoTree(path = location.pathname) {
     return /^tree\//.test(getRepoPath(path));
 }
+
+export function isRaw(path = location.pathname) {
+    return (getRepoPath(path) || "").startsWith("raw/");
+}
+
+export function isArchive(path = location.pathname) {
+    return (getRepoPath(path) || "").startsWith("archive/");
+}
