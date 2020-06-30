@@ -10,7 +10,7 @@ export default class LinksFixer extends Fixer {
     }
 
     _needToBeFixed(a) {
-        return  !a.hasAttribute("defreshed") && a.href && 
+        return  !a.hasAttribute("defreshed") && a.href && a.href != "#" && 
                 isSameSiteURL(a.href) && isRepo(a.href) &&
                 !isRaw(a.href) && !isArchive(a.href);
     }
