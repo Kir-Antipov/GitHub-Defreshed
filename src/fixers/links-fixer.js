@@ -19,6 +19,9 @@ export default class LinksFixer extends Fixer {
         a.setAttribute("defreshed", "");
 
         a.addEventListener("click", async function(e) {
+            if (e.metaKey || e.ctrlKey)
+                return;
+            
             e.stopPropagation();
             e.preventDefault();
             navigate(getAbsoluteURL(this.href));
