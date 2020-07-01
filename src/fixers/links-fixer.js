@@ -1,6 +1,6 @@
 import navigate from "../tools/navigate";
 import { isSameSiteURL, getAbsoluteURL } from "../tools/host-detector";
-import { isRepo, isRaw, isArchive } from "../tools/path-detector";
+import { isRepo, isRaw, isArchive, isProject } from "../tools/path-detector";
 import Fixer from "./fixer";
 
 export default class LinksFixer extends Fixer {
@@ -12,7 +12,7 @@ export default class LinksFixer extends Fixer {
     _needToBeFixed(a) {
         return  !a.hasAttribute("defreshed") && a.href && !a.href.endsWith("#") && 
                 isSameSiteURL(a.href) && isRepo(a.href) &&
-                !isRaw(a.href) && !isArchive(a.href);
+                !isRaw(a.href) && !isArchive(a.href) && !isProject(a.href);
     }
 
     _fix(a) {
