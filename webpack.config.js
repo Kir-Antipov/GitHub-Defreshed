@@ -14,7 +14,7 @@ const metadata = `// ==UserScript==
 // @updateURL    https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js
 // @downloadURL  https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js
 // @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new
-// @match        http*://github.com/*
+// @match        https://github.com/*
 // @grant        none
 // ==/UserScript==`;
 
