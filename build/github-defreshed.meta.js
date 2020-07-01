@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub Defreshed
 // @namespace    GitHub
-// @version      1.1.5
+// @version      1.2.0
 // @author       Kir_Antipov
 // @description  Make GitHub Great Again!
 // @license      MIT
@@ -9,6 +9,6 @@
 // @updateURL    https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed.meta.js
 // @downloadURL  https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed.user.js
 // @supportURL   https://github.com/Kir-Antipov/GitHub-Defreshed/issues/new
-// @match        https://github.com
+// @match        https://github.com/*
 // @grant        none
 // ==/UserScript==
