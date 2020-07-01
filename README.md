@@ -9,7 +9,7 @@ So, Microsoft took yet another step to prove to some last doubters that **Micros
 
 This time effective managers from Microsoft (tbh, I don't think there were any UI/UX designers involved into this) turned repository page into some unusable low quality piece of :shit:.
 
-But don’t worry! Seeing this update in preview, I was horrified and began to develop a script that will roll back all changes, since I reasonably suspected that Microsoft wouldn't give a heck about all the negative feedback. So, here we are: 
+But don’t worry! When I saw this update in preview, I was horrified and began to develop a script that would roll back all changes, since I reasonably suspected that Microsoft wouldn't give a heck about all the negative feedback. So, here we are: 
 
 ## Preview
 
@@ -41,11 +41,11 @@ If you're not using GitHub (then what are you doing here?), new "design" from th
  - We don't see last commit message anymore
  - We can't see the language bar anymore without scrolling page down in most repos
  - "About" section, topics and so on were moved to the right sidebar - directly out of our point of attention
- - On the contrary, readme was moved to the left side - directly out of our point of attention again
+ - On the contrary, readme was moved to the left side - again, directly out of our point of attention
  - Readme container has been enlarged, but its content still fits into same dimensions, so the feeling of wasted space will not leave you while you read it
  - Repository tabs are no longer felt as part of the repo
 
-And another 1000 and 1 reason.
+And thousands of other reasons.
 
 ## Why "new design sucks" isn't subjective
 
