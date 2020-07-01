@@ -1,5 +1,5 @@
 import defresh from "./defresh";
-import { isRoot } from "./path-detector";
+import { isRoot, isProject } from "./path-detector";
 import createElement from "./create-element";
 
 function setLocation(link) {
@@ -38,6 +38,7 @@ async function getDocumentAndURL(link) {
 
 export default async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
+    let project = isProject();
 
     let result = await getDocumentAndURL(link);
     let newMain = result.document.querySelector("main");
@@ -67,6 +68,8 @@ export default async function navigate(link = window.location.href, changeLocati
         for (let child of [...app.children].splice(1))
             app.removeChild(child);
         document.body.className = "logged-in env-production page-responsive intent-mouse";
+    } else if (project) {
+        newMain.parentElement.className = "";
     }
     newMain.style.display = "";
 
