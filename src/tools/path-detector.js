@@ -80,3 +80,7 @@ export function isArchive(path = location.pathname) {
 export function isProject(path = location.pathname) {
     return /^projects\/\d+$/.test(getRepoPath(path));
 }
+
+export function isAnchor(path = location.pathname) {
+    return /#[^\/]*$/.test(path);
+}
