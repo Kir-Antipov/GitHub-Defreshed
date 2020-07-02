@@ -32,6 +32,15 @@ function setup(obj, options) {
     }
 }
 
+export function createStyleElement(css) {
+    return createElement("style", {
+        type: "text/css",
+        children: [
+            css
+        ]
+    });
+}
+
 export default function createElement(tagName = "div", options) {
     if (typeof options == "string") 
         options = { className: options };
