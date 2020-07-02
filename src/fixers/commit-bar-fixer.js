@@ -9,13 +9,29 @@ export default class CommitBarFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden");
+        return waitUntilReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden", ".repository-content ul.list-style-none.d-flex li:nth-child(3)");
     }
 
-    apply() {
+    apply(_, backupContainer) {
         let commitMessageContainer = document.querySelector(".repository-content div.css-truncate.css-truncate-overflow.text-gray");
+        this._backupCommitsDetails(backupContainer);
+        this._backupBranchesDetails(backupContainer);
         this._moveCommitDate(commitMessageContainer);
         this._fixCommitMessage(commitMessageContainer);
+    }
+
+    _backupCommitsDetails(backupContainer) {
+        this._backupDetails("backup-commits", backupContainer);
+    }
+
+    _backupBranchesDetails(backupContainer) {
+        this._backupDetails("backup-branches", backupContainer);
+    }
+
+    _backupDetails(id, backupContainer) {
+        let branchesDetails = document.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(1)");
+        branchesDetails.id = id;
+        backupContainer.append(branchesDetails);
     }
 
     _moveCommitDate(commitMessageContainer) {
