@@ -59,7 +59,7 @@ export default class CommitBarFixer extends Fixer {
         let commitCommentsContainer = detailsContainer.querySelector("a[anchor='comments']");
         let hiddenCommitExpander = commitMessageContainer.parentElement.querySelector(":scope > span.hidden-text-expander");
 
-        let authorLink = commitMessageContainer.querySelector("a");
+        let authorLink = commitMessageContainer.querySelector(".commit-author");
         for (let child of [...commitMessageContainer.childNodes])
             commitMessageContainer.removeChild(child);
 
