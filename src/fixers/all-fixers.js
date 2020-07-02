@@ -2,6 +2,7 @@ import TopicsCSSFixer from "./topics-css-fixer";
 import SummaryCSSFixer from "./summary-css-fixer";
 import ButtonsCSSFixer from "./buttons-css-fixer";
 import AvatarCSSFixer from "./avatar-css-fixer";
+import BoxCSSFixer from "./box-css-fixer";
 import ContainerFixer from "./container-fixer";
 import HeaderFixer from "./header-fixer";
 import CommitBarFixer from "./commit-bar-fixer";
@@ -20,6 +21,7 @@ export default [
     new SummaryCSSFixer(),
     new ButtonsCSSFixer(),
     new AvatarCSSFixer(),
+    new BoxCSSFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
     new CommitBarFixer(),
