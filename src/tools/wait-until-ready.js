@@ -1,4 +1,5 @@
-const { sleep } = require("./sleep");
+import { sleep } from "./sleep";
+import { findRule } from "./find-rule";
 
 async function waitUntilTrue(predicate, interval, timeout) {
     let start = new Date();
@@ -13,10 +14,7 @@ function waitUntilElementReady(container, selector, interval, timeout) {
 }
 
 function waitUntilStyleSheetReady(selector, interval, timeout) {
-    return waitUntilTrue(() => 
-        [...document.styleSheets].filter(styleSheet => 
-            styleSheet.href && [...styleSheet.rules].find(rule => 
-                rule.selectorText && rule.selectorText == selector)), interval, timeout);
+    return waitUntilTrue(() => !!findRule(selector), interval, timeout);
 }
 
 export function waitUntilDocumentReady(options) {
