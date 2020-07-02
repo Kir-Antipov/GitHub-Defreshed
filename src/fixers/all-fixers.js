@@ -1,4 +1,5 @@
 import TopicsCSSFixer from "./topics-css-fixer";
+import SummaryCSSFixer from "./summary-css-fixer";
 import ContainerFixer from "./container-fixer";
 import HeaderFixer from "./header-fixer";
 import CommitBarFixer from "./commit-bar-fixer";
@@ -14,6 +15,7 @@ import WindowPopstateFixer from "./window-popstate-fixer";
 
 export default [
     new TopicsCSSFixer(),
+    new SummaryCSSFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
     new CommitBarFixer(),
