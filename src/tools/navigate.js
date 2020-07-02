@@ -72,6 +72,7 @@ export default async function navigate(link = window.location.href, changeLocati
         newMain.parentElement.className = "";
     }
     newMain.style.display = "";
+    document.head.querySelector("title").innerText = result.document.head.querySelector("title").innerText;
 
     if (changeLocation)
         setLocation(result.url);
