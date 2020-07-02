@@ -3,7 +3,7 @@ export default class Fixer {
         return true;
     }
 
-    waitUntilFixerReady() {
+    waitUntilFixerReady(location = window.location.href, backup = null) {
         return true;
     }
 

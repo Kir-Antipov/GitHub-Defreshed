@@ -8,14 +8,20 @@ export default class CommitBarFixer extends Fixer {
         return isRepoRoot(location) || isRepoTree(location);
     }
 
-    waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden", ".repository-content ul.list-style-none.d-flex li:nth-child(3)");
+    waitUntilFixerReady(location) {
+        let selectors = ["main:nth-child(1) .repository-content .js-details-container .Details-content--hidden"];
+        if (isRepoRoot(location))
+            selectors.push(".repository-content ul.list-style-none.d-flex li:nth-child(3)");
+
+        return waitUntilElementsReady(...selectors);
     }
 
-    apply(_, backupContainer) {
+    apply(location, backupContainer) {
         let commitMessageContainer = document.querySelector(".repository-content div.css-truncate.css-truncate-overflow.text-gray");
-        this._backupCommitsDetails(backupContainer);
-        this._backupBranchesDetails(backupContainer);
+        if (isRepoRoot(location)) {
+            this._backupCommitsDetails(backupContainer);
+            this._backupBranchesDetails(backupContainer);
+        }
         this._moveCommitDate(commitMessageContainer);
         this._fixCommitMessage(commitMessageContainer);
     }
