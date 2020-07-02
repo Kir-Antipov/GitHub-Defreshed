@@ -24,6 +24,17 @@ Just ol' buddy GitHub in person
 
 📦 [Install the user script](https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed.user.js) which supports automatic updates and customization.
 
+## Features
+
+ - Container dimensions returned to adequate proportions
+ - Old style header
+ - About and Summary sections moved back
+ - Unhidden commit message
+ - Prettified README
+ - Full support of custom themes (e.g., `GitHub-Dark`)
+ - Unrounded buttons, avatars and containers and another CSS-improvements (*optional*). If you want to keep things rounded, [install simplified version of the user script](https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed-simplified.user.js)
+ - And much more!
+
 ## Build
 
 ```
