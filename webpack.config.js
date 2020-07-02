@@ -17,6 +17,7 @@ function getMetadata(ignoreCSS = false) {
 // @downloadURL  https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}${ignoreCSS ? "-simplified" : ""}.user.js
 // @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new
 // @match        https://github.com/*
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==`;
 
