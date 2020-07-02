@@ -1,5 +1,5 @@
 import { isRepoRoot } from "../tools/path-detector";
-import waitUntilReady from "../tools/wait-until-ready";
+import { waitUntilElementsReady } from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class EditDetailsFixer extends Fixer {
@@ -8,7 +8,7 @@ export default class EditDetailsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady({ 
+        return waitUntilElementsReady({ 
             selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 details"],
             timeout: 300
          });

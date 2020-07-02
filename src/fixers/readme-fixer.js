@@ -1,5 +1,5 @@
 import { isRepoRoot, isRepoTree } from "../tools/path-detector";
-import waitUntilReady from "../tools/wait-until-ready";
+import { waitUntilElementsReady } from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class ReadmeFixer extends Fixer {
@@ -8,7 +8,7 @@ export default class ReadmeFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady({
+        return waitUntilElementsReady({
             selectors: ["main:nth-child(1) #readme"],
             timeout: 300
         });

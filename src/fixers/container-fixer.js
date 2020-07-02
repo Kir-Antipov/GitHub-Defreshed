@@ -1,5 +1,5 @@
 import { isRepo, isProject } from "../tools/path-detector";
-import waitUntilReady from "../tools/wait-until-ready";
+import { waitUntilElementsReady } from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class ContainerFixer extends Fixer {
@@ -8,7 +8,7 @@ export default class ContainerFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady("main:nth-child(1) .container-xl");
+        return waitUntilElementsReady("main:nth-child(1) .container-xl");
     }
 
     apply() {

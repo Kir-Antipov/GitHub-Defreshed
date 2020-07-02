@@ -1,6 +1,6 @@
 import { isRepoRoot, isRepoTree } from "../tools/path-detector";
 import createElement from "../tools/create-element";
-import waitUntilReady from "../tools/wait-until-ready";
+import { waitUntilElementsReady } from "../tools/wait-until-ready";
 import Fixer from "./fixer";
 
 export default class CommitBarFixer extends Fixer {
@@ -9,7 +9,7 @@ export default class CommitBarFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden", ".repository-content ul.list-style-none.d-flex li:nth-child(3)");
+        return waitUntilElementsReady("main:nth-child(1) .repository-content .js-details-container .Details-content--hidden", ".repository-content ul.list-style-none.d-flex li:nth-child(3)");
     }
 
     apply(_, backupContainer) {
