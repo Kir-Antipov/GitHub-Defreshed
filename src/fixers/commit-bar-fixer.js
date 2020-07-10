@@ -69,12 +69,15 @@ export default class CommitBarFixer extends Fixer {
         for (let child of [...commitMessageContainer.childNodes])
             commitMessageContainer.removeChild(child);
 
+        commitTitleContainer.classList.remove("text-bold");
         commitMessageContainer.append(authorLink, " ", commitTitleContainer);
 
-        if (commitCommentsContainer)
-            hiddenCommitExpander.parentElement.insertBefore(commitCommentsContainer, hiddenCommitExpander);
+        if (hiddenCommitExpander) {
+            if (commitCommentsContainer)
+                hiddenCommitExpander.parentElement.insertBefore(commitCommentsContainer, hiddenCommitExpander);
 
-        if (!commitDescriptionContainer)
-            hiddenCommitExpander.parentElement.removeChild(hiddenCommitExpander);
+            if (!commitDescriptionContainer)
+                hiddenCommitExpander.parentElement.removeChild(hiddenCommitExpander);
+        }
     }
 }
