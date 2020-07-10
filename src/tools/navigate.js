@@ -72,7 +72,13 @@ export default async function navigate(link = window.location.href, changeLocati
         newMain.parentElement.className = "";
     }
     newMain.style.display = "";
+
     document.head.querySelector("title").innerText = result.document.head.querySelector("title").innerText;
+
+    let oldHeader = document.querySelector("header");
+    let newHeader = result.document.querySelector("header");
+    if (oldHeader && newHeader)
+        oldHeader.replaceWith(newHeader);
 
     if (changeLocation)
         setLocation(result.url);
