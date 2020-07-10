@@ -5,6 +5,7 @@ import AvatarCSSFixer from "./avatar-css-fixer";
 import BoxCSSFixer from "./box-css-fixer";
 import ContainerFixer from "./container-fixer";
 import HeaderFixer from "./header-fixer";
+import BranchButtonFixer from "./branch-button-fixer";
 import CommitBarFixer from "./commit-bar-fixer";
 import LanguageBarFixer from "./language-bar-fixer";
 import SummaryFixer from "./summary-fixer";
@@ -24,6 +25,7 @@ export default [
     new BoxCSSFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
+    new BranchButtonFixer(),
     new CommitBarFixer(),
     new LanguageBarFixer(),
     new SummaryFixer(),
