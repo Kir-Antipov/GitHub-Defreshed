@@ -77,6 +77,14 @@ export function isArchive(path = location.pathname) {
     return (getRepoPath(path) || "").startsWith("archive/");
 }
 
+export function isReleaseFile(path = location.pathname) {
+    return (getRepoPath(path) || "").startsWith("releases/download/");
+}
+
+export function isFile(path = location.pathname) {
+    return isRaw(path) || isArchive(path) || isReleaseFile(path);
+}
+
 export function isProject(path = location.pathname) {
     return /^projects\/\d+$/.test(getRepoPath(path));
 }
