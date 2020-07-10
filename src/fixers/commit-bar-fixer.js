@@ -9,75 +9,75 @@ export default class CommitBarFixer extends Fixer {
     }
 
     waitUntilFixerReady(location) {
-        let selectors = ["main:nth-child(1) .repository-content .js-details-container .Details-content--hidden"];
-        if (isRepoRoot(location))
-            selectors.push(".repository-content ul.list-style-none.d-flex li:nth-child(3)");
+        let selectors = [
+            "main:nth-child(1) .repository-content .Box relative-time",
+            "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)"
+        ];
+        if (isRepoRoot(location)) {
+            selectors.push("main:nth-child(1) .repository-content .file-navigation > :not(#branch-select-menu) svg.octicon-git-branch");
+            selectors.push("main:nth-child(1) .repository-content .Box ul.list-style-none svg.octicon-history");
+        }
 
         return waitUntilElementsReady(...selectors);
     }
 
     apply(location, backupContainer) {
-        let commitMessageContainer = document.querySelector(".repository-content div.css-truncate.css-truncate-overflow.text-gray");
-        if (isRepoRoot(location)) {
-            this._backupCommitsDetails(backupContainer);
-            this._backupBranchesDetails(backupContainer);
-        }
-        this._moveCommitDate(commitMessageContainer);
-        this._fixCommitMessage(commitMessageContainer);
+        if (isRepoRoot(location))
+            this._backupDetails(backupContainer);
+        this._moveCommitComments();
+        this._moveCommitDetails();
+        this._removeSecondCommitTitle();
     }
 
-    _backupCommitsDetails(backupContainer) {
-        this._backupDetails("backup-commits", backupContainer);
-    }
-
-    _backupBranchesDetails(backupContainer) {
-        this._backupDetails("backup-branches", backupContainer);
-    }
-
-    _backupDetails(id, backupContainer) {
-        let branchesDetails = document.querySelector(".repository-content ul.list-style-none.d-flex li:nth-child(1)");
-        branchesDetails.id = id;
+    _backupDetails(backupContainer) {
+        let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(#branch-select-menu) svg.octicon-git-branch").parentElement;
+        branchesDetails.id = "backup-branches";
+        let branchesDetailsContainer = branchesDetails.parentElement;
+        branchesDetailsContainer.parentElement.removeChild(branchesDetailsContainer);
         backupContainer.append(branchesDetails);
+
+        let commitsDetails = document.querySelector(".repository-content .Box ul.list-style-none svg.octicon-history").parentElement;
+        commitsDetails.id = "backup-commits";
+        let commitsDetailsContainer = commitsDetails.parentElement.parentElement;
+        commitsDetailsContainer.parentElement.removeChild(commitsDetailsContainer);
+        backupContainer.append(commitsDetails);
     }
 
-    _moveCommitDate(commitMessageContainer) {
-        let commitDateContainer = commitMessageContainer.parentElement.parentElement.querySelector(":scope > div.flex-shrink-0:not(.hx_avatar_stack_commit)");
-    
-        for (let child of [...commitDateContainer.children])
-            commitDateContainer.removeChild(child);
+    _moveCommitComments() {
+        let commentsSvg = document.querySelector("main:nth-child(1) .repository-content .Box .Box-header svg.octicon-comment");
+        if (commentsSvg) {
+            let commentsLink = commentsSvg.parentElement;
+            commentsLink.className = "no-wrap muted-link text-inherit ml-2";
+            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header a.commit-author").parentElement;
+            commitMessageContainer.parentElement.insertBefore(commentsLink, commitMessageContainer.nextSibling);
+        }
+    }
 
-        let commitDateWrapper = createElement("div", {
+    _moveCommitDetails() {
+        let wrongCommitDetailsContainer = document.querySelector(".repository-content .Box relative-time").parentElement.parentElement;
+        let commitDetailsContainer = document.querySelector(".repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)");
+
+        for (let child of [...commitDetailsContainer.children])
+            commitDetailsContainer.removeChild(child);
+
+        let commitHash = wrongCommitDetailsContainer.querySelector(".text-mono");
+        commitHash.classList.remove("ml-2");
+        let commitTime = wrongCommitDetailsContainer.querySelector("relative-time");
+
+        let commitDetailsWrapper = createElement("div", {
             className: "css-truncate css-truncate-overflow text-gray",
             children: [
-                "Latest commit ", commitMessageContainer.querySelector(".text-mono"), " ", commitMessageContainer.querySelector("relative-time")
+                "Latest commit ", commitHash, " ", commitTime
             ]
         });
 
-        commitDateContainer.append(commitDateWrapper);
+        commitDetailsContainer.append(commitDetailsWrapper);
+        wrongCommitDetailsContainer.parentElement.removeChild(wrongCommitDetailsContainer);
     }
 
-    // TODO:
-    // Split titles longer than 50 characters (50/72 rule)
-    _fixCommitMessage(commitMessageContainer) {
-        let detailsContainer = commitMessageContainer.parentElement.parentElement.querySelector(":scope > .Details-content--hidden");
-        let commitTitleContainer = detailsContainer.querySelector("a");
-        let commitDescriptionContainer = detailsContainer.querySelector("pre");
-        let commitCommentsContainer = detailsContainer.querySelector("a[anchor='comments']");
-        let hiddenCommitExpander = commitMessageContainer.parentElement.querySelector(":scope > span.hidden-text-expander");
-
-        let authorLink = commitMessageContainer.querySelector(".commit-author");
-        for (let child of [...commitMessageContainer.childNodes])
-            commitMessageContainer.removeChild(child);
-
-        commitTitleContainer.classList.remove("text-bold");
-        commitMessageContainer.append(authorLink, " ", commitTitleContainer);
-
-        if (hiddenCommitExpander) {
-            if (commitCommentsContainer)
-                hiddenCommitExpander.parentElement.insertBefore(commitCommentsContainer, hiddenCommitExpander);
-
-            if (!commitDescriptionContainer)
-                hiddenCommitExpander.parentElement.removeChild(hiddenCommitExpander);
-        }
+    _removeSecondCommitTitle() {
+        let secondCommitTitle = document.querySelector(".repository-content .Box .Box-header .Details-content--hidden a.text-bold");
+        if (secondCommitTitle)
+            secondCommitTitle.parentElement.parentElement.removeChild(secondCommitTitle.parentElement);
     }
 }
