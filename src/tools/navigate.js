@@ -36,6 +36,10 @@ async function getDocumentAndURL(link) {
     };
 }
 
+function getScriptSrc(scriptElement) {
+    return scriptElement.src || scriptElement.getAttribute("data-src");
+}
+
 export default async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
     let project = isProject();
@@ -79,6 +83,14 @@ export default async function navigate(link = window.location.href, changeLocati
     let newHeader = result.document.querySelector("header");
     if (oldHeader && newHeader)
         oldHeader.replaceWith(newHeader);
+
+    let activeScripts = [...document.querySelectorAll("script")];
+    let newScripts = [...result.document.querySelectorAll("script")];
+    let inactiveScripts = newScripts
+        .map(getScriptSrc)
+        .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) == src))
+        .map(src => createElement("script", { src }));
+    document.body.append(...inactiveScripts);
 
     if (changeLocation)
         setLocation(result.url);
