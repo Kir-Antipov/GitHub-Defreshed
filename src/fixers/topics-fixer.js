@@ -10,20 +10,20 @@ export default class TopicsFixer extends Fixer {
 
     waitUntilFixerReady() {
         return waitUntilElementsReady({ 
-            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 div.list-topics-container.f6"],
+            selectors: ["main:nth-child(1) .repository-content a.topic-tag.topic-tag-link"],
             timeout: 300 
         });
     }
 
     apply() {
-        let topics = document.querySelector(".flex-shrink-0.col-12.col-md-3 div.list-topics-container.f6");
+        let topic = document.querySelector("main:nth-child(1) .repository-content a.topic-tag.topic-tag-link");
 
-        if (topics) {
+        if (topic) {
             document
                 .querySelector(".repository-content")
                 .prepend(createElement("div", {
                     className: "repository-topics-container mt-2 mb-3 js-topics-list-container",
-                    children: [topics]
+                    children: [topic.parentElement]
                 }));
         }
     }
