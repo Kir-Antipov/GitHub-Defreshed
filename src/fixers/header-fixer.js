@@ -8,11 +8,11 @@ export default class HeaderFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) > div.repohead");
+        return waitUntilElementsReady("main:nth-child(1) > div:nth-child(1)");
     }
 
     apply(location) {
-        let header = document.querySelector("main > div.repohead");
+        let header = document.querySelector("main > div");
 
         if (!isProject(location)) {
             header.className = "pagehead repohead hx_repohead readability-menu bg-gray-light pb-0 pt-3";
