@@ -69,6 +69,10 @@ export function isRepoTree(path = location.pathname) {
     return /^tree\//.test(getRepoPath(path));
 }
 
+export function isSingleFile(path = location.pathname) {
+    return /^blob\//.test(getRepoPath(path));
+}
+
 export function isRaw(path = location.pathname) {
     return (getRepoPath(path) || "").startsWith("raw/");
 }
