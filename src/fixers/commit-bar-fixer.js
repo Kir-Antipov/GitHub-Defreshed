@@ -24,6 +24,7 @@ export default class CommitBarFixer extends Fixer {
     apply(location, backupContainer) {
         if (isRepoRoot(location))
             this._backupDetails(backupContainer);
+        this._moveCommitBuildStatuses();
         this._moveCommitComments();
         this._moveCommitDetails();
         this._removeSecondCommitTitle();
@@ -41,6 +42,21 @@ export default class CommitBarFixer extends Fixer {
         let commitsDetailsContainer = commitsDetails.parentElement.parentElement;
         commitsDetailsContainer.parentElement.removeChild(commitsDetailsContainer);
         backupContainer.append(commitsDetails);
+    }
+
+    _getBuildStatuses() {
+        return document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment") ||
+               document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses");
+    }
+
+    _moveCommitBuildStatuses() {
+        if (this._getBuildStatuses()) {
+            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header a.commit-author").parentElement;
+            commitMessageContainer.parentElement.insertBefore(createElement("div", {
+                className: "ml-1",
+                children: [this._getBuildStatuses()]
+            }), commitMessageContainer.nextSibling);
+        }
     }
 
     _moveCommitComments() {
