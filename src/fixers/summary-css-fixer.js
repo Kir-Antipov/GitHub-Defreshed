@@ -1,7 +1,12 @@
 import { createStyleElement } from "../tools/create-element";
+import settings from "../tools/settings";
 import Fixer from "./fixer";
 
 export default class SummaryCSSFixer extends Fixer {
+    isApplieble() {
+        return settings.useCSS.value;
+    }
+
     apply() {
         document.head.append(createStyleElement(`
             .overall-summary {
