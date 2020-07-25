@@ -1,7 +1,7 @@
-import navigate from "../tools/navigate";
-import { isSameSiteURL, getAbsoluteURL } from "../tools/host-detector";
-import { isRepo, isProject, isAnchor, isFile, isProfileSettings } from "../tools/path-detector";
-import Fixer from "./fixer";
+import navigate from "../../tools/navigate";
+import { isSameSiteURL, getAbsoluteURL } from "../../tools/host-detector";
+import { isRepo, isProject, isAnchor, isFile, isProfileSettings } from "../../tools/path-detector";
+import Fixer from "../fixer";
 
 export default class LinksFixer extends Fixer {
     apply() {

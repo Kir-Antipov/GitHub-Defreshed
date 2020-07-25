@@ -1,22 +1,22 @@
-import TopicsCSSFixer from "./topics-css-fixer";
-import SummaryCSSFixer from "./summary-css-fixer";
-import ButtonsCSSFixer from "./buttons-css-fixer";
-import AvatarCSSFixer from "./avatar-css-fixer";
-import BoxCSSFixer from "./box-css-fixer";
-import SettingsFixer from "./settings-fixer";
-import ContainerFixer from "./container-fixer";
-import HeaderFixer from "./header-fixer";
-import BranchButtonFixer from "./branch-button-fixer";
-import CommitBarFixer from "./commit-bar-fixer";
-import LanguageBarFixer from "./language-bar-fixer";
-import SummaryFixer from "./summary-fixer";
-import TopicsFixer from "./topics-fixer";
-import AboutFixer from "./about-fixer";
-import EditDetailsFixer from "./edit-details-fixer";
-import ColumnsFixer from "./columns-fixer";
-import ReadmeFixer from "./readme-fixer";
-import LinksFixer from "./links-fixer";
-import WindowPopstateFixer from "./window-popstate-fixer";
+import TopicsCSSFixer from "./css/topics-css-fixer";
+import SummaryCSSFixer from "./css/summary-css-fixer";
+import ButtonsCSSFixer from "./css/buttons-css-fixer";
+import AvatarCSSFixer from "./css/avatar-css-fixer";
+import BoxCSSFixer from "./css/box-css-fixer";
+import ScriptSettingsFixer from "./settings/script-settings-fixer";
+import ContainerFixer from "./repository/container-fixer";
+import HeaderFixer from "./repository/header-fixer";
+import BranchButtonFixer from "./repository/branch-button-fixer";
+import CommitBarFixer from "./repository/commit-bar-fixer";
+import LanguageBarFixer from "./repository/language-bar-fixer";
+import SummaryFixer from "./repository/summary-fixer";
+import TopicsFixer from "./repository/topics-fixer";
+import AboutFixer from "./repository/about-fixer";
+import EditDetailsFixer from "./repository/edit-details-fixer";
+import ColumnsFixer from "./repository/columns-fixer";
+import ReadmeFixer from "./repository/readme-fixer";
+import LinksFixer from "./global/links-fixer";
+import WindowPopstateFixer from "./global/window-popstate-fixer";
 
 export default [
     new TopicsCSSFixer(),
@@ -24,7 +24,7 @@ export default [
     new ButtonsCSSFixer(),
     new AvatarCSSFixer(),
     new BoxCSSFixer(),
-    new SettingsFixer(),
+    new ScriptSettingsFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
     new BranchButtonFixer(),

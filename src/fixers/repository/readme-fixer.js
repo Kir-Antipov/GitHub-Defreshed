@@ -1,6 +1,6 @@
-import { isRepoRoot, isRepoTree } from "../tools/path-detector";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
+import { isRepoRoot, isRepoTree } from "../../tools/path-detector";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
 
 export default class ReadmeFixer extends Fixer {
     isApplieble(location) {

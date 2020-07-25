@@ -1,7 +1,7 @@
-import navigate from "../tools/navigate";
-import { isGitHub } from "../tools/host-detector";
-import { isRepo, isAnchor } from "../tools/path-detector";
-import Fixer from "./fixer";
+import navigate from "../../tools/navigate";
+import { isGitHub } from "../../tools/host-detector";
+import { isRepo, isAnchor } from "../../tools/path-detector";
+import Fixer from "../fixer";
 
 export default class WindowPopstateFixer extends Fixer {
     apply() {

@@ -1,10 +1,10 @@
-import { isProfileSettings } from "../tools/path-detector";
-import createElement from "../tools/create-element";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
-import settings from "../tools/settings";
+import { isProfileSettings } from "../../tools/path-detector";
+import createElement from "../../tools/create-element";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
+import settings from "../../tools/settings";
 
-export default class SettingsFixer extends Fixer {
+export default class ScriptSettingsFixer extends Fixer {
     isApplieble(location) {
         return isProfileSettings(location);
     }

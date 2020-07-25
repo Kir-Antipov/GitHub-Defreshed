@@ -1,7 +1,7 @@
-import { isRepoRoot } from "../tools/path-detector";
-import createElement from "../tools/create-element";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
+import { isRepoRoot } from "../../tools/path-detector";
+import createElement from "../../tools/create-element";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
 
 export default class AboutFixer extends Fixer {
     isApplieble(location) {

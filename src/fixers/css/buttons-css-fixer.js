@@ -1,6 +1,6 @@
-import { createStyleElement } from "../tools/create-element";
-import settings from "../tools/settings";
-import Fixer from "./fixer";
+import { createStyleElement } from "../../tools/create-element";
+import settings from "../../tools/settings";
+import Fixer from "../fixer";
 
 export default class ButtonsCSSFixer extends Fixer {
     isApplieble() {

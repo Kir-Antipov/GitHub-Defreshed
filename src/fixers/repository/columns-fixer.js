@@ -1,6 +1,6 @@
-import { isRepoRoot } from "../tools/path-detector";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
+import { isRepoRoot } from "../../tools/path-detector";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
 
 export default class ColumnsFixer extends Fixer {
     isApplieble(location) {

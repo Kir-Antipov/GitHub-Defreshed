@@ -1,6 +1,6 @@
-import { isRepoRoot, getRepoURL } from "../tools/path-detector";
-import createElement from "../tools/create-element";
-import Fixer from "./fixer";
+import { isRepoRoot, getRepoURL } from "../../tools/path-detector";
+import createElement from "../../tools/create-element";
+import Fixer from "../fixer";
 
 export default class SummaryFixer extends Fixer {
     isApplieble(location) {

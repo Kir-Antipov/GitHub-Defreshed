@@ -1,7 +1,7 @@
-import { isRepoRoot, isRepoTree } from "../tools/path-detector";
-import createElement from "../tools/create-element";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
+import { isRepoRoot, isRepoTree } from "../../tools/path-detector";
+import createElement from "../../tools/create-element";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
 
 export default class CommitBarFixer extends Fixer {
     isApplieble(location) {

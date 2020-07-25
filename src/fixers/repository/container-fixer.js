@@ -1,6 +1,6 @@
-import { isRepo, isProject } from "../tools/path-detector";
-import { waitUntilElementsReady } from "../tools/wait-until-ready";
-import Fixer from "./fixer";
+import { isRepo, isProject } from "../../tools/path-detector";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import Fixer from "../fixer";
 
 export default class ContainerFixer extends Fixer {
     isApplieble(location) {
