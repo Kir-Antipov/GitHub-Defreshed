@@ -7,7 +7,7 @@ export function cleanPathname(path = location.pathname) {
         path = new URL(path).pathname;
     } catch (_) { }
 
-    return path.replace(/^[/]|[/]$/g, "");
+    return path.replace(/^[/]|[/]$|(\?(.*))$|(\/\?(.*))$/g, "");
 }
 
 export function getOwnerAndRepo(path = location.pathname) {
