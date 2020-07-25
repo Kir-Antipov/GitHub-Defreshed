@@ -1,6 +1,6 @@
 import navigate from "../../tools/navigate";
 import { isSameSiteURL, getAbsoluteURL } from "../../tools/host-detector";
-import { isRepo, isProject, isAnchor, isFile, isProfileSettings } from "../../tools/path-detector";
+import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "../../tools/path-detector";
 import Fixer from "../fixer";
 
 export default class LinksFixer extends Fixer {
@@ -11,7 +11,8 @@ export default class LinksFixer extends Fixer {
 
     _needToBeFixed(a) {
         return  !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) && 
-                isSameSiteURL(a.href) && (isRepo(a.href) || isProfileSettings(a.href)) &&
+                isSameSiteURL(a.href) && 
+                (isRepo(a.href) || isProfileSettings(a.href) || isProfile(a.href)) &&
                 !isFile(a.href) && !isProject(a.href);
     }
 

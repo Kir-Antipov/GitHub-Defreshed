@@ -15,6 +15,7 @@ import AboutFixer from "./repository/about-fixer";
 import EditDetailsFixer from "./repository/edit-details-fixer";
 import ColumnsFixer from "./repository/columns-fixer";
 import ReadmeFixer from "./repository/readme-fixer";
+import ProfileTabsFixer from "./profile/tabs-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
 
@@ -36,6 +37,7 @@ export default [
     new EditDetailsFixer(),
     new ColumnsFixer(),
     new ReadmeFixer(),
+    new ProfileTabsFixer(),
     new LinksFixer(),
     new WindowPopstateFixer()
 ];
