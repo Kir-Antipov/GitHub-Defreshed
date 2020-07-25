@@ -17,6 +17,22 @@ function waitUntilStyleSheetReady(selector, interval, timeout) {
     return waitUntilTrue(() => !!findRule(selector), interval, timeout);
 }
 
+export function checkIfElementsReady(options) {
+    if (typeof options == "string")
+        options = {
+            selectors: [...arguments]
+        };
+    else if (options instanceof Node)
+        options = {
+            container: arguments[0],
+            selectors: [...arguments].splice(1)
+        };
+
+    options.interval = 0;
+    options.timeout = 0;
+    return waitUntilElementsReady(options);
+}
+
 export function waitUntilDocumentReady(options) {
     options = {
         interval: 100,
