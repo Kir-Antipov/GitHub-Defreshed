@@ -100,3 +100,8 @@ export function isAnchor(path = location.pathname) {
 export function isProfileSettings(path = location.pathname) {
     return cleanPathname(path).startsWith("settings/profile");
 }
+
+export function isProfile(path = location.pathname) {
+    path = cleanPathname(path);
+    return !path.includes("/") && !isReserved(path);
+}
