@@ -96,3 +96,7 @@ export function isProject(path = location.pathname) {
 export function isAnchor(path = location.pathname) {
     return /#[^\/]*$/.test(path);
 }
+
+export function isProfileSettings(path = location.pathname) {
+    return cleanPathname(path).startsWith("settings/profile");
+}

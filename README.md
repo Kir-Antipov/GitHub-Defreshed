@@ -9,7 +9,6 @@ So, Microsoft took yet another step to prove to some last doubters that **Micros
 
 This time effective managers from Microsoft (tbh, I don't think there were any UI/UX designers involved into this) turned repository page into some unusable low quality piece of :shit:.
 
-But don’t worry! When I saw this update in preview, I was horrified and began to develop a script that would roll back all changes, since I reasonably suspected that Microsoft wouldn't give a heck about all the negative feedback. So, here we are: 
 
 ## Preview
 
@@ -32,8 +31,14 @@ Just ol' buddy GitHub in person
  - Unhidden commit message
  - Prettified README
  - Full support of custom themes (e.g., `GitHub-Dark`)
- - Unrounded buttons, avatars and containers and another CSS-improvements (*optional*). If you want to keep things rounded, [install simplified version of the user script](https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed-simplified.user.js)
+ - Unrounded buttons, avatars and containers and another CSS-improvements
  - And much more!
+
+## Settings
+
+Some features of the script are optional. You can customize behavior of the `GitHub-Defreshed` on the [profile settings page](https://github.com/settings/profile):
+
+![Preview of the GitHub Defreshed's settings](./media/preview-settings.png)
 
 ## Build
 

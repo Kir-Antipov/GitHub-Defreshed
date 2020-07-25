@@ -3,6 +3,7 @@ import SummaryCSSFixer from "./summary-css-fixer";
 import ButtonsCSSFixer from "./buttons-css-fixer";
 import AvatarCSSFixer from "./avatar-css-fixer";
 import BoxCSSFixer from "./box-css-fixer";
+import SettingsFixer from "./settings-fixer";
 import ContainerFixer from "./container-fixer";
 import HeaderFixer from "./header-fixer";
 import BranchButtonFixer from "./branch-button-fixer";
@@ -23,6 +24,7 @@ export default [
     new ButtonsCSSFixer(),
     new AvatarCSSFixer(),
     new BoxCSSFixer(),
+    new SettingsFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
     new BranchButtonFixer(),

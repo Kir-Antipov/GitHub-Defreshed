@@ -1,7 +1,12 @@
 import { createStyleElement } from "../tools/create-element";
+import settings from "../tools/settings";
 import Fixer from "./fixer";
 
 export default class TopicsCSSFixer extends Fixer {
+    isApplieble() {
+        return settings.useCSS.value;
+    }
+
     apply() {
         document.head.append(createStyleElement(`.topic-tag {
             display: inline-block !important;
