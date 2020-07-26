@@ -1,5 +1,5 @@
 import { isProfile } from "../../tools/path-detector";
-import { checkIfElementsReady } from "../../tools/wait-until-ready";
+import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
@@ -10,7 +10,7 @@ export default class TabsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return checkIfElementsReady("main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
+        return waitUntilElementsReady("main nav", "main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
     }
 
     apply(location) {
