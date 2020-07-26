@@ -57,10 +57,11 @@ export default class TabsFixer extends Fixer {
         text = " " + text[0].toUpperCase() + text.slice(1) + " ";
 
         let countElement = element.querySelector("span");
-        let count = !countElement || !+countElement.innerText ? null : createElement("span", {
+        let countText = !countElement || !countElement.innerText ? "0" : countElement.innerText.trim(); 
+        let count = countText == "0" ? null : createElement("span", {
             className: "Counter",
-            title: +countElement.innerText,
-            innerText: +countElement.innerText
+            title: countText,
+            innerText: countText
         });
 
         return createElement("a", {
