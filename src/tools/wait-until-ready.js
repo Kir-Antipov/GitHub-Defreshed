@@ -33,6 +33,16 @@ export function checkIfElementsReady(options) {
     return waitUntilElementsReady(options);
 }
 
+export function waitUntilHeadReady(options) {
+    options = {
+        interval: 100,
+        timeout: 3000,
+        ...options
+    };
+
+    return waitUntilTrue(() => !!document.head, options.interval, options.timeout);
+}
+
 export function waitUntilDocumentReady(options) {
     options = {
         interval: 100,
