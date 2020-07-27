@@ -1,0 +1,4 @@
+// Fixes aggressive rounding of avatars
+img.avatar, img.avatar-user, a.avatar-user {
+    border-radius: $border-radius !important;
+}
