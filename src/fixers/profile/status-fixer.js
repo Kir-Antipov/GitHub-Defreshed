@@ -7,7 +7,7 @@ import Fixer from "../fixer";
 
 export default class StatusFixer extends Fixer {
     isApplieble(location) {
-        return settings.defreshProfilePageUserStatus.value && isProfile(location);
+        return settings.defreshProfilePage.value && settings.defreshProfilePageUserStatus.value && isProfile(location);
     }
 
     waitUntilFixerReady() {
