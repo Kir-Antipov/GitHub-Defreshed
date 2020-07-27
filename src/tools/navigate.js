@@ -40,6 +40,37 @@ function getScriptSrc(scriptElement) {
     return scriptElement.src || scriptElement.getAttribute("data-src");
 }
 
+function updateHeader(newDocument) {
+    let oldHeader = document.querySelector("header");
+    let newHeader = newDocument.querySelector("header");
+    if (oldHeader && newHeader)
+        oldHeader.replaceWith(newHeader);
+}
+
+function updateScripts(newDocument) {
+    let activeScripts = [...document.querySelectorAll("script")];
+    let newScripts = [...newDocument.querySelectorAll("script")];
+    let inactiveScripts = newScripts
+        .map(getScriptSrc)
+        .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) == src))
+        .map(src => createElement("script", { src }));
+    document.body.append(...inactiveScripts);
+}
+
+function updateDocument(newDocument) {
+    // body's class is important for some css rules
+    document.body.className = newDocument.body.className;
+
+    // Update page's title
+    document.head.querySelector("title").innerText = newDocument.head.querySelector("title").innerText;
+
+    // The functionality of the header's search bar changes depending on the page
+    updateHeader(newDocument);
+
+    // GitHub requires a different set of scripts depending on the page
+    updateScripts(newDocument);
+}
+
 export default async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
     let project = isProject();
@@ -71,26 +102,12 @@ export default async function navigate(link = window.location.href, changeLocati
         let app = document.querySelector("body > div.application-main");
         for (let child of [...app.children].splice(1))
             app.removeChild(child);
-        document.body.className = "logged-in env-production page-responsive intent-mouse";
     } else if (project) {
         newMain.parentElement.className = "";
     }
     newMain.style.display = "";
 
-    document.head.querySelector("title").innerText = result.document.head.querySelector("title").innerText;
-
-    let oldHeader = document.querySelector("header");
-    let newHeader = result.document.querySelector("header");
-    if (oldHeader && newHeader)
-        oldHeader.replaceWith(newHeader);
-
-    let activeScripts = [...document.querySelectorAll("script")];
-    let newScripts = [...result.document.querySelectorAll("script")];
-    let inactiveScripts = newScripts
-        .map(getScriptSrc)
-        .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) == src))
-        .map(src => createElement("script", { src }));
-    document.body.append(...inactiveScripts);
+    updateDocument(result.document);
 
     if (changeLocation)
         setLocation(result.url);
