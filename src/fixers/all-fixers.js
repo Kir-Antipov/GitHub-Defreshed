@@ -1,8 +1,4 @@
-import TopicsCSSFixer from "./css/topics-css-fixer";
-import SummaryCSSFixer from "./css/summary-css-fixer";
-import ButtonsCSSFixer from "./css/buttons-css-fixer";
-import AvatarCSSFixer from "./css/avatar-css-fixer";
-import BoxCSSFixer from "./css/box-css-fixer";
+import CSSFixer from "./css/css-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
 import HeaderFixer from "./repository/header-fixer";
@@ -22,11 +18,7 @@ import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
 
 export default [
-    new TopicsCSSFixer(),
-    new SummaryCSSFixer(),
-    new ButtonsCSSFixer(),
-    new AvatarCSSFixer(),
-    new BoxCSSFixer(),
+    new CSSFixer(),
     new ScriptSettingsFixer(),
     new ContainerFixer(),
     new HeaderFixer(),
