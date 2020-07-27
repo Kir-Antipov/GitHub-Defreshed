@@ -28,6 +28,7 @@ let settings = [
     new SettingsProperty("defreshProfilePage", "Defresh profile page", "This will roll back the changes to the profile page interface.", true),
     new SettingsProperty("keepProfilePageIcons", "Don't remove tab icons on the profile page", "If you want to keep tab icons on the profile page, enable this option.", false),
     new SettingsProperty("defreshProfilePageUserStatus", "Defresh status appearance on the profile page", "If you prefer the way the status looked before, then this options is for you.", true),
+    new SettingsProperty("jumpToTop", "Jump to the page's top after loading", "If you want to preserve the scroll position after page load, you can disable this option.", true)
 ];
 
 for (let property of [...settings])

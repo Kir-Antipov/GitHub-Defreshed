@@ -1,6 +1,7 @@
 import defresh from "./defresh";
 import { isRoot, isProject } from "./path-detector";
 import createElement from "./create-element";
+import settings from "./settings";
 
 function setLocation(link) {
     try {
@@ -106,6 +107,9 @@ export default async function navigate(link = window.location.href, changeLocati
         newMain.parentElement.className = "";
     }
     newMain.style.display = "";
+
+    if (settings.jumpToTop.value)
+        window.scrollTo(0,0);
 
     updateDocument(result.document);
 
