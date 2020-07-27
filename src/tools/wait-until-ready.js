@@ -1,5 +1,4 @@
 import { sleep } from "./sleep";
-import { findRule } from "./find-rule";
 
 async function waitUntilTrue(predicate, interval, timeout) {
     let start = new Date();
@@ -11,10 +10,6 @@ async function waitUntilTrue(predicate, interval, timeout) {
 
 function waitUntilElementReady(container, selector, interval, timeout) {
     return waitUntilTrue(() => !!container.querySelector(selector), interval, timeout);
-}
-
-function waitUntilStyleSheetReady(selector, interval, timeout) {
-    return waitUntilTrue(() => !!findRule(selector), interval, timeout);
 }
 
 export function checkIfElementsReady(options) {
@@ -50,27 +45,6 @@ export function waitUntilDocumentReady(options) {
         ...options
     };
     return waitUntilTrue(() => ["complete", "interactive", "uninitialized"].includes(document.readyState), options.interval, options.timeout);
-}
-
-export async function waitUntilStyleSheetsReady(options) {
-    if (typeof options == "string")
-        options = {
-            selectors: [...arguments]
-        };
-    
-    options = {
-        interval: 100,
-        timeout: 1000,
-        selectors: [],
-        ...options
-    };
-    if (options.selector)
-        options.selectors = [options.selector];
-    if (options.selectors && !Array.isArray(options.selectors))
-        options.selectors = [...options.selectors];
-
-    let results = await Promise.all(options.selectors.map(selector => waitUntilStyleSheetReady(selector, options.interval, options.timeout)));
-    return results.every(x => x);
 }
 
 export async function waitUntilElementsReady(options) {
