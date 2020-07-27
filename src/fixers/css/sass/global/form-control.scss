@@ -6,3 +6,18 @@ div.tag-input.form-control,
 select.form-select {
     border-radius: $border-radius !important;
 }
+
+textarea.form-control.js-quick-submit {
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+text-expander + label.drag-and-drop,
+text-expander + label.drag-and-drop > input {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: $border-radius !important;
+    border-bottom-right-radius: $border-radius !important;
+}
