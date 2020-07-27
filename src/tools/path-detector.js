@@ -103,5 +103,5 @@ export function isProfileSettings(path = location.pathname) {
 
 export function isProfile(path = location.pathname) {
     path = cleanPathname(path);
-    return !path.includes("/") && !isReserved(path);
+    return path && !path.includes("/") && !isReserved(path);
 }
