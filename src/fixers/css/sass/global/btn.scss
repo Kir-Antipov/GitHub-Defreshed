@@ -1,0 +1,41 @@
+.btn {
+    border-radius: $border-radius !important;
+}
+
+.repository-content .file-navigation .btn {
+    padding: 3px 10px !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    font-weight: 600 !important;
+}
+
+#branch-select-menu > .btn > svg {
+    display: none !important;
+}
+
+#branch-select-menu > .btn > span {
+    font-weight: 600 !important;
+}
+
+.subnav-item:first-child,
+.subnav-search-context .btn,
+.BtnGroup-item:first-child,
+.BtnGroup-parent:first-child .BtnGroup-item,
+.input-group .input-group-button:first-child .btn,
+.btn.btn-with-count {
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: $border-radius !important;
+}
+
+.subnav-item:last-child,
+.subnav-search-context + .subnav-search .subnav-search-input,
+.BtnGroup-item:last-child, 
+.BtnGroup-parent:last-child .BtnGroup-item,
+.input-group .input-group-button:last-child .btn {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: $border-radius !important;
+    border-bottom-right-radius: $border-radius !important;
+    border-bottom-left-radius: 0 !important;
+}
