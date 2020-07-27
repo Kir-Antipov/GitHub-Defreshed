@@ -1,0 +1,16 @@
+div.overall-summary {
+    border-radius: $border-radius !important;
+}
+
+div.repository-lang-stats-graph {
+    border-bottom-left-radius: $border-radius !important;
+    border-bottom-right-radius: $border-radius !important;
+}
+
+div.repository-lang-stats-graph > span.language-color:first-child {
+    border-bottom-left-radius: $border-radius !important;
+}
+
+div.repository-lang-stats-graph > span.language-color:last-child {
+    border-bottom-right-radius: $border-radius !important;
+}
