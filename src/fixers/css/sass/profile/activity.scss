@@ -1,0 +1,9 @@
+body.page-profile {
+    .graph-before-activity-overview {
+        border-radius: $border-radius !important;
+    }
+    
+    .contribution-activity li > .js-year-link {
+        border-radius: $border-radius !important;
+    }
+}
