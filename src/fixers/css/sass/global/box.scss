@@ -1,0 +1,8 @@
+.Box {
+    border-radius: $border-radius !important;
+}
+
+.Box-header, :not(li).Box-row:first-of-type, .Box--danger li.Box-row:first-of-type {
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+}

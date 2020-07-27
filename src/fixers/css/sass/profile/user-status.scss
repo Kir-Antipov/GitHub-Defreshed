@@ -1,0 +1,12 @@
+.h-card .avatar-before-user-status {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.h-card .user-status-container {
+    border-top: 0 !important;
+}
+
+.dropdown-menu .js-user-status-container {
+    border-radius: $border-radius !important;
+}

@@ -1,0 +1,13 @@
+nav.menu {
+    border-radius: $border-radius !important;
+}
+
+nav.menu > *:first-child {
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+}
+
+nav.menu > *:last-child {
+    border-bottom-left-radius: $border-radius !important;
+    border-bottom-right-radius: $border-radius !important;
+}

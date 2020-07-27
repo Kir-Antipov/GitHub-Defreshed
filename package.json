@@ -19,7 +19,10 @@
   },
   "dependencies": {
     "create-file-webpack": "^1.0.2",
+    "css-loader": "^4.0.0",
     "github-reserved-names": "^1.1.8",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.2",
     "terser-webpack-plugin": "^3.0.6"
   }
 }

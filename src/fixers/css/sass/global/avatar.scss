@@ -1,0 +1,10 @@
+// Fixes aggressive rounding of avatars
+img.avatar, img.avatar-user, a.avatar-user {
+    border-radius: $border-radius !important;
+}
+
+body:not(.page-profile) {
+    img.avatar, img.avatar-user, a.avatar-user {
+        background-color: transparent !important;
+    }
+}

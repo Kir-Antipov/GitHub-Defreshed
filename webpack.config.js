@@ -38,6 +38,15 @@ module.exports = {
             }),
         ],
     },
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [
+                { loader: "css-loader" },
+                { loader: "sass-loader" }
+            ]
+        }],
+    },
     plugins: [
         new CreateFileWebpack({
             fileName: `${name}.meta.js`,
