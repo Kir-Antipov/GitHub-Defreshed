@@ -1,0 +1,8 @@
+.dropdown-menu, .SelectMenu-modal {
+    border-radius: $border-radius !important;
+}
+
+.SelectMenu-modal .SelectMenu-tab {
+    border-top-left-radius: $tab-border-radius !important;
+    border-top-right-radius: $tab-border-radius !important;
+}
