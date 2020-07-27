@@ -51,7 +51,7 @@ export default class CommitBarFixer extends Fixer {
 
     _moveCommitBuildStatuses() {
         if (this._getBuildStatuses()) {
-            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header a.commit-author").parentElement;
+            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header .commit-author").parentElement;
             commitMessageContainer.parentElement.insertBefore(createElement("div", {
                 className: "ml-1",
                 children: [this._getBuildStatuses()]
