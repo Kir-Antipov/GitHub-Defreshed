@@ -1,5 +1,5 @@
 import { isRepoRoot } from "../../tools/path-detector";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
 export default class EditDetailsFixer extends Fixer {
@@ -7,16 +7,14 @@ export default class EditDetailsFixer extends Fixer {
         return isRepoRoot(location);
     }
 
-    waitUntilFixerReady() {
-        return waitUntilElementsReady({ 
-            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 details"],
-            timeout: 300
-         });
+    async waitUntilFixerReady() {
+        return  (await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row")) && 
+                (await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-row:nth-child(1) details"));
     }
 
     apply() {
-        let details = document.querySelector(".flex-shrink-0.col-12.col-md-3 details");
+        let details = document.querySelector("main .repository-content .BorderGrid-row:nth-child(1) details");
         if (details)
-            document.querySelector(".repository-content").prepend(details);
+            document.querySelector("main .repository-content").prepend(details);
     }
 }

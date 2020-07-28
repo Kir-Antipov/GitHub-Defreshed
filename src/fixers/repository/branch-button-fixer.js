@@ -9,7 +9,7 @@ export default class BranchButtonFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) #branch-select-menu span.css-truncate-target");
+        return waitUntilElementsReady("main:nth-child(1) #branch-select-menu", "main:nth-child(1) #branch-select-menu span.css-truncate-target");
     }
 
     apply() {

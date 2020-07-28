@@ -8,13 +8,13 @@ export default class ColumnsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) .flex-shrink-0.col-12.col-md-3");
+        return waitUntilElementsReady("main:nth-child(1) .repository-content");
     }
 
     apply() {
         let repositoryContent = document.querySelector(".repository-content");
-        let inner = document.querySelector(".flex-shrink-0.col-12.col-md-9.mb-4.mb-md-0");
-        let gutter = document.querySelector(".gutter-condensed.gutter-lg.d-flex.flex-column.flex-md-row");
+        let gutter = repositoryContent.querySelector(".gutter-condensed");
+        let inner = gutter.firstElementChild;
 
         repositoryContent.append(...inner.children);
         gutter.parentElement.removeChild(gutter);

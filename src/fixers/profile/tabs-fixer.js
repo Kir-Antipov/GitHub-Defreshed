@@ -10,11 +10,11 @@ export default class TabsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main nav", "main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
+        return waitUntilElementsReady("main:nth-child(1) nav", "main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
     }
 
     apply(location) {
-        let container = document.querySelector("div.js-profile-editable-area > :not(.vcard-details)[class]");
+        let container = document.querySelector("main div.js-profile-editable-area > :not(.vcard-details)[class]");
 
         let tabs = document.querySelector("main nav");
         tabs.style.overflow = "hidden";

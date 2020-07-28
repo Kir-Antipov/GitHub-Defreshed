@@ -1,6 +1,6 @@
 import { isRepoRoot } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
 export default class TopicsFixer extends Fixer {
@@ -8,23 +8,18 @@ export default class TopicsFixer extends Fixer {
         return isRepoRoot(location);
     }
 
-    waitUntilFixerReady() {
-        return waitUntilElementsReady({ 
-            selectors: ["main:nth-child(1) .repository-content a.topic-tag.topic-tag-link"],
-            timeout: 300 
-        });
+    async waitUntilFixerReady() {
+        return  (await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row")) &&
+                (await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-cell .topic-tag"));
     }
 
     apply() {
-        let topic = document.querySelector("main:nth-child(1) .repository-content a.topic-tag.topic-tag-link");
-
-        if (topic) {
-            document
-                .querySelector(".repository-content")
-                .prepend(createElement("div", {
-                    className: "repository-topics-container mt-2 mb-3 js-topics-list-container",
-                    children: [topic.parentElement]
-                }));
-        }
+        let firstTopic = document.querySelector("main .repository-content .BorderGrid-cell .topic-tag");
+        document
+            .querySelector("main .repository-content")
+            .prepend(createElement("div", {
+                className: "repository-topics-container mt-2 mb-3 js-topics-list-container",
+                children: [firstTopic.parentElement]
+            }));
     }
 }

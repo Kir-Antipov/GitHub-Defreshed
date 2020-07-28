@@ -18,7 +18,10 @@ export default class CommitBarFixer extends Fixer {
             selectors.push("main:nth-child(1) .repository-content .Box ul.list-style-none svg.octicon-history");
         }
 
-        return waitUntilElementsReady(...selectors);
+        return waitUntilElementsReady({
+            selectors: selectors,
+            dynamic: true
+        });
     }
 
     apply(location, backupContainer) {

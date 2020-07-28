@@ -1,6 +1,6 @@
 import { isRepoRoot } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
 export default class LanguageBarFixer extends Fixer {
@@ -8,11 +8,9 @@ export default class LanguageBarFixer extends Fixer {
         return isRepoRoot(location);
     }
 
-    waitUntilFixerReady() {
-        return waitUntilElementsReady({
-            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 .Progress"],
-            timeout: 300
-        });
+    async waitUntilFixerReady() {
+        return  (await waitUntilElementsReady("main:nth-child(1) .BorderGrid-row:last-child")) &&
+                (await checkIfElementsReady("main:nth-child(1) .BorderGrid-row .Progress"));
     }
 
     apply() {
@@ -32,7 +30,7 @@ export default class LanguageBarFixer extends Fixer {
             ]
         });
 
-        let languagesData = [...document.querySelector(".flex-shrink-0.col-12.col-md-3 .Progress").parentElement.nextElementSibling.children];
+        let languagesData = [...document.querySelector("main .BorderGrid-row .Progress").parentElement.nextElementSibling.children];
         for (let langData of languagesData.map(this._extractLanguageData)) {
             let barItem = createElement("span", {
                 className: "language-color",

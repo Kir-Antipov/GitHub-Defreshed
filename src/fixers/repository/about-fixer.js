@@ -9,17 +9,16 @@ export default class AboutFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady({ 
-            selectors: ["main:nth-child(1) .flex-shrink-0.col-12.col-md-3 .f4"],
-            timeout: 300 
-        });
+        return waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row");
     }
 
     apply() {
-        let repositoryContent = document.querySelector(".repository-content");
-        let about = document.querySelector(".flex-shrink-0.col-12.col-md-3 .f4");
-        let topics = repositoryContent.querySelector("div.list-topics-container.f6");
-        let websiteElement = document.querySelector(".flex-shrink-0.col-12.col-md-3 .octicon-link");
+        let repositoryContent = document.querySelector("main .repository-content");
+        let cell = repositoryContent.querySelector(".BorderGrid-cell");
+        let about = cell.querySelector(".f4");
+        let firstTopic = cell.querySelector(".topic-tag");
+        let topics = firstTopic ? firstTopic.parentElement : null;
+        let websiteElement = cell.querySelector(".octicon-link");
         if (websiteElement)
             websiteElement = websiteElement.parentElement.querySelector("a");
         let website = websiteElement ? websiteElement.href : "";

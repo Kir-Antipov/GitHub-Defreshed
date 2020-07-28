@@ -1,5 +1,5 @@
 import { isRepo, isProject } from "../../tools/path-detector";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { waitUntilEntriesReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
 export default class ContainerFixer extends Fixer {
@@ -8,10 +8,10 @@ export default class ContainerFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) .container-xl");
+        return waitUntilEntriesReady("main:nth-child(1) .container-xl");
     }
 
     apply() {
-        [...document.querySelectorAll("main:nth-child(1) .container-xl")].forEach(x => x.className = "container-lg clearfix new-discussion-timeline px-3");
+        document.querySelector("main .container-xl").className = "container-lg clearfix new-discussion-timeline px-3";
     }
 }
