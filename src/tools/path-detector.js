@@ -70,7 +70,7 @@ export function isRepo(path = location.pathname) {
 export function isRepoRoot(path = location.pathname) {
     path = getRepoPath(path);
     let commonTestResult = /^(tree[/][^/]+)?$/.test(path);
-    if (commonTestResult || !path.startsWith("tree/"))
+    if (commonTestResult || !(path || "").startsWith("tree/"))
         return commonTestResult;
     
     path = path.substring(5); // "tree/".length
