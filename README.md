@@ -12,8 +12,14 @@ This time effective managers from Microsoft (tbh, I don't think there were any U
 
 ## Preview
 
-![Preview of GitHub Defreshed](./media/preview-0.png)
-![Preview of GitHub Defreshed](./media/preview-1.png)
+Repository page:
+
+![Preview of GitHub Defreshed: Repository page](./media/preview-0.png)
+![Preview of GitHub Defreshed: Repository page](./media/preview-1.png)
+
+Profile page:
+
+![Preview of GitHub Defreshed: Profile page](./media/preview-2.png)
 
 Just ol' buddy GitHub in person
 
@@ -25,13 +31,15 @@ Just ol' buddy GitHub in person
 
 ## Features
 
- - Container dimensions returned to adequate proportions
  - Old style header
  - About and Summary sections moved back
- - Unhidden commit message
  - Prettified README
- - Full support of custom themes (e.g., `GitHub-Dark`)
+ - Unhidden commit message
+ - Unhidden user status
+ - "Stars", "Followers" and "Following" tabs are back
+ - Container dimensions returned to adequate proportions
  - Unrounded buttons, avatars and containers and another CSS-improvements
+ - Full support of custom themes (e.g., `GitHub-Dark`)
  - And much more!
 
 ## Settings
