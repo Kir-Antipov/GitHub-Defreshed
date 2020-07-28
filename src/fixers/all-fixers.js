@@ -3,6 +3,7 @@ import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
 import HeaderFixer from "./repository/header-fixer";
 import BranchButtonFixer from "./repository/branch-button-fixer";
+import BranchesFixer from "./repository/branches-fixer";
 import CommitBarFixer from "./repository/commit-bar-fixer";
 import LanguageBarFixer from "./repository/language-bar-fixer";
 import SummaryFixer from "./repository/summary-fixer";
@@ -23,6 +24,7 @@ export default [
     new ContainerFixer(),
     new HeaderFixer(),
     new BranchButtonFixer(),
+    new BranchesFixer(),
     new CommitBarFixer(),
     new LanguageBarFixer(),
     new SummaryFixer(),

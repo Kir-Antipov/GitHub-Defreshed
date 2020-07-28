@@ -1,5 +1,11 @@
 import { check as isReserved } from "github-reserved-names";
 
+function getRepoBranches() {
+    return [...document.querySelectorAll("#ref-list-branches > .SelectMenu-list > a > span:not(.Label)")]
+        .map(x => x.innerText && x.innerText.trim())
+        .filter(x => x);
+}
+
 // This method returns a pathname without leading and trailing slashes.
 // It can accept both a pathname (e.g. location.pathname) and a full url (e.g., location.href).
 export function cleanPathname(path = location.pathname) {
@@ -62,7 +68,13 @@ export function isRepo(path = location.pathname) {
 }
 
 export function isRepoRoot(path = location.pathname) {
-    return /^(tree[/][^/]+)?$/.test(getRepoPath(path));
+    path = getRepoPath(path);
+    let commonTestResult = /^(tree[/][^/]+)?$/.test(path);
+    if (commonTestResult || !path.startsWith("tree/"))
+        return commonTestResult;
+    
+    path = path.substring(5); // "tree/".length
+    return getRepoBranches().some(x => x == path);
 }
 
 export function isRepoTree(path = location.pathname) {

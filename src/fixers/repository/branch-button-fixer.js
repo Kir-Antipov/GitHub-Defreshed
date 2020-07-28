@@ -13,10 +13,17 @@ export default class BranchButtonFixer extends Fixer {
     }
 
     apply() {
-        let btn = document.querySelector("#branch-select-menu span.css-truncate-target");
-        btn.parentElement.insertBefore(createElement("i", {
+        let button = document.querySelector("#branch-select-menu");
+        
+        let menu = button.querySelector("details-menu");
+        let src = menu && menu.getAttribute("src");
+        let fragment = button.querySelector("include-fragment");
+        fragment && fragment.setAttribute("src", src);
+
+        let branchName = button.querySelector("span.css-truncate-target");
+        branchName.parentElement.insertBefore(createElement("i", {
             className: "d-none d-lg-inline",
             innerText: "Branch: "
-        }), btn);
+        }), branchName);
     }
 }
