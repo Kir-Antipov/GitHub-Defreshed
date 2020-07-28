@@ -48,8 +48,8 @@ export default class CommitBarFixer extends Fixer {
     }
 
     _getBuildStatuses() {
-        return document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment") ||
-               document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses");
+        return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") || 
+                document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment");
     }
 
     _moveCommitBuildStatuses() {
