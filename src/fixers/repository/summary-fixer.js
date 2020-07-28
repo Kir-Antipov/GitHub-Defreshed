@@ -1,5 +1,6 @@
 import { isRepoRoot, getRepoURL } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
+import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
 export default class SummaryFixer extends Fixer {
@@ -54,7 +55,7 @@ export default class SummaryFixer extends Fixer {
 
     _createReleasesSummaryElement(location) {
         let svg = `<svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>`;
-        return this._createSummaryElementFromRightBar(location, svg, "release");
+        return this._createSummaryElementFromRightBar(location, svg, "release", "s", 0, "", true, settings.treatTagsAsReleases.value);
     }
 
     _createContributorsSummaryElement(location) {
@@ -76,7 +77,7 @@ export default class SummaryFixer extends Fixer {
         return null;
     }
 
-    _createSummaryElementFromRightBar(location, svg, text, pluralEnding = "s", defaultCount = 0, additionalPath = "", force = true) {
+    _createSummaryElementFromRightBar(location, svg, text, pluralEnding = "s", defaultCount = 0, additionalPath = "", force = true, useSecondaryCount = false) {
         let plural = text + pluralEnding;
         let data = [...document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
             .find(x => { 
@@ -90,7 +91,10 @@ export default class SummaryFixer extends Fixer {
         let count;
         let link;
         if (data) {
-            count = (data.querySelector("span.Counter") || {}).innerText || 0;
+            let counter = data.querySelector("span.Counter");
+            if (!counter && useSecondaryCount)
+                counter = data.querySelector(":scope > a > span");
+            count = (counter || {}).innerText || defaultCount;
             link = data.querySelector("a").href;
         } else {
             count = defaultCount;
