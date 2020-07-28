@@ -1,7 +1,7 @@
 import { isGitHub } from "./tools/host-detector";
-import defresh from "./tools/defresh";
+import { defresh, isDefreshed, markAsDefreshed } from "./tools/defresh";
 
-if (!window.defreshed && isGitHub()) {
-    window.defreshed = true;
+if (!isDefreshed() && isGitHub()) {
+    markAsDefreshed();
     defresh();
 }
