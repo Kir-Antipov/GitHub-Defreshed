@@ -1,0 +1,16 @@
+html.defreshing {
+    main > *, div.footer {
+        opacity: 0;
+    }
+
+    main::before {
+        content: url("https://github.githubassets.com/images/spinners/octocat-spinner-128.gif");
+        position: relative;
+        left: calc(50% - 64px);
+        top: 64px;
+    }
+}
+
+html.defreshed * {
+    transition: 1000ms opacity;
+}
