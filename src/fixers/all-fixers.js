@@ -17,8 +17,14 @@ import ProfileStatusFixer from "./profile/status-fixer";
 import ProfileBlockOrReportFixer from "./profile/block-or-report-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
+import Fixer from "./fixer";
 
-export default [
+/**
+ * All registered fixers.
+ * 
+ * @type {Fixer[]}
+ */
+export const allFixers = [
     new CSSFixer(),
     new ScriptSettingsFixer(),
     new ContainerFixer(),
@@ -39,3 +45,5 @@ export default [
     new LinksFixer(),
     new WindowPopstateFixer()
 ];
+
+export default allFixers;
