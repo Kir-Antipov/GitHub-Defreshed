@@ -14,7 +14,7 @@ export default class CommitBarFixer extends Fixer {
             "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)"
         ];
         if (isRepoRoot(location)) {
-            selectors.push("main:nth-child(1) .repository-content .file-navigation > :not(#branch-select-menu) svg.octicon-git-branch");
+            selectors.push("main:nth-child(1) .repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch");
             selectors.push("main:nth-child(1) .repository-content .Box ul.list-style-none svg.octicon-history");
         }
 
@@ -34,7 +34,7 @@ export default class CommitBarFixer extends Fixer {
     }
 
     _backupDetails(backupContainer) {
-        let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(#branch-select-menu) svg.octicon-git-branch").parentElement;
+        let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch").parentElement;
         branchesDetails.id = "backup-branches";
         let branchesDetailsContainer = branchesDetails.parentElement;
         branchesDetailsContainer.parentElement.removeChild(branchesDetailsContainer);
