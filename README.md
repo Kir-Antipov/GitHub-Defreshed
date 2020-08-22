@@ -77,6 +77,6 @@ Design is an extremely subjective thing, so you can say that Microsoft should no
 
 Previously, to understand everything about some repo, it was enough for me to take just one look at it: name, description, languages in use, releases' count, contributors, website, last commit - all this stuff was in one place exactly in my point of attention. And now...
 
-![Where's all info?](./media/vincent.webp)
+![Where's all info?](./media/vincent.gif)
 
 Well, I believe, you've got the point.
