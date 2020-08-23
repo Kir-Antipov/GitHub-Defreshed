@@ -3,6 +3,11 @@ import { isRoot, isProject } from "./path-detector";
 import createElement from "./create-element";
 import settings from "./settings";
 
+/**
+ * Updates the current location.
+ * 
+ * @param {string} link Actual page URL.
+ */
 function setLocation(link) {
     try {
         history.pushState(null, null, link);
@@ -11,6 +16,9 @@ function setLocation(link) {
     }
 }
 
+/**
+ * Shows a dummy progress bar at the top of the page.
+ */
 function imitateLoading() {
     let loader = document.querySelector(".progress-pjax-loader");
     if (loader) {
@@ -28,6 +36,15 @@ function imitateLoading() {
     }
 }
 
+/**
+ * Loads a document from the specified address.
+ * 
+ * @param {string} link The address of the page to download.
+ * 
+ * @returns {Promise<{ document: Document, url: string }>}
+ * Returns the document and its final address
+ * (it may differ from the passed parameter if there was a redirect).
+ */
 async function getDocumentAndURL(link) {
     imitateLoading();
     let response = await fetch(link);
@@ -37,10 +54,22 @@ async function getDocumentAndURL(link) {
     };
 }
 
+/**
+ * Retrieves script's src value.
+ * 
+ * @param {HTMLScriptElement} scriptElement The script element.
+ * 
+ * @returns {string} The URL to an external file that contains the source code.
+ */
 function getScriptSrc(scriptElement) {
     return scriptElement.src || scriptElement.getAttribute("data-src");
 }
 
+/**
+ * Updates document's header.
+ * 
+ * @param {Document} newDocument New header source.
+ */
 function updateHeader(newDocument) {
     let oldHeader = document.querySelector("header");
     let newHeader = newDocument.querySelector("header");
@@ -48,6 +77,11 @@ function updateHeader(newDocument) {
         oldHeader.replaceWith(newHeader);
 }
 
+/**
+ * Loads scripts into the document that haven't been added previously.
+ * 
+ * @param {Document} newDocument New scripts source.
+ */
 function updateScripts(newDocument) {
     let activeScripts = [...document.querySelectorAll("script")];
     let newScripts = [...newDocument.querySelectorAll("script")];
@@ -58,6 +92,11 @@ function updateScripts(newDocument) {
     document.body.append(...inactiveScripts);
 }
 
+/**
+ * Updates the document with the new data.
+ * 
+ * @param {Document} newDocument Update source.
+ */
 function updateDocument(newDocument) {
     // body's class is important for some css rules
     document.body.className = newDocument.body.className;
@@ -72,7 +111,13 @@ function updateDocument(newDocument) {
     updateScripts(newDocument);
 }
 
-export default async function navigate(link = window.location.href, changeLocation = true) {
+/**
+ * Dynamically loads a new page and substitutes its content into the current one.
+ * 
+ * @param {string} link The address of the page to download.
+ * @param {boolean} changeLocation Indicates whether to update the current page URL.
+ */
+export async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
     let project = isProject();
 
@@ -116,3 +161,5 @@ export default async function navigate(link = window.location.href, changeLocati
     if (changeLocation)
         setLocation(result.url);
 }
+
+export default navigate;
