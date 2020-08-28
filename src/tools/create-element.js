@@ -13,7 +13,7 @@ function isIterable(obj) {
 }
 
 /**
- * Recursively copies property values ​​from options to object.
+ * Recursively copies property values from options to object.
  * 
  * @param {*} obj Copy target.
  * @param {*} options Copy source.

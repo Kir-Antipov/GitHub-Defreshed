@@ -4,7 +4,7 @@ import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-u
 import Fixer from "../fixer";
 
 /**
- * Revives classical repository languages ​​statistics bar.
+ * Revives classical repository languages statistics bar.
  */
 export default class LanguageBarFixer extends Fixer {
     /** @inheritdoc */
