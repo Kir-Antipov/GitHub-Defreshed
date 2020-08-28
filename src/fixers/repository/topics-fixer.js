@@ -3,16 +3,22 @@ import createElement from "../../tools/create-element";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Moves topics section to its usual location.
+ */
 export default class TopicsFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location);
     }
 
+    /** @inheritdoc */
     async waitUntilFixerReady() {
         return  (await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row")) &&
                 (await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-cell .topic-tag"));
     }
 
+    /** @inheritdoc */
     apply() {
         let firstTopic = document.querySelector("main .repository-content .BorderGrid-cell .topic-tag");
         document
