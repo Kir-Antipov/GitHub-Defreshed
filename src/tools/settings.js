@@ -5,7 +5,7 @@ import storage from "./storage";
  * 
  * @template Value
  */
-class SettingsProperty {
+export class SettingsProperty {
 
     /**
      * Represents property of the script settings.
