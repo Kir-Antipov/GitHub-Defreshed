@@ -230,7 +230,7 @@ export function isProject(path = location.pathname) {
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isAnchor(path = location.pathname) {
-    return /#[^\/]*$/.test(path);
+    return /#[^/]*$/.test(path);
 }
 
 /**
