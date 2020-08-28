@@ -2,6 +2,11 @@ import { sleep } from "./tools/sleep";
 import { isGitHub } from "./tools/host-detector";
 import { defresh, isDefreshed, markAsDefreshed } from "./tools/defresh";
 
+/**
+ * Script entry point.
+ * 
+ * Injects the script into the page.
+ */
 async function start() {
     if (!isDefreshed() && isGitHub()) {
         markAsDefreshed();

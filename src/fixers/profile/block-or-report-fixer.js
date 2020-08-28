@@ -4,15 +4,21 @@ import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
+/**
+ * Moves "Block or report user" button to its usual location.
+ */
 export default class BlockOrReportFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return settings.defreshProfilePage.value && isProfile(location);
     }
 
+    /** @inheritdoc */
     async waitUntilFixerReady() {
         return (await waitUntilElementsReady("main:nth-child(1) .h-card")) && (await checkIfElementsReady("main:nth-child(1) #blob-more-options-details"));
     }
 
+    /** @inheritdoc */
     apply() {
         let container = document.querySelector("#blob-more-options-details");
 

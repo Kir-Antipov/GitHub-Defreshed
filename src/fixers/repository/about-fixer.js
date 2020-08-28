@@ -3,15 +3,21 @@ import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Moves "About" section to its usual location.
+ */
 export default class AboutFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row");
     }
 
+    /** @inheritdoc */
     apply() {
         let repositoryContent = document.querySelector("main .repository-content");
         let cell = repositoryContent.querySelector(".BorderGrid-cell");

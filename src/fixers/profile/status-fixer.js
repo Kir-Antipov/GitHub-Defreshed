@@ -5,15 +5,21 @@ import settings from "../../tools/settings";
 import submitForm from "../../tools/submit-form";
 import Fixer from "../fixer";
 
+/**
+ * Returns the classic look of user's status.
+ */
 export default class StatusFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return settings.defreshProfilePage.value && settings.defreshProfilePageUserStatus.value && isProfile(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady() {
         return checkIfElementsReady("main:nth-child(1) .user-status-container");
     }
 
+    /** @inheritdoc */
     apply() {
         let statusContainer = document.querySelector("main .user-status-container");
         let emoji = statusContainer.querySelector("img") || statusContainer.querySelector("g-emoji");
@@ -25,8 +31,6 @@ export default class StatusFixer extends Fixer {
         this._fixDetails(details);
         let defreshedStatus = this._createStatusContainer(emoji, text, isBusy, details);
 
-
-
         statusContainer.replaceWith(defreshedStatus);
 
         let avatar = document.querySelector("main img.avatar");
@@ -34,6 +38,16 @@ export default class StatusFixer extends Fixer {
             avatar.classList.add("avatar-before-user-status");
     }
 
+    /**
+     * Creates old school status block.
+     * 
+     * @param {HTMLElement} emoji Status' emoji.
+     * @param {string} text Status' text.
+     * @param {boolean} isBusy Indicates whether the user is busy.
+     * @param {HTMLElement} details Status' editor.
+     * 
+     * @returns {HTMLElement} Defreshed status block.
+     */
     _createStatusContainer(emoji, text, isBusy = false, details = null) {
         return createElement(details ? "details" : "div", {
             className: "user-status-container border position-relative hide-sm hide-md" + (details ? " details-reset details-overlay details-overlay-dark" : ""),
@@ -68,6 +82,11 @@ export default class StatusFixer extends Fixer {
         });
     }
 
+    /**
+     * Fixes status' editor.
+     * 
+     * @param {HTMLElement} details Status' editor.
+     */
     _fixDetails(details) {
         if (!details)
             return;
@@ -77,11 +96,21 @@ export default class StatusFixer extends Fixer {
         this._fixDetailsButtons(details);
     }
 
+    /**
+     * Initiates loading of editor's content.
+     * 
+     * @param {HTMLElement} details Status' editor.
+     */
     _fixDetailsFragments(details) {
         for (let fragment of [...details.querySelectorAll("include-fragment")])
             fragment.setAttribute("src", fragment.getAttribute("data-url"));
     }
 
+    /**
+     * Fixes editor's emojis.
+     * 
+     * @param {HTMLElement} details Status' editor.
+     */
     _fixDetailsEmojis(details) {
         let emojiContainer = details.querySelector(".js-user-status-custom-emoji");
         let emojiInput = details.querySelector("form").emoji;
@@ -97,6 +126,13 @@ export default class StatusFixer extends Fixer {
         });
     }
 
+    /**
+     * Fixes editor's emoji picker.
+     * 
+     * @param {HTMLElement} targetContainer Emoji container.
+     * @param {HTMLInputElement} targetInput Emoji input.
+     * @param {HTMLElement} picker Emoji picker.
+     */
     _fixEmojiPicker(targetContainer, targetInput, picker) {
         if (picker.fixed)
             return;
@@ -117,6 +153,11 @@ export default class StatusFixer extends Fixer {
         picker.fixed = true;
     }
 
+    /**
+     * Fixes editor's submit button.
+     * 
+     * @param {HTMLElement} details Status' editor.
+     */
     _fixDetailsButtons(details) {
         let submitButton = details.querySelector("form button[type='submit']");
         let clearButton = submitButton.parentElement.querySelector("button:not([type='submit'])");

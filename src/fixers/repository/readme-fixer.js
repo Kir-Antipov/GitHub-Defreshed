@@ -2,16 +2,22 @@ import { isRepoRoot, isRepoTree } from "../../tools/path-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Returns the classic look of the README.
+ */
 export default class ReadmeFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
     }
 
+    /** @inheritdoc */
     async waitUntilFixerReady() {
         return  (await waitUntilElementsReady("main:nth-child(1) .repository-content")) &&
                 (await checkIfElementsReady("main:nth-child(1) #readme"));
     }
 
+    /** @inheritdoc */
     apply() {
         let readme = document.querySelector("#readme");
         readme.className = "Box md js-code-block-container Box--condensed";

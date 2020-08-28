@@ -3,15 +3,21 @@ import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Adds "Branch: " label to the branch name.
+ */
 export default class BranchButtonFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location) || isSingleFile(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) #branch-select-menu", "main:nth-child(1) #branch-select-menu span.css-truncate-target");
     }
 
+    /** @inheritdoc */
     apply() {
         let button = document.querySelector("#branch-select-menu");
         

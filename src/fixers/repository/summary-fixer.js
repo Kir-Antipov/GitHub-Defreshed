@@ -3,11 +3,16 @@ import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
+/**
+ * Recreates old school summary.
+ */
 export default class SummaryFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location);
     }
 
+    /** @inheritdoc */
     apply(location, backupContainer) {
         let langsBar = document.querySelector(".repository-content details summary div.repository-lang-stats-graph");
         let summary = createElement("ul", { 
@@ -30,6 +35,13 @@ export default class SummaryFixer extends Fixer {
             }));
     }
 
+    /**
+     * Creates commits element for the summary block.
+     * 
+     * @param {HTMLElement} backupContainer Container for passing elements removed from the DOM between fixers.
+     * 
+     * @returns {HTMLLIElement} Commits element.
+     */
     _createCommitsSummaryElement(backupContainer) {
         let data = backupContainer.querySelector("#backup-commits");
         let count = data.querySelector("strong").innerText;
@@ -39,6 +51,11 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "commit", count);
     }
 
+    /**
+     * Creates branches element for the summary block.
+     * 
+     * @returns {HTMLLIElement} Branches element.
+     */
     _createBranchesSummaryElement(backupContainer) {
         let data = backupContainer.querySelector("#backup-branches");
         let count = data.querySelector("strong").innerText;
@@ -48,21 +65,41 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, "branch", count, "es");
     }
 
+    /**
+     * Creates packages element for the summary block.
+     * 
+     * @returns {HTMLLIElement} Packages element.
+     */
     _createPackagesSummaryElement(location) {
         let svg = `<svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>`;
         return this._createSummaryElementFromRightBar(location, svg, "package", "s", 0, "", false);
     }
 
+    /**
+     * Creates releases element for the summary block.
+     * 
+     * @returns {HTMLLIElement} Releases element.
+     */
     _createReleasesSummaryElement(location) {
         let svg = `<svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>`;
         return this._createSummaryElementFromRightBar(location, svg, "release", "s", 0, "", true, settings.treatTagsAsReleases.value);
     }
 
+    /**
+     * Creates contributors element for the summary block.
+     * 
+     * @returns {HTMLLIElement} Contributors element.
+     */
     _createContributorsSummaryElement(location) {
         let svg = `<svg class="octicon octicon-people" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path></svg>`;
         return this._createSummaryElementFromRightBar(location, svg, "contributor", "s", 1, "graphs/");
     }
 
+    /**
+     * Creates license element for the summary block.
+     * 
+     * @returns {HTMLLIElement} License element.
+     */
     _createLicenseSummaryElement() {
         let data = document.querySelector(".flex-shrink-0.col-12.col-md-3 svg.octicon-law");
 
@@ -77,6 +114,20 @@ export default class SummaryFixer extends Fixer {
         return null;
     }
 
+    /**
+     * Creates an element for the summary block from the right bar.
+     * 
+     * @param {string} location Page's URL. Can be either absolute or relative.
+     * @param {string} svg Element's icon.
+     * @param {string} text Element's text.
+     * @param {string} pluralEnding Plural ending for the text value.
+     * @param {number|string} defaultCount Default element's count.
+     * @param {string} additionalPath An additional path to generate a link from the text.
+     * @param {boolean} force Indicates whether to return an empty element instead of null if no data source is found.
+     * @param {boolean} useSecondaryCount Indicates whether to look for an additional counter within the element.
+     * 
+     * @returns {HTMLLIElement} Summary element.
+     */
     _createSummaryElementFromRightBar(location, svg, text, pluralEnding = "s", defaultCount = 0, additionalPath = "", force = true, useSecondaryCount = false) {
         let plural = text + pluralEnding;
         let data = [...document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
@@ -104,6 +155,17 @@ export default class SummaryFixer extends Fixer {
         return this._createSummaryElement(svg, link, text, count, pluralEnding);  
     }
 
+    /**
+     * Creates an element for the summary block.
+     * 
+     * @param {string} svg Element's icon.
+     * @param {string} link Element's link.
+     * @param {string} text Element's text.
+     * @param {number|string} count Element's count.
+     * @param {string} pluralEnding Plural ending for the text value.
+     * 
+     * @returns {HTMLLIElement} Summary element.
+     */
     _createSummaryElement(svg, link, text, count = -1, pluralEnding = "s") {
         let html = svg + "\n";
         if (count == -1) {

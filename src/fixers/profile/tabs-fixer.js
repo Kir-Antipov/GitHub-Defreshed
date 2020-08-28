@@ -4,15 +4,21 @@ import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
+/**
+ * Moves tabs to tabs container ¯\\_(ツ)_/¯
+ */
 export default class TabsFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return settings.defreshProfilePage.value && isProfile(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) nav", "main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
     }
 
+    /** @inheritdoc */
     apply(location) {
         let container = document.querySelector("main div.js-profile-editable-area > :not(.vcard-details)[class]");
 
@@ -26,6 +32,14 @@ export default class TabsFixer extends Fixer {
             [...tabs.querySelectorAll("svg")].forEach(x => x.style.display = "none");
     }
 
+    /**
+     * Generates Stars/Followers/Following tabs.
+     * 
+     * @param {HTMLElement} container Profile details container. 
+     * @param {string} location Page's URL.
+     * 
+     * @returns {HTMLAnchorElement[]} Tabs.
+     */
     _generateTabs(container, location) {
         let tabNames = ["stars", "followers", "following"];
         let tabSvgs = [
@@ -41,6 +55,13 @@ export default class TabsFixer extends Fixer {
             .filter(x => x);
     }
 
+    /**
+     * Parses tab's name from url.
+     * 
+     * @param {string} href Tab's url.
+     * 
+     * @returns {string} Tab's name.
+     */
     _getTabName(href) {
         let separatorIndex = href.indexOf("?");
         if (separatorIndex == -1)
@@ -48,6 +69,15 @@ export default class TabsFixer extends Fixer {
         return new URLSearchParams(href.substring(separatorIndex)).get("tab");
     }
 
+    /**
+     * Generates tab.
+     * 
+     * @param {string} location Page's URL.
+     * @param {HTMLElement} element Element that contains tab's data. 
+     * @param {string} defaultSvg Default SVG.
+     * 
+     * @returns {HTMLAnchorElement} Tab.
+     */
     _generateTab(location, element, defaultSvg = null) {
         let svg = element.querySelector("svg");
         if (!svg && defaultSvg)

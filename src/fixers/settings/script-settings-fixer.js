@@ -2,17 +2,23 @@ import { isProfileSettings } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
-import settings from "../../tools/settings";
+import { settings, SettingsProperty } from "../../tools/settings";
 
+/**
+ * Generates a section with script settings at https://github.com/settings/profile.
+ */
 export default class ScriptSettingsFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isProfileSettings(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady(".Subhead--spacious");
     }
 
+    /** @inheritdoc */
     apply() {
         let nextTitle = document.querySelector(".Subhead--spacious");
         
@@ -43,10 +49,19 @@ export default class ScriptSettingsFixer extends Fixer {
         nextTitle.parentElement.insertBefore(form, nextTitle);
     }
 
+    /**
+     * Generates sections for all settings' options.
+     */
     generateSettings() {
         return settings.map(x => this.generateProperty(x));
     }
 
+    /**
+     * Generates a section for the specified option.
+     * 
+     * @param {SettingsProperty<*>} property Target option.
+     * @returns {HTMLElement} Option's section.
+     */
     generateProperty(property) {
         switch (typeof property.defaultValue) {
             case "boolean":
@@ -56,6 +71,12 @@ export default class ScriptSettingsFixer extends Fixer {
         }
     }
 
+    /**
+     * Generates a section for the boolean option.
+     * 
+     * @param {SettingsProperty<boolean>} property Target option.
+     * @returns {HTMLElement} Option's section.
+     */
     generateBooleanProperty(property) {
         let checkbox = createElement("input", {
             id: `github-defreshed_${property.name}`,

@@ -3,16 +3,22 @@ import createElement from "../../tools/create-element";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Revives classical repository languages ​​statistics bar.
+ */
 export default class LanguageBarFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location);
     }
 
+    /** @inheritdoc */
     async waitUntilFixerReady() {
         return  (await waitUntilElementsReady("main:nth-child(1) .BorderGrid-row:last-child")) &&
                 (await checkIfElementsReady("main:nth-child(1) .BorderGrid-row .Progress"));
     }
 
+    /** @inheritdoc */
     apply() {
         let langsBar = createElement("div", "d-flex repository-lang-stats-graph");
         let langsContainer = createElement("ol", "repository-lang-stats-numbers");
@@ -71,6 +77,13 @@ export default class LanguageBarFixer extends Fixer {
         document.querySelector(".repository-content").prepend(langsWrapper);
     }
 
+    /**
+     * Extracts language details from the DOM element.
+     * 
+     * @param {HTMLElement} element Language element.
+     * @returns {{ name: string, percent: string, color: string, link: string }}
+     * Language details.
+     */
     _extractLanguageData(element) {
         if (element.querySelector("a")) {
             return {
