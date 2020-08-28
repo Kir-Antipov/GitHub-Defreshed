@@ -83,7 +83,7 @@ export default class ScriptSettingsFixer extends Fixer {
             type: "checkbox",
             checked: property.value
         });
-        checkbox.addEventListener("change", function (e) {
+        checkbox.addEventListener("change", function () {
             property.value = this.checked;
         });
 
