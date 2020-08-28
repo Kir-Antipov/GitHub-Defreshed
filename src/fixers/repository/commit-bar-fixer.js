@@ -3,11 +3,16 @@ import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
+/**
+ * Returns the classic view of the latest commit bar.
+ */
 export default class CommitBarFixer extends Fixer {
+    /** @inheritdoc */
     isApplieble(location) {
         return isRepoRoot(location) || isRepoTree(location);
     }
 
+    /** @inheritdoc */
     waitUntilFixerReady(location) {
         let selectors = [
             "main:nth-child(1) .repository-content .Box relative-time",
@@ -24,6 +29,7 @@ export default class CommitBarFixer extends Fixer {
         });
     }
 
+    /** @inheritdoc */
     apply(location, backupContainer) {
         if (isRepoRoot(location))
             this._backupDetails(backupContainer);
@@ -33,6 +39,11 @@ export default class CommitBarFixer extends Fixer {
         this._removeSecondCommitTitle();
     }
 
+    /**
+     * Backups branches and commits details for future use.
+     * 
+     * @param {HTMLElement} backupContainer Container for passing elements removed from the DOM between fixers.
+     */
     _backupDetails(backupContainer) {
         let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(#branch-select-menu) svg.octicon-git-branch").parentElement;
         branchesDetails.id = "backup-branches";
@@ -47,11 +58,18 @@ export default class CommitBarFixer extends Fixer {
         backupContainer.append(commitsDetails);
     }
 
+    /**
+     * Returns Build-Statuses element.
+     * @returns {HTMLElement} Build-Statuses element.
+     */
     _getBuildStatuses() {
         return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") || 
                 document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment");
     }
 
+    /**
+     * Moves Build-Statuses to their usual location.
+     */
     _moveCommitBuildStatuses() {
         if (this._getBuildStatuses()) {
             let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header .commit-author").parentElement;
@@ -62,6 +80,9 @@ export default class CommitBarFixer extends Fixer {
         }
     }
 
+    /**
+     * Moves commit's comments to their usual location.
+     */
     _moveCommitComments() {
         let commentsSvg = document.querySelector("main:nth-child(1) .repository-content .Box .Box-header svg.octicon-comment");
         if (commentsSvg) {
@@ -72,6 +93,9 @@ export default class CommitBarFixer extends Fixer {
         }
     }
 
+    /**
+     * Moves commit's details to their usual location.
+     */
     _moveCommitDetails() {
         let wrongCommitDetailsContainer = document.querySelector(".repository-content .Box relative-time").parentElement.parentElement;
         let commitDetailsContainer = document.querySelector(".repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)");
@@ -94,6 +118,9 @@ export default class CommitBarFixer extends Fixer {
         wrongCommitDetailsContainer.parentElement.removeChild(wrongCommitDetailsContainer);
     }
 
+    /**
+     * Removes unnecessary commit subtitle that duplicates its first line.
+     */
     _removeSecondCommitTitle() {
         let secondCommitTitle = document.querySelector(".repository-content .Box .Box-header .Details-content--hidden a.text-bold");
         if (secondCommitTitle)
