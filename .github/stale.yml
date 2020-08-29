@@ -4,7 +4,7 @@ exemptLabels:
   - bug
   - pinned
   - security
-  - discussion 
+  - discussion
   - help wanted
 staleLabel: wontfix
 markComment: >
