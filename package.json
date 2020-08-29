@@ -10,7 +10,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --production"
+    "build": "webpack --production",
+    "test": "eslint src/**"
   },
   "devDependencies": {
     "webpack": "^4.43.0",
