@@ -1,47 +1,6 @@
-.overall-summary {
-    position: relative;
-    margin-bottom: 10px;
-    border: 1px solid;
+div.overall-summary {
     border-radius: $border-radius !important;
-
-    > ul.numbers-summary {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-
-        > li {
-            display: table-cell;
-            padding: 0;
-            text-align: center;
-            white-space: nowrap;
-
-            > a {
-                display: block;
-                padding: 10px 0;
-                text-decoration: none;
-            }
-        }
-    }
 }
-
-// These are very flexible rules
-// that can be easily overwritten by themes.
-.overall-summary {
-    border-color: #dfe2e5;
-
-    a {
-        color: #586069;
-    }
-
-    a:hover {
-        color: #0366d6;
-    }
-
-    .octicon {
-        color: #6a737d;
-    }
-}
-
 
 div.repository-lang-stats-graph {
     border-bottom-left-radius: $border-radius !important;

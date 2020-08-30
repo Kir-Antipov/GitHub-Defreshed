@@ -1,3 +1,4 @@
+import CompatibilityCSSFixer from "./css/compatibility-css-fixer";
 import OldSchoolCSSFixer from "./css/old-school-css-fixer";
 import PreloaderCSSFixer from "./css/preloader-css-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
@@ -26,6 +27,7 @@ import Fixer from "./fixer";
  * @type {Fixer[]}
  */
 export const allFixers = [
+    new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
     new PreloaderCSSFixer(),
     new ScriptSettingsFixer(),
