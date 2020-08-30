@@ -6,9 +6,13 @@
 .previewable-comment-form .comment-form-head.tabnav {
     border-top-left-radius: $border-radius !important;
     border-top-right-radius: $border-radius !important;
-    
+
     .tabnav-tab {
         border-top-left-radius: $tab-border-radius !important;
         border-top-right-radius: $tab-border-radius !important;
     }
+}
+
+div.comment-reactions-options .reaction-summary-item:first-child {
+    border-bottom-left-radius: $border-radius;
 }
