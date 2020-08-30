@@ -13,7 +13,7 @@ const metadata = `// ==UserScript==
 // @homepageURL  https://github.com/${githubUser}/${githubRepo}
 // @updateURL    https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js
 // @downloadURL  https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js
-// @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new
+// @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new/choose
 // @match        https://github.com/*
 // @run-at       document-start
 // @grant        none
@@ -51,7 +51,7 @@ module.exports = {
         new CreateFileWebpack({
             fileName: `${name}.meta.js`,
             path: path.resolve(__dirname, "build"),
-            content: metadata 
+            content: metadata
         })
     ]
 };
