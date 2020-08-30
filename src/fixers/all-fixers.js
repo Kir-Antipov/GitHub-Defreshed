@@ -1,4 +1,5 @@
 import OldSchoolCSSFixer from "./css/old-school-css-fixer";
+import PreloaderCSSFixer from "./css/preloader-css-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
 import HeaderFixer from "./repository/header-fixer";
@@ -26,6 +27,7 @@ import Fixer from "./fixer";
  */
 export const allFixers = [
     new OldSchoolCSSFixer(),
+    new PreloaderCSSFixer(),
     new ScriptSettingsFixer(),
     new ContainerFixer(),
     new HeaderFixer(),

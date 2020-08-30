@@ -48,6 +48,9 @@ export class SettingsProperty {
  * @property {SettingsProperty<boolean>} useOldCSS
  * Use old css styles.
  *
+ * @property {SettingsProperty<boolean>} usePreloader
+ * Use preloader.
+ *
  * @property {SettingsProperty<boolean>} defreshProfilePage
  * Defresh profile page.
  *
@@ -71,6 +74,7 @@ export class SettingsProperty {
  */
 export const settings = [
     new SettingsProperty("useOldCSS", "Use old css styles", "This will revert old css styles where it's possible. For example, it will unround edges of avatars and containers.", true),
+    new SettingsProperty("usePreloader", "Use preloader", "This will activate preloader during script initialization (first load of any GitHub page) to make the load look way smoother.", true),
     new SettingsProperty("defreshProfilePage", "Defresh profile page", "This will roll back the changes of the profile page interface.", true),
     new SettingsProperty("keepProfilePageIcons", "Don't remove tab icons on the profile page", "If you want to keep tab icons on the profile page, enable this option.", false),
     new SettingsProperty("defreshProfilePageUserStatus", "Defresh status appearance on the profile page", "If you prefer the way the status looked before, then this option's for you.", true),
