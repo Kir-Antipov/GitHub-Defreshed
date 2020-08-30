@@ -2,14 +2,14 @@ import storage from "./storage";
 
 /**
  * Represents property of the script settings.
- * 
+ *
  * @template Value
  */
 export class SettingsProperty {
 
     /**
      * Represents property of the script settings.
-     * 
+     *
      * @param {string} name Property name.
      * @param {string} title Property title (short description).
      * @param {string} description Property description.
@@ -44,33 +44,33 @@ export class SettingsProperty {
 /**
  * @typedef {object} Settings
  * Represents script settings.
- * 
- * @property {SettingsProperty<boolean>} useCSS
+ *
+ * @property {SettingsProperty<boolean>} useOldCSS
  * Use old css styles.
- * 
+ *
  * @property {SettingsProperty<boolean>} defreshProfilePage
  * Defresh profile page.
- * 
+ *
  * @property {SettingsProperty<boolean>} keepProfilePageIcons
  * Don't remove tab icons on the profile page.
- * 
+ *
  * @property {SettingsProperty<boolean>} defreshProfilePageUserStatus
  * Defresh status appearance on the profile page.
- * 
+ *
  * @property {SettingsProperty<boolean>} jumpToTop
  * Jump to the page's top after loading.
- * 
+ *
  * @property {SettingsProperty<boolean>} treatTagsAsReleases
  * Treat tags as releases.
 */
 
 /**
  * Script settings.
- * 
+ *
  * @type {Settings & SettingsProperty[]}
  */
 export const settings = [
-    new SettingsProperty("useCSS", "Use old css styles", "This will revert old css styles where it's possible. For example, it will unround edges of avatars and containers.", true),
+    new SettingsProperty("useOldCSS", "Use old css styles", "This will revert old css styles where it's possible. For example, it will unround edges of avatars and containers.", true),
     new SettingsProperty("defreshProfilePage", "Defresh profile page", "This will roll back the changes of the profile page interface.", true),
     new SettingsProperty("keepProfilePageIcons", "Don't remove tab icons on the profile page", "If you want to keep tab icons on the profile page, enable this option.", false),
     new SettingsProperty("defreshProfilePageUserStatus", "Defresh status appearance on the profile page", "If you prefer the way the status looked before, then this option's for you.", true),
@@ -80,4 +80,4 @@ export const settings = [
 for (let property of [...settings])
     settings[property.name] = property;
 
-export default settings; 
+export default settings;
