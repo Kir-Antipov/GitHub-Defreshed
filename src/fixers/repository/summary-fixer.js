@@ -15,7 +15,7 @@ export default class SummaryFixer extends Fixer {
     /** @inheritdoc */
     apply(location, backupContainer) {
         let langsBar = document.querySelector(".repository-content details summary div.repository-lang-stats-graph");
-        let summary = createElement("ul", { 
+        let summary = createElement("ul", {
             className: "numbers-summary",
             children: [
                 this._createCommitsSummaryElement(backupContainer),
@@ -37,9 +37,9 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates commits element for the summary block.
-     * 
+     *
      * @param {HTMLElement} backupContainer Container for passing elements removed from the DOM between fixers.
-     * 
+     *
      * @returns {HTMLLIElement} Commits element.
      */
     _createCommitsSummaryElement(backupContainer) {
@@ -53,7 +53,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates branches element for the summary block.
-     * 
+     *
      * @returns {HTMLLIElement} Branches element.
      */
     _createBranchesSummaryElement(backupContainer) {
@@ -67,7 +67,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates packages element for the summary block.
-     * 
+     *
      * @returns {HTMLLIElement} Packages element.
      */
     _createPackagesSummaryElement(location) {
@@ -77,7 +77,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates releases element for the summary block.
-     * 
+     *
      * @returns {HTMLLIElement} Releases element.
      */
     _createReleasesSummaryElement(location) {
@@ -87,7 +87,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates contributors element for the summary block.
-     * 
+     *
      * @returns {HTMLLIElement} Contributors element.
      */
     _createContributorsSummaryElement(location) {
@@ -97,7 +97,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates license element for the summary block.
-     * 
+     *
      * @returns {HTMLLIElement} License element.
      */
     _createLicenseSummaryElement() {
@@ -116,7 +116,7 @@ export default class SummaryFixer extends Fixer {
 
     /**
      * Creates an element for the summary block from the right bar.
-     * 
+     *
      * @param {string} location Page's URL. Can be either absolute or relative.
      * @param {string} svg Element's icon.
      * @param {string} text Element's text.
@@ -125,17 +125,17 @@ export default class SummaryFixer extends Fixer {
      * @param {string} additionalPath An additional path to generate a link from the text.
      * @param {boolean} force Indicates whether to return an empty element instead of null if no data source is found.
      * @param {boolean} useSecondaryCount Indicates whether to look for an additional counter within the element.
-     * 
+     *
      * @returns {HTMLLIElement} Summary element.
      */
     _createSummaryElementFromRightBar(location, svg, text, pluralEnding = "s", defaultCount = 0, additionalPath = "", force = true, useSecondaryCount = false) {
         let plural = text + pluralEnding;
         let data = [...document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
-            .find(x => { 
-                let link = x.querySelector("a"); 
-                return link && link.href.endsWith(plural); 
+            .find(x => {
+                let link = x.querySelector("a");
+                return link && link.href.endsWith(plural);
             });
-    
+
         if (!data && !force)
             return null;
 
@@ -149,21 +149,21 @@ export default class SummaryFixer extends Fixer {
             link = data.querySelector("a").href;
         } else {
             count = defaultCount;
-            link = getRepoURL(location) + "/" + additionalPath + plural;
+            link = `/${getRepoURL(location)}/${additionalPath}${plural}`;
         }
 
-        return this._createSummaryElement(svg, link, text, count, pluralEnding);  
+        return this._createSummaryElement(svg, link, text, count, pluralEnding);
     }
 
     /**
      * Creates an element for the summary block.
-     * 
+     *
      * @param {string} svg Element's icon.
      * @param {string} link Element's link.
      * @param {string} text Element's text.
      * @param {number|string} count Element's count.
      * @param {string} pluralEnding Plural ending for the text value.
-     * 
+     *
      * @returns {HTMLLIElement} Summary element.
      */
     _createSummaryElement(svg, link, text, count = -1, pluralEnding = "s") {
