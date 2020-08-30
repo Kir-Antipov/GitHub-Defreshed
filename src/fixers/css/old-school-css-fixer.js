@@ -1,28 +1,13 @@
-import { createStyleElement } from "../../tools/create-element";
-import { waitUntilHeadReady } from "../../tools/wait-until-ready";
 import css from "./sass/old-school-css.scss";
 import settings from "../../tools/settings";
-import Fixer from "../fixer";
+import CSSFixer from "./css-fixer";
 
 /**
  * Injects old school css styles into the page.
  */
-export default class OldSchoolCSSFixer extends Fixer {
+export default class OldSchoolCSSFixer extends CSSFixer {
     /** @inheritdoc */
-    isApplieble() {
-        return settings.useOldCSS.value && !document.querySelector("head > style[defreshed-old-school]");
-    }
-
-    /** @inheritdoc */
-    waitUntilFixerReady() {
-        return waitUntilHeadReady();
-    }
-
-    /** @inheritdoc */
-    apply() {
-        let cssElement = createStyleElement(css.toString());
-        cssElement.setAttribute("defreshed-old-school", "");
-
-        document.head.append(cssElement);
+    constructor() {
+        super(settings.useOldCSS, css, "old-school");
     }
 }

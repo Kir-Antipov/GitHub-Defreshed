@@ -1,28 +1,13 @@
-import { createStyleElement } from "../../tools/create-element";
-import { waitUntilHeadReady } from "../../tools/wait-until-ready";
 import css from "./sass/preloader.scss";
 import settings from "../../tools/settings";
-import Fixer from "../fixer";
+import CSSFixer from "./css-fixer";
 
 /**
  * Injects preloader styles into the page.
  */
-export default class PreloaderCSSFixer extends Fixer {
+export default class PreloaderCSSFixer extends CSSFixer {
     /** @inheritdoc */
-    isApplieble() {
-        return settings.usePreloader.value && !document.querySelector("head > style[defreshed-preloader]");
-    }
-
-    /** @inheritdoc */
-    waitUntilFixerReady() {
-        return waitUntilHeadReady();
-    }
-
-    /** @inheritdoc */
-    apply() {
-        let cssElement = createStyleElement(css.toString());
-        cssElement.setAttribute("defreshed-preloader", "");
-
-        document.head.append(cssElement);
+    constructor() {
+        super(settings.usePreloader, css, "preloader");
     }
 }
