@@ -1,6 +1,7 @@
 import { isRepoRoot } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
+import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
 /**
@@ -22,18 +23,19 @@ export default class LanguageBarFixer extends Fixer {
     apply() {
         let langsBar = createElement("div", "d-flex repository-lang-stats-graph");
         let langsContainer = createElement("ol", "repository-lang-stats-numbers");
-        let langsWrapper = createElement("details", { 
+        let langsWrapper = createElement("details", {
             className: "details-reset mb-3",
             children: [
-                createElement("summary", { 
+                createElement("summary", {
                     title: "Click for language details",
                     children: [langsBar]
                 }),
-                createElement("div", { 
-                    className: "repository-lang-stats", 
+                createElement("div", {
+                    className: "repository-lang-stats",
                     children: [langsContainer]
                 })
-            ]
+            ],
+            attributes: settings.openLanguagesByDefault.value ? { open: "" } : { }
         });
 
         let languagesData = [...document.querySelector("main .BorderGrid-row .Progress").parentElement.nextElementSibling.children];
@@ -79,7 +81,7 @@ export default class LanguageBarFixer extends Fixer {
 
     /**
      * Extracts language details from the DOM element.
-     * 
+     *
      * @param {HTMLElement} element Language element.
      * @returns {{ name: string, percent: string, color: string, link: string }}
      * Language details.

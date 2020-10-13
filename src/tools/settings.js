@@ -65,6 +65,9 @@ export class SettingsProperty {
  *
  * @property {SettingsProperty<boolean>} treatTagsAsReleases
  * Treat tags as releases.
+ *
+ * @property {SettingsProperty<boolean>} openLanguagesByDefault
+ * Open language bar by default.
 */
 
 /**
@@ -79,7 +82,8 @@ export const settings = [
     new SettingsProperty("keepProfilePageIcons", "Don't remove tab icons on the profile page", "If you want to keep tab icons on the profile page, enable this option.", false),
     new SettingsProperty("defreshProfilePageUserStatus", "Defresh status appearance on the profile page", "If you prefer the way the status looked before, then this option's for you.", true),
     new SettingsProperty("jumpToTop", "Jump to the page's top after loading", "If you want to preserve the scroll position after page load, you can disable this option.", true),
-    new SettingsProperty("treatTagsAsReleases", "Treat tags as releases", "Some repositories only use pre-releases, which aren't displayed as regular releases by GitHub, so without using this option you'll see 0 as the number of releases.", true)
+    new SettingsProperty("treatTagsAsReleases", "Treat tags as releases", "Some repositories only use pre-releases, which aren't displayed as regular releases by GitHub, so without using this option you'll see 0 as the number of releases.", true),
+    new SettingsProperty("openLanguagesByDefault", "Open language bar by default", "This option allows you to change the default state of the language bar.", false)
 ];
 for (let property of [...settings])
     settings[property.name] = property;
