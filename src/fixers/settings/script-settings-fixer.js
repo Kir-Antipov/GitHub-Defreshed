@@ -21,8 +21,8 @@ export default class ScriptSettingsFixer extends Fixer {
     /** @inheritdoc */
     apply() {
         let nextTitle = document.querySelector(".Subhead--spacious");
-        
-        let title = createElement("div", { 
+
+        let title = createElement("div", {
             className: "Subhead Subhead--spacious",
             children: [createElement("h2", {
                 className: "Subhead-heading",
@@ -58,7 +58,7 @@ export default class ScriptSettingsFixer extends Fixer {
 
     /**
      * Generates a section for the specified option.
-     * 
+     *
      * @param {SettingsProperty<*>} property Target option.
      * @returns {HTMLElement} Option's section.
      */
@@ -66,6 +66,8 @@ export default class ScriptSettingsFixer extends Fixer {
         switch (typeof property.defaultValue) {
             case "boolean":
                 return this.generateBooleanProperty(property);
+            case "string":
+                return this.generateStringProperty(property);
             default:
                 return null;
         }
@@ -73,7 +75,7 @@ export default class ScriptSettingsFixer extends Fixer {
 
     /**
      * Generates a section for the boolean option.
-     * 
+     *
      * @param {SettingsProperty<boolean>} property Target option.
      * @returns {HTMLElement} Option's section.
      */
@@ -87,7 +89,7 @@ export default class ScriptSettingsFixer extends Fixer {
             property.value = this.checked;
         });
 
-        let label = createElement("label", { 
+        let label = createElement("label", {
             for: checkbox.id,
             innerText: property.title
         });
@@ -105,6 +107,48 @@ export default class ScriptSettingsFixer extends Fixer {
                 description
             ]
             .filter(x => x)
+        });
+    }
+
+    /**
+     * Generates a section for the string option.
+     *
+     * @param {SettingsProperty<string>} property Target option.
+     * @returns {HTMLElement} Option's section.
+     */
+    generateStringProperty(property) {
+        let input = createElement("input", {
+            id: `github-defreshed_${property.name}`,
+            type: "text",
+            className: "form-control",
+            value: property.value
+        });
+        input.addEventListener("change", function () {
+            property.value = this.value;
+        });
+
+        let label = createElement("label", {
+            for: input.id,
+            innerText: property.title
+        });
+
+        let description = property.description ? createElement("div", {
+            className: "note",
+            innerText: property.description
+        }) : null;
+
+        return createElement("dl", {
+            className: "form-group",
+            children: [
+                createElement("dt", { children: [label] }),
+                createElement("dd", {
+                    children: [
+                        input,
+                        description
+                    ]
+                    .filter(x => x)
+                })
+            ]
         });
     }
 }
