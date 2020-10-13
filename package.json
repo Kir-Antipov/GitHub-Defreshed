@@ -14,17 +14,17 @@
     "test": "eslint src/**"
   },
   "devDependencies": {
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "create-file-webpack": "^1.0.2",
-    "css-loader": "^4.0.0",
-    "eslint": "^7.7.0",
-    "github-reserved-names": "^1.1.8",
+    "css-loader": "^4.3.0",
+    "eslint": "^7.11.0",
+    "github-reserved-names": "^1.1.10",
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2",
-    "terser-webpack-plugin": "^3.0.6"
+    "sass-loader": "^9.0.3",
+    "terser-webpack-plugin": "^3.1.0"
   }
 }
