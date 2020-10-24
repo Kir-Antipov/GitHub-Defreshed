@@ -40,17 +40,17 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Creates old school status block.
-     * 
+     *
      * @param {HTMLElement} emoji Status' emoji.
      * @param {string} text Status' text.
      * @param {boolean} isBusy Indicates whether the user is busy.
      * @param {HTMLElement} details Status' editor.
-     * 
+     *
      * @returns {HTMLElement} Defreshed status block.
      */
     _createStatusContainer(emoji, text, isBusy = false, details = null) {
         return createElement(details ? "details" : "div", {
-            className: "user-status-container border position-relative hide-sm hide-md" + (details ? " details-reset details-overlay details-overlay-dark" : ""),
+            className: "user-status-container border position-relative hide-sm bg-white hide-md" + (details ? " details-reset details-overlay details-overlay-dark" : ""),
             children: [
                 createElement(details ? "summary" : "div", {
                     className: "d-flex",
@@ -84,7 +84,7 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes status' editor.
-     * 
+     *
      * @param {HTMLElement} details Status' editor.
      */
     _fixDetails(details) {
@@ -98,7 +98,7 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Initiates loading of editor's content.
-     * 
+     *
      * @param {HTMLElement} details Status' editor.
      */
     _fixDetailsFragments(details) {
@@ -108,13 +108,13 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes editor's emojis.
-     * 
+     *
      * @param {HTMLElement} details Status' editor.
      */
     _fixDetailsEmojis(details) {
         let emojiContainer = details.querySelector(".js-user-status-custom-emoji");
         let emojiInput = details.querySelector("form").emoji;
-        let openPicker = details.querySelector(".btn-open-emoji-picker");
+        let openPicker = details.querySelector(".btn.js-toggle-user-status-emoji-picker");
         openPicker.addEventListener("click", e => {
             e.preventDefault();
             e.stopPropagation();
@@ -128,7 +128,7 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes editor's emoji picker.
-     * 
+     *
      * @param {HTMLElement} targetContainer Emoji container.
      * @param {HTMLInputElement} targetInput Emoji input.
      * @param {HTMLElement} picker Emoji picker.
@@ -136,7 +136,7 @@ export default class StatusFixer extends Fixer {
     _fixEmojiPicker(targetContainer, targetInput, picker) {
         if (picker.fixed)
             return;
-        
+
         for (let btn of [...picker.querySelectorAll(".js-emoji-button")])
             btn.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -155,7 +155,7 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes editor's submit button.
-     * 
+     *
      * @param {HTMLElement} details Status' editor.
      */
     _fixDetailsButtons(details) {
