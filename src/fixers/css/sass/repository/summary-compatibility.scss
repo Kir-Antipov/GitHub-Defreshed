@@ -26,17 +26,17 @@
 // These are very flexible rules
 // that can be easily overwritten by themes.
 .overall-summary {
-    border-color: #dfe2e5;
+    border-color: var(--color-btn-border);
 
     a {
-        color: #586069;
+        color: var(--color-text-secondary);
     }
 
     a:hover {
-        color: #0366d6;
+        color: var(--color-text-link);
     }
 
     .octicon {
-        color: #6a737d;
+        color: var(--color-text-tertiary);
     }
 }
