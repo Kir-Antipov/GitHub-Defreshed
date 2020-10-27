@@ -20,6 +20,14 @@
                 text-decoration: none;
             }
         }
+
+        > li.tooltipped-se::before {
+            bottom: 3px;
+        }
+
+        > li.tooltipped-se::after {
+            top: calc(100% - 10px);
+        }
     }
 }
 

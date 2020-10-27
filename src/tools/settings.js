@@ -68,6 +68,9 @@ export class SettingsProperty {
  *
  * @property {SettingsProperty<boolean>} openLanguagesByDefault
  * Open language bar by default.
+ *
+ * @property {SettingsProperty<boolean>} showLatestReleasePopup
+ * Show information about the latest release.
 */
 
 /**
@@ -83,7 +86,8 @@ export const settings = [
     new SettingsProperty("defreshProfilePageUserStatus", "Defresh status appearance on the profile page", "If you prefer the way the status looked before, then this option's for you.", true),
     new SettingsProperty("jumpToTop", "Jump to the page's top after loading", "If you want to preserve the scroll position after page load, you can disable this option.", true),
     new SettingsProperty("treatTagsAsReleases", "Treat tags as releases", "Some repositories only use pre-releases, which aren't displayed as regular releases by GitHub, so without using this option you'll see 0 as the number of releases.", true),
-    new SettingsProperty("openLanguagesByDefault", "Open language bar by default", "This option allows you to change the default state of the language bar.", false)
+    new SettingsProperty("openLanguagesByDefault", "Open language bar by default", "This option allows you to change the default state of the language bar.", false),
+    new SettingsProperty("showLatestReleasePopup", "Show information about the latest release", "This will show information about the latest release (if any) when hovering over the releases section.", true)
 ];
 for (let property of [...settings])
     settings[property.name] = property;
