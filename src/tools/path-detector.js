@@ -2,9 +2,9 @@ import { check as isReserved } from "github-reserved-names";
 
 /**
  * Gets a list of repository branches.
- * 
+ *
  * This method only works on repository pages.
- * 
+ *
  * @returns {string[]} List of repository branches.
  */
 function getRepoBranches() {
@@ -15,9 +15,9 @@ function getRepoBranches() {
 
 /**
  * This method returns a pathname without leading and trailing slashes.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {string} URL's pathname without leading and trailing slashes.
  */
 export function cleanPathname(path = location.pathname) {
@@ -30,9 +30,9 @@ export function cleanPathname(path = location.pathname) {
 
 /**
  * Extracts repository name and its owner from the page's url.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {{ owner: string, repo: string }} Repository name and its owner.
  */
 export function getOwnerAndRepo(path = location.pathname) {
@@ -46,9 +46,9 @@ export function getOwnerAndRepo(path = location.pathname) {
 
 /**
  * Extracts the relative path to the root of the repository.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {string} The relative path to the root of the repository.
  */
 export function getRepoURL(path = location.pathname) {
@@ -61,16 +61,16 @@ export function getRepoURL(path = location.pathname) {
 
 /**
  * Extracts repository's path.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {string} Repository's path.
  */
 export function getRepoPath(path = location.pathname) {
     path = cleanPathname(path);
 	if (!isRepo(path))
         return null;
-        
+
     let match = path.match(/^[^/]+[/][^/]+[/]?(.*)$/);
     if (!match)
         return null;
@@ -80,9 +80,9 @@ export function getRepoPath(path = location.pathname) {
 
 /**
  * Determines if the link points to the root of the site.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isRoot(path = location.pathname) {
@@ -91,9 +91,9 @@ export function isRoot(path = location.pathname) {
 
 /**
  * Determines if the link points to the dashboard.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isDashboard(path = location.pathname) {
@@ -102,9 +102,9 @@ export function isDashboard(path = location.pathname) {
 
 /**
  * Determines if the link points to the notifications.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isNotifications(path = location.pathname) {
@@ -113,16 +113,17 @@ export function isNotifications(path = location.pathname) {
 
 /**
  * Determines if the link points to the repository.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isRepo(path = location.pathname) {
     path = cleanPathname(path);
     let owner = path.substring(0, path.indexOf("/"));
 
-    return /^[^/]+\/[^/]+/.test(path) &&
+    return !is404() &&
+        /^[^/]+\/[^/]+/.test(path) &&
         !isReserved(owner) &&
         !isDashboard(path) &&
         !isNotifications(path);
@@ -130,37 +131,37 @@ export function isRepo(path = location.pathname) {
 
 /**
  * Determines if the link points to the repository's root.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isRepoRoot(path = location.pathname) {
-    path = getRepoPath(path);
-    let commonTestResult = /^(tree[/][^/]+)?$/.test(path);
-    if (commonTestResult || !(path || "").startsWith("tree/"))
+    let repoPath = getRepoPath(path);
+    let commonTestResult = /^(tree[/][^/]+)?$/.test(repoPath);
+    if (commonTestResult || !(repoPath || "").startsWith("tree/"))
         return commonTestResult;
-    
-    path = path.substring(5); // "tree/".length
-    return getRepoBranches().some(x => x == path);
+
+    repoPath = repoPath.substring(5); // "tree/".length
+    return !is404() && getRepoBranches().some(x => x == repoPath);
 }
 
 /**
  * Determines if the link points to the repository's tree.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isRepoTree(path = location.pathname) {
-    return /^tree\//.test(getRepoPath(path));
+    return !is404() && /^tree\//.test(getRepoPath(path));
 }
 
 /**
  * Determines if the link points to the single repository's file.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isSingleFile(path = location.pathname) {
@@ -169,9 +170,9 @@ export function isSingleFile(path = location.pathname) {
 
 /**
  * Determines if the link points to the raw file.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isRaw(path = location.pathname) {
@@ -180,9 +181,9 @@ export function isRaw(path = location.pathname) {
 
 /**
  * Determines if the link points to the archive.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isArchive(path = location.pathname) {
@@ -191,9 +192,9 @@ export function isArchive(path = location.pathname) {
 
 /**
  * Determines if the link points to the release's file.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isReleaseFile(path = location.pathname) {
@@ -202,9 +203,9 @@ export function isReleaseFile(path = location.pathname) {
 
 /**
  * Determines if the link points to the downloadable file.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isFile(path = location.pathname) {
@@ -213,9 +214,9 @@ export function isFile(path = location.pathname) {
 
 /**
  * Determines if the link points to the project board.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isProject(path = location.pathname) {
@@ -224,9 +225,9 @@ export function isProject(path = location.pathname) {
 
 /**
  * Determines if the link is an anchor.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isAnchor(path = location.pathname) {
@@ -235,23 +236,33 @@ export function isAnchor(path = location.pathname) {
 
 /**
  * Determines if the link points to the profile settings.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isProfileSettings(path = location.pathname) {
-    return cleanPathname(path).startsWith("settings/profile");
+    return !is404() && cleanPathname(path).startsWith("settings/profile");
 }
 
 /**
  * Determines if the link points to the profile.
- * 
+ *
  * @param {string} path Page's URL. Can be either absolute or relative.
- * 
+ *
  * @returns {boolean} true if url satisfies the condition; otherwise, false.
  */
 export function isProfile(path = location.pathname) {
     path = cleanPathname(path);
-    return path && !path.includes("/") && !isReserved(path);
+    return !is404() && path && !path.includes("/") && !isReserved(path);
+}
+
+/**
+ * Determines if current page is a 404 template.
+ *
+ * @returns {boolean} true if current page is a 404 template; otherwise, false.
+ */
+export function is404() {
+    let title = (document.head.querySelector("title") || {}).innerText || "";
+    return title === "Page not found · GitHub";
 }
