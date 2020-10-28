@@ -1,4 +1,4 @@
-import { isRepoRoot, isRepoTree } from "../../tools/path-detector";
+import { isRepoRoot, isRepoSetup, isRepoTree } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
@@ -9,7 +9,7 @@ import Fixer from "../fixer";
 export default class CommitBarFixer extends Fixer {
     /** @inheritdoc */
     isApplieble(location) {
-        return isRepoRoot(location) || isRepoTree(location);
+        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup(location);
     }
 
     /** @inheritdoc */
@@ -41,7 +41,7 @@ export default class CommitBarFixer extends Fixer {
 
     /**
      * Backups branches and commits details for future use.
-     * 
+     *
      * @param {HTMLElement} backupContainer Container for passing elements removed from the DOM between fixers.
      */
     _backupDetails(backupContainer) {
@@ -63,7 +63,7 @@ export default class CommitBarFixer extends Fixer {
      * @returns {HTMLElement} Build-Statuses element.
      */
     _getBuildStatuses() {
-        return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") || 
+        return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") ||
                 document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment");
     }
 

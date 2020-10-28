@@ -1,4 +1,4 @@
-import { isRepoRoot } from "../../tools/path-detector";
+import { isRepoRoot, isRepoSetup } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import settings from "../../tools/settings";
@@ -10,7 +10,7 @@ import Fixer from "../fixer";
 export default class LanguageBarFixer extends Fixer {
     /** @inheritdoc */
     isApplieble(location) {
-        return isRepoRoot(location);
+        return isRepoRoot(location) && !isRepoSetup(location);
     }
 
     /** @inheritdoc */

@@ -4,6 +4,7 @@ import PreloaderCSSFixer from "./css/preloader-css-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
 import HeaderFixer from "./repository/header-fixer";
+import HelpFixer from "./repository/help-fixer";
 import BranchButtonFixer from "./repository/branch-button-fixer";
 import BranchesFixer from "./repository/branches-fixer";
 import CommitBarFixer from "./repository/commit-bar-fixer";
@@ -33,6 +34,7 @@ export const allFixers = [
     new ScriptSettingsFixer(),
     new HeaderFixer(),
     new ContainerFixer(),
+    new HelpFixer(),
     new BranchButtonFixer(),
     new BranchesFixer(),
     new CommitBarFixer(),

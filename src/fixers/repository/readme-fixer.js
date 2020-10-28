@@ -1,4 +1,4 @@
-import { isRepoRoot, isRepoTree } from "../../tools/path-detector";
+import { isRepoRoot, isRepoSetup, isRepoTree } from "../../tools/path-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
@@ -8,7 +8,7 @@ import Fixer from "../fixer";
 export default class ReadmeFixer extends Fixer {
     /** @inheritdoc */
     isApplieble(location) {
-        return isRepoRoot(location) || isRepoTree(location);
+        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup(location);
     }
 
     /** @inheritdoc */

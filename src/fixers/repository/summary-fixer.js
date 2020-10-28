@@ -1,4 +1,4 @@
-import { isRepoRoot, getRepoURL } from "../../tools/path-detector";
+import { isRepoRoot, getRepoURL, isRepoSetup } from "../../tools/path-detector";
 import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
@@ -9,7 +9,7 @@ import Fixer from "../fixer";
 export default class SummaryFixer extends Fixer {
     /** @inheritdoc */
     isApplieble(location) {
-        return isRepoRoot(location);
+        return isRepoRoot(location) && !isRepoSetup(location);
     }
 
     /** @inheritdoc */

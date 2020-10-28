@@ -158,6 +158,15 @@ export function isRepoTree(path = location.pathname) {
 }
 
 /**
+ * Determines if current page is a repository setup page.
+ *
+ * @returns {boolean} true if current page is a repository setup page; otherwise, false.
+ */
+export function isRepoSetup() {
+    return !!document.querySelector("main:nth-child(1) div.repository-content > git-clone-help");
+}
+
+/**
  * Determines if the link points to the single repository's file.
  *
  * @param {string} path Page's URL. Can be either absolute or relative.

@@ -1,4 +1,4 @@
-import { isRepoRoot } from "../../tools/path-detector";
+import { isRepoRoot, isRepoSetup } from "../../tools/path-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
@@ -8,12 +8,12 @@ import Fixer from "../fixer";
 export default class EditDetailsFixer extends Fixer {
     /** @inheritdoc */
     isApplieble(location) {
-        return isRepoRoot(location);
+        return isRepoRoot(location) && !isRepoSetup(location);
     }
 
     /** @inheritdoc */
     async waitUntilFixerReady() {
-        return  (await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row")) && 
+        return  (await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row")) &&
                 (await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-row:nth-child(1) details"));
     }
 
