@@ -21,6 +21,7 @@ import ProfileStatusFixer from "./profile/status-fixer";
 import ProfileBlockOrReportFixer from "./profile/block-or-report-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
+import NoticeFixer from "./global/notice-fixer";
 import Fixer from "./fixer";
 
 /**
@@ -51,7 +52,8 @@ export const allFixers = [
     new ProfileStatusFixer(),
     new ProfileBlockOrReportFixer(),
     new LinksFixer(),
-    new WindowPopstateFixer()
+    new WindowPopstateFixer(),
+    new NoticeFixer()
 ];
 
 export default allFixers;
