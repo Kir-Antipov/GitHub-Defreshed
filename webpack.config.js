@@ -20,7 +20,6 @@ const metadata = `// ==UserScript==
 // ==/UserScript==`;
 
 module.exports = {
-    mode: "production",
     entry: "./src/index.js",
     output: {
         filename: `${name}.user.js`,
