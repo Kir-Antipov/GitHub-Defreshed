@@ -11,7 +11,7 @@
 
 ## About
 
-So, Microsoft took yet another step to prove to some last doubters that **Microsoft is the worst thing that happened to GitHub ever**. 
+So, Microsoft took yet another step to prove to some last doubters that **Microsoft is the worst thing that happened to GitHub ever**.
 
 This time effective managers from Microsoft (tbh, I don't think there were any UI/UX designers involved into this) turned repository page into some unusable low quality piece of :shit:.
 
@@ -26,6 +26,10 @@ Repository page:
 Profile page:
 
 ![Preview of GitHub Defreshed: Profile page](./media/preview-2.png)
+
+Dark mode:
+
+![Preview of GitHub Defreshed: Dark mode](./media/preview-dark.png)
 
 Just ol' buddy GitHub in person
 
@@ -46,6 +50,7 @@ Just ol' buddy GitHub in person
  - Container dimensions returned to adequate proportions
  - Unrounded buttons, avatars and containers and another CSS-improvements
  - Full support of custom themes (e.g., `GitHub-Dark`)
+ - Full support of dark mode
  - And much more!
 
 ## Settings
