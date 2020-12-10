@@ -48,3 +48,11 @@
         color: var(--color-text-tertiary);
     }
 }
+
+.reponav-item svg.octicon {
+    color: var(--color-underlinenav-icon);
+}
+
+div.repository-lang-stats-graph {
+    border-color: var(--color-btn-border);
+}
