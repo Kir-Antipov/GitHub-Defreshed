@@ -25,7 +25,7 @@ export default class StatusFixer extends Fixer {
         let emoji = statusContainer.querySelector("img") || statusContainer.querySelector("g-emoji");
         let textContainer = statusContainer.querySelector(".user-status-message-wrapper");
         let text = textContainer ? textContainer.innerText.trim() : "";
-        let isBusy = !!statusContainer.querySelector(".bg-yellow-light");
+        let isBusy = !!statusContainer.querySelector(".user-status-busy");
         let details = statusContainer.querySelector("details-dialog");
 
         this._fixDetails(details);
