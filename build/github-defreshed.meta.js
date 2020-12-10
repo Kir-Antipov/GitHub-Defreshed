@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub Defreshed
 // @namespace    GitHub
-// @version      2.5.0
+// @version      2.6.0
 // @author       Kir_Antipov
 // @description  Make GitHub Great Again!
 // @license      MIT
