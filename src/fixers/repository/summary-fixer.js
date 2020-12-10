@@ -177,7 +177,7 @@ export default class SummaryFixer extends Fixer {
         return [...document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
             .find(x => {
                 let link = x.querySelector("a");
-                return link && link.href.endsWith(name);
+                return link && link.href.includes(name);
             });
     }
 
