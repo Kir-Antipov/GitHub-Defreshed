@@ -19,6 +19,7 @@
     "webpack-dev-server": "^3.11.0",
     "create-file-webpack": "^1.0.2",
     "css-loader": "^5.0.1",
+    "dom-chef": "^4.2.2",
     "eslint": "^7.16.0",
     "github-reserved-names": "^2.0.4",
     "node-sass": "^5.0.0",
