@@ -1,7 +1,7 @@
 import { createStyleElement } from "../../tools/create-element";
 import { waitUntilHeadReady } from "../../tools/wait-until-ready";
 import { SettingsProperty } from "../../tools/settings";
-import { name as scriptName } from "../../../package.json";
+import config from "../../../package.json";
 import Fixer from "../fixer";
 
 /**
@@ -22,7 +22,7 @@ export default class CSSFixer extends Fixer {
         super();
         this._css = css.toString();
         this._option = option;
-        this._name = `${scriptName}-${name}`;
+        this._name = `${config.name}-${name}`;
     }
 
     /** @inheritdoc */
