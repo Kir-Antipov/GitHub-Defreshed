@@ -38,13 +38,28 @@ module.exports = {
         ],
     },
     module: {
-        rules: [{
-            test: /\.scss$/,
-            use: [
-                { loader: "css-loader" },
-                { loader: "sass-loader" }
-            ]
-        }],
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    "css-loader",
+                    "sass-loader"
+                ]
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        plugins: ["@babel/plugin-transform-react-jsx"]
+                    }
+                }
+            }
+        ],
+    },
+    resolve: {
+        extensions: ["*", ".js", ".jsx"],
     },
     plugins: [
         new CreateFileWebpack({
