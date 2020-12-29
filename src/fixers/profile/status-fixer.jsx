@@ -1,6 +1,5 @@
 import { isProfile } from "../../tools/path-detector";
 import { checkIfElementsReady } from "../../tools/wait-until-ready";
-import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import submitForm from "../../tools/submit-form";
 import Fixer from "../fixer";
@@ -29,9 +28,7 @@ export default class StatusFixer extends Fixer {
         let details = statusContainer.querySelector("details-dialog");
 
         this._fixDetails(details);
-        let defreshedStatus = this._createStatusContainer(emoji, text, isBusy, details);
-
-        statusContainer.replaceWith(defreshedStatus);
+        statusContainer.replaceWith(this._createStatusContainer(emoji, text, isBusy, details));
 
         let avatar = document.querySelector("main img.avatar");
         if (avatar)
@@ -49,37 +46,25 @@ export default class StatusFixer extends Fixer {
      * @returns {HTMLElement} Defreshed status block.
      */
     _createStatusContainer(emoji, text, isBusy = false, details = null) {
-        return createElement(details ? "details" : "div", {
-            className: "user-status-container border position-relative hide-sm bg-white hide-md" + (details ? " details-reset details-overlay details-overlay-dark" : ""),
-            children: [
-                createElement(details ? "summary" : "div", {
-                    className: "d-flex",
-                    children: [createElement("div", {
-                        className: "d-flex p-2 width-full border-0 rounded-bottom-0" + (isBusy ? " user-status-container-border-busy bg-yellow-light border-yellow" : ""),
-                        children: [
-                            createElement("div", {
-                                className: "flex-self-start mr-1 ml-1",
-                                children: [createElement("div", {
-                                    children: [emoji]
-                                })]
-                            }),
-                            createElement("div", {
-                                className: "user-status-message-wrapper f6 mt-1 text-gray-dark ws-normal",
-                                children: [
-                                    createElement("div", {
-                                        children: [createElement("div", {
-                                            innerText: text
-                                        })]
-                                    })
-                                ]
-                            })
-                        ]
-                    })]
-                }),
-                details
-            ]
-            .filter(x => x)
-        });
+        let DetailsTag = details ? "details" : "div";
+        let SummaryTag = details ? "summary" : "div";
+        return (
+            <DetailsTag className={"user-status-container border position-relative hide-sm bg-white hide-md" + (details ? " details-reset details-overlay details-overlay-dark" : "")}>
+                <SummaryTag className="d-flex">
+                    <div className={"d-flex p-2 width-full border-0 rounded-bottom-0" + (isBusy ? " user-status-container-border-busy bg-yellow-light border-yellow" : "")}>
+                        <div className="flex-self-start mr-1 ml-1">
+                            <div>{emoji}</div>
+                        </div>
+                        <div className="user-status-message-wrapper f6 mt-1 text-gray-dark ws-normal">
+                            <div>
+                                <div>{text}</div>
+                            </div>
+                        </div>
+                    </div>
+                </SummaryTag>
+                {details}
+            </DetailsTag>
+        );
     }
 
     /**
@@ -144,9 +129,7 @@ export default class StatusFixer extends Fixer {
                 let emoji = this.children[0].cloneNode(true);
                 emoji.removeAttribute("width");
                 emoji.removeAttribute("height");
-                targetContainer.children[0].replaceWith(createElement("div", {
-                    children: [emoji]
-                }));
+                targetContainer.children[0].replaceWith(<div>{emoji}</div>);
                 picker.close();
             });
 
