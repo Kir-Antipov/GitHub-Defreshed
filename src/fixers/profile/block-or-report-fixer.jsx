@@ -1,6 +1,5 @@
 import { isProfile } from "../../tools/path-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
-import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
 import Fixer from "../fixer";
 
@@ -26,10 +25,11 @@ export default class BlockOrReportFixer extends Fixer {
         reportBlock.querySelector("summary").className = "btn-link text-small muted-link my-1";
 
         let userInfo = document.querySelector("main .h-card");
-        userInfo.append(createElement("div", {
-            className: "pt-3",
-            children: [reportBlock]
-        }));
+        userInfo.append(
+            <div className="pt-3">
+                {reportBlock}
+            </div>
+        );
 
         container.parentElement.remove();
     }
