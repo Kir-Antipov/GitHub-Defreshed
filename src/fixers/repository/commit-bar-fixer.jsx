@@ -1,5 +1,4 @@
 import { isRepoRoot, isRepoSetup, isRepoTree } from "../../tools/path-detector";
-import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
@@ -73,10 +72,7 @@ export default class CommitBarFixer extends Fixer {
     _moveCommitBuildStatuses() {
         if (this._getBuildStatuses()) {
             let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header .commit-author").parentElement;
-            commitMessageContainer.parentElement.insertBefore(createElement("div", {
-                className: "ml-1",
-                children: [this._getBuildStatuses()]
-            }), commitMessageContainer.nextSibling);
+            commitMessageContainer.parentElement.insertBefore(<div className="ml-1">{this._getBuildStatuses()}</div>, commitMessageContainer.nextSibling);
         }
     }
 
@@ -107,14 +103,11 @@ export default class CommitBarFixer extends Fixer {
         commitHash.classList.remove("ml-2");
         let commitTime = wrongCommitDetailsContainer.querySelector("relative-time");
 
-        let commitDetailsWrapper = createElement("div", {
-            className: "css-truncate css-truncate-overflow text-gray",
-            children: [
-                "Latest commit ", commitHash, " ", commitTime
-            ]
-        });
-
-        commitDetailsContainer.append(commitDetailsWrapper);
+        commitDetailsContainer.append(
+            <div className="css-truncate css-truncate-overflow text-gray">
+                Latest commit {commitHash} {commitTime}
+            </div>
+        );
         wrongCommitDetailsContainer.parentElement.removeChild(wrongCommitDetailsContainer);
     }
 
