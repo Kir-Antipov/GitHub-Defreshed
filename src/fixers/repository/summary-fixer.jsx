@@ -1,6 +1,6 @@
 import { isRepoRoot, getRepoURL, isRepoSetup } from "../../tools/path-detector";
-import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
+import parseElement from "../../tools/parse-element";
 import Fixer from "../fixer";
 
 /**
@@ -15,24 +15,21 @@ export default class SummaryFixer extends Fixer {
     /** @inheritdoc */
     apply(location, backupContainer) {
         let langsBar = document.querySelector(".repository-content details summary div.repository-lang-stats-graph");
-        let summary = createElement("ul", {
-            className: "numbers-summary",
-            children: [
-                this._createCommitsSummaryElement(backupContainer),
-                this._createBranchesSummaryElement(backupContainer),
-                this._createPackagesSummaryElement(location),
-                this._createReleasesSummaryElement(location),
-                this._createContributorsSummaryElement(location),
-                this._createLicenseSummaryElement()
-            ].filter(x => x)
-        });
 
         document
             .querySelector(".repository-content")
-            .prepend(createElement("div", {
-                className: "overall-summary " + (langsBar ? "border-bottom-0 mb-0 rounded-bottom-0" : "mb-3"),
-                children: [summary]
-            }));
+            .prepend(
+                <div className={"overall-summary " + (langsBar ? "border-bottom-0 mb-0 rounded-bottom-0" : "mb-3")}>
+                    <ul className="numbers-summary">
+                        {this._createCommitsSummaryElement(backupContainer)}
+                        {this._createBranchesSummaryElement(backupContainer)}
+                        {this._createPackagesSummaryElement(location)}
+                        {this._createReleasesSummaryElement(location)}
+                        {this._createContributorsSummaryElement(location)}
+                        {this._createLicenseSummaryElement()}
+                    </ul>
+                </div>
+            );
     }
 
     /**
@@ -193,24 +190,12 @@ export default class SummaryFixer extends Fixer {
      * @returns {HTMLLIElement} Summary element.
      */
     _createSummaryElement(svg, link, text, count = -1, pluralEnding = "s") {
-        let html = svg + "\n";
-        if (count == -1) {
-            html += text;
-        } else {
-            html += `<span class="num text-emphasized">${count}</span>`;
-            html += `\n`;
-            html += text;
-            if (count != 1)
-                html += pluralEnding;
-        }
-
-        return createElement("li", {
-            children: [
-                createElement("a", {
-                    href: link,
-                    innerHTML: html
-                })
-            ]
-        });
+        return (
+            <li>
+                <a href={link}>
+                    {parseElement(svg)} {count != -1 && <span className="num text-emphasized">{count}</span>} {text + (count == 1 || count == -1 ? "" : pluralEnding)}
+                </a>
+            </li>
+        );
     }
 }
