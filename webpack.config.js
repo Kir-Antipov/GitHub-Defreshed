@@ -1,24 +1,37 @@
 const path = require("path");
+const { EOL } = require("os");
 const TerserPlugin = require("terser-webpack-plugin");
 const CreateFileWebpack = require("create-file-webpack");
 const RemoveFilesPlugin = require("remove-files-webpack-plugin");
 const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
-const metadata = `// ==UserScript==
-// @name         ${displayName}
-// @namespace    ${namespace}
-// @version      ${version}
-// @author       ${author}
-// @description  ${description}
-// @license      ${license}
-// @homepageURL  https://github.com/${githubUser}/${githubRepo}
-// @updateURL    https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js
-// @downloadURL  https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js
-// @supportURL   https://github.com/${githubUser}/${githubRepo}/issues/new/choose
-// @match        https://github.com/*
-// @run-at       document-start
-// @grant        none
-// ==/UserScript==`;
+function transformMetadata(metadata) {
+    const maxLength = (Object.keys(metadata).map(x => x.length).sort((a, b) => b - a)[0] || 0) + 6;
+
+    return [
+        "// ==UserScript==",
+        ...Object
+            .entries(metadata)
+            .map(([key, value]) => `// @${key}`.padEnd(maxLength, " ") + value),
+        "// ==/UserScript=="
+    ].join(EOL);
+}
+
+const metadata = {
+    name: displayName,
+    namespace,
+    version,
+    author,
+    description,
+    license,
+    homepageURL: `https://github.com/${githubUser}/${githubRepo}`,
+    updateURL: `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js`,
+    downloadURL: `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js`,
+    supportURL: `https://github.com/${githubUser}/${githubRepo}/issues/new/choose`,
+    match: `https://github.com/*`,
+    "run-at": `document-start`,
+    grant: `none`
+};
 
 module.exports = {
     entry: "./src/index.js",
@@ -32,7 +45,7 @@ module.exports = {
                 terserOptions: {
                     output: {
                         beautify: false,
-                        preamble: metadata,
+                        preamble: transformMetadata(metadata),
                     },
                 },
             }),
@@ -86,7 +99,7 @@ module.exports = {
         new CreateFileWebpack({
             fileName: `${name}.meta.js`,
             path: path.resolve(__dirname, "build"),
-            content: metadata
+            content: transformMetadata(metadata)
         })
     ]
 };
