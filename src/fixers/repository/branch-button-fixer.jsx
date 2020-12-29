@@ -1,5 +1,4 @@
 import { isRepoRoot, isRepoSetup, isRepoTree, isSingleFile } from "../../tools/path-detector";
-import createElement from "../../tools/create-element";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
@@ -27,9 +26,6 @@ export default class BranchButtonFixer extends Fixer {
         fragment && fragment.setAttribute("src", src);
 
         let branchName = button.querySelector("span.css-truncate-target");
-        branchName.parentElement.insertBefore(createElement("i", {
-            className: "d-none d-lg-inline",
-            innerText: "Branch: "
-        }), branchName);
+        branchName.parentElement.insertBefore(<i className="d-none d-lg-inline">Branch: </i>, branchName);
     }
 }
