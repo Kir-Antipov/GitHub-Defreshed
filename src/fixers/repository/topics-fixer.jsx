@@ -1,5 +1,4 @@
 import { isRepoRoot, isRepoSetup } from "../../tools/path-detector";
-import createElement from "../../tools/create-element";
 import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
 import Fixer from "../fixer";
 
@@ -23,9 +22,10 @@ export default class TopicsFixer extends Fixer {
         let firstTopic = document.querySelector("main .repository-content .BorderGrid-cell .topic-tag");
         document
             .querySelector("main .repository-content")
-            .prepend(createElement("div", {
-                className: "repository-topics-container mt-2 mb-3 js-topics-list-container",
-                children: [firstTopic.parentElement]
-            }));
+            .prepend(
+                <div className="repository-topics-container mt-2 mb-3 js-topics-list-container">
+                    {firstTopic.parentElement}
+                </div>
+            );
     }
 }
