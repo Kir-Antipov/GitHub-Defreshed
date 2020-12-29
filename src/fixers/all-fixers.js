@@ -17,6 +17,7 @@ import EditDetailsFixer from "./repository/edit-details-fixer";
 import ColumnsFixer from "./repository/columns-fixer";
 import ReadmeFixer from "./repository/readme-fixer";
 import ProfileTabsFixer from "./profile/tabs-fixer";
+import ThemeSelectorFixer from "./profile/theme-selector-fixer";
 import ProfileStatusFixer from "./profile/status-fixer";
 import ProfileBlockOrReportFixer from "./profile/block-or-report-fixer";
 import LinksFixer from "./global/links-fixer";
@@ -49,6 +50,7 @@ export const allFixers = [
     new ColumnsFixer(),
     new ReadmeFixer(),
     new ProfileTabsFixer(),
+    new ThemeSelectorFixer(),
     new ProfileStatusFixer(),
     new ProfileBlockOrReportFixer(),
     new LinksFixer(),
