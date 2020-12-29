@@ -1,7 +1,7 @@
 import { isProfile } from "../../tools/path-detector";
 import { waitUntilElementsReady } from "../../tools/wait-until-ready";
-import createElement from "../../tools/create-element";
 import settings from "../../tools/settings";
+import parseElement from "../../tools/parse-element";
 import Fixer from "../fixer";
 
 /**
@@ -27,17 +27,17 @@ export default class TabsFixer extends Fixer {
         tabs.append(...this._generateTabs(container, location));
 
         container.parentElement.removeChild(container);
-        
+
         if (!settings.keepProfilePageIcons.value)
             [...tabs.querySelectorAll("svg")].forEach(x => x.style.display = "none");
     }
 
     /**
      * Generates Stars/Followers/Following tabs.
-     * 
-     * @param {HTMLElement} container Profile details container. 
+     *
+     * @param {HTMLElement} container Profile details container.
      * @param {string} location Page's URL.
-     * 
+     *
      * @returns {HTMLAnchorElement[]} Tabs.
      */
     _generateTabs(container, location) {
@@ -57,9 +57,9 @@ export default class TabsFixer extends Fixer {
 
     /**
      * Parses tab's name from url.
-     * 
+     *
      * @param {string} href Tab's url.
-     * 
+     *
      * @returns {string} Tab's name.
      */
     _getTabName(href) {
@@ -71,38 +71,33 @@ export default class TabsFixer extends Fixer {
 
     /**
      * Generates tab.
-     * 
+     *
      * @param {string} location Page's URL.
-     * @param {HTMLElement} element Element that contains tab's data. 
+     * @param {HTMLElement} element Element that contains tab's data.
      * @param {string} defaultSvg Default SVG.
-     * 
+     *
      * @returns {HTMLAnchorElement} Tab.
      */
     _generateTab(location, element, defaultSvg = null) {
         let svg = element.querySelector("svg");
         if (!svg && defaultSvg)
-            svg = createElement("div", { innerHTML: defaultSvg }).querySelector("svg");
+            svg = parseElement(defaultSvg);
 
         let text = this._getTabName(element.href).trim();
-        text = " " + text[0].toUpperCase() + text.slice(1) + " ";
+        text = text[0].toUpperCase() + text.slice(1);
 
         let countElement = element.querySelector("span");
-        let countText = !countElement || !countElement.innerText ? "0" : countElement.innerText.trim(); 
-        let count = countText == "0" ? null : createElement("span", {
-            className: "Counter",
-            title: countText,
-            innerText: countText
-        });
+        let countText = !countElement || !countElement.innerText ? "0" : countElement.innerText.trim();
+        let count = countText != "0" && (
+            <span className="Counter" title={countText}>
+                {countText}
+            </span>
+        );
 
-        return createElement("a", {
-            href: element.href,
-            className: "UnderlineNav-item" + (this._getTabName(location) == this._getTabName(element.href) ? " selected" : ""),
-            children: [
-                svg,
-                text,
-                count
-            ]
-            .filter(x => x)
-        });
+        return (
+            <a href={element.href} className={"UnderlineNav-item" + (this._getTabName(location) == this._getTabName(element.href) ? " selected" : "")}>
+                {svg} {text} {count}
+            </a>
+        );
     }
 }
