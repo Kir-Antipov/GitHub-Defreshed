@@ -1,4 +1,3 @@
-import { createStyleElement } from "../../tools/create-element";
 import { waitUntilHeadReady } from "../../tools/wait-until-ready";
 import { SettingsProperty } from "../../tools/settings";
 import config from "../../../package.json";
@@ -37,9 +36,10 @@ export default class CSSFixer extends Fixer {
 
     /** @inheritdoc */
     apply() {
-        let cssElement = createStyleElement(this._css);
-        cssElement.setAttribute(this._name, "");
-
-        document.head.append(cssElement);
+        document.head.append(
+            <style type="text/css" {...{ [this._name]: "" }}>
+                {this._css}
+            </style>
+        );
     }
 }
