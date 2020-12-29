@@ -1,11 +1,10 @@
 import defresh from "./defresh";
 import { isRoot, isProject } from "./path-detector";
-import createElement from "./create-element";
 import settings from "./settings";
 
 /**
  * Updates the current location.
- * 
+ *
  * @param {string} link Actual page URL.
  */
 function setLocation(link) {
@@ -24,7 +23,7 @@ function imitateLoading() {
     if (loader) {
         const loadingTime = 1200;
         const step = 100;
-        
+
         loader.firstElementChild.style.width = 0;
         loader.style.opacity = "100%";
         for (let i = 0; i < loadingTime; i += step) {
@@ -38,9 +37,9 @@ function imitateLoading() {
 
 /**
  * Loads a document from the specified address.
- * 
+ *
  * @param {string} link The address of the page to download.
- * 
+ *
  * @returns {Promise<{ document: Document, url: string }>}
  * Returns the document and its final address
  * (it may differ from the passed parameter if there was a redirect).
@@ -56,9 +55,9 @@ async function getDocumentAndURL(link) {
 
 /**
  * Retrieves script's src value.
- * 
+ *
  * @param {HTMLScriptElement} scriptElement The script element.
- * 
+ *
  * @returns {string} The URL to an external file that contains the source code.
  */
 function getScriptSrc(scriptElement) {
@@ -67,7 +66,7 @@ function getScriptSrc(scriptElement) {
 
 /**
  * Updates document's header.
- * 
+ *
  * @param {Document} newDocument New header source.
  */
 function updateHeader(newDocument) {
@@ -79,7 +78,7 @@ function updateHeader(newDocument) {
 
 /**
  * Loads scripts into the document that haven't been added previously.
- * 
+ *
  * @param {Document} newDocument New scripts source.
  */
 function updateScripts(newDocument) {
@@ -88,13 +87,13 @@ function updateScripts(newDocument) {
     let inactiveScripts = newScripts
         .map(getScriptSrc)
         .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) == src))
-        .map(src => createElement("script", { src }));
+        .map(src => <script src={src}/>);
     document.body.append(...inactiveScripts);
 }
 
 /**
  * Updates the document with the new data.
- * 
+ *
  * @param {Document} newDocument Update source.
  */
 function updateDocument(newDocument) {
@@ -113,7 +112,7 @@ function updateDocument(newDocument) {
 
 /**
  * Dynamically loads a new page and substitutes its content into the current one.
- * 
+ *
  * @param {string} link The address of the page to download.
  * @param {boolean} changeLocation Indicates whether to update the current page URL.
  */
@@ -127,22 +126,15 @@ export async function navigate(link = window.location.href, changeLocation = tru
 
     if (root) {
         let app = document.querySelector("body > div.application-main");
-        app.prepend(createElement("div", {
-            className: "",
-            attributes: {
-                itemscope: "",
-                itemtype: "http://schema.org/SoftwareSourceCode"
-            },
-            children: [
-                createElement("main")
-            ]
-        }));
+        app.prepend(
+            <div itemScope="" itemType="http://schema.org/SoftwareSourceCode"><main/></div>
+        );
     }
     let oldMain = document.querySelector("main");
     oldMain.parentElement.insertBefore(newMain, oldMain);
 
     await defresh(result.url);
-    
+
     oldMain.replaceWith(newMain);
     if (root) {
         let app = document.querySelector("body > div.application-main");
@@ -154,7 +146,7 @@ export async function navigate(link = window.location.href, changeLocation = tru
     newMain.style.display = "";
 
     if (settings.jumpToTop.value)
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
 
     updateDocument(result.document);
 
