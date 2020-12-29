@@ -1,6 +1,7 @@
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const CreateFileWebpack = require("create-file-webpack");
+const RemoveFilesPlugin = require("remove-files-webpack-plugin");
 const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
 const metadata = `// ==UserScript==
@@ -75,6 +76,13 @@ module.exports = {
         extensions: ["*", ".js", ".jsx"],
     },
     plugins: [
+        new RemoveFilesPlugin({
+            before: {
+                include: [
+                    path.resolve(__dirname, "build")
+                ]
+            }
+        }),
         new CreateFileWebpack({
             fileName: `${name}.meta.js`,
             path: path.resolve(__dirname, "build"),
