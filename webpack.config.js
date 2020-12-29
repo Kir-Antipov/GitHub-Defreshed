@@ -55,6 +55,19 @@ module.exports = {
                         plugins: ["@babel/plugin-transform-react-jsx"]
                     }
                 }
+            },
+            {
+                test: /\.jsx$/,
+                use: [
+                    {
+                        loader: "imports-loader",
+                        options: {
+                            imports: [
+                                "default dom-chef React",
+                            ],
+                        },
+                    },
+                ],
             }
         ],
     },
