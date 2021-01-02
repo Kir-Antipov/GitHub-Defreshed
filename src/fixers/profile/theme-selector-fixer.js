@@ -8,8 +8,8 @@ import Fixer from "../fixer";
  */
 export default class ThemeSelectorFixer extends Fixer {
     /** @inheritdoc */
-    isApplieble(location) {
-        return settings.defreshProfilePage.value && settings.removeThemeSelector.value && isProfile(location);
+    async isApplieble(location) {
+        return await settings.defreshProfilePage.getValue() && await settings.removeThemeSelector.getValue() && isProfile(location);
     }
 
     /** @inheritdoc */

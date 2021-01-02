@@ -75,9 +75,9 @@ export default class ScriptSettingsFixer extends Fixer {
     generateBooleanProperty(property) {
         let id = `github-defreshed_${property.name}`;
 
-        return (
+        const result = (
             <div className="form-checkbox mt-0">
-                <input id={id} checked={property.value} type="checkbox" onChange={function() { property.value = this.checked; }}/>
+                <input id={id} type="checkbox" onChange={function() { property.setValue(this.checked); }}/>
                 <label htmlFor={id}>{property.title}</label>
                 {
                     property.description &&
@@ -85,6 +85,10 @@ export default class ScriptSettingsFixer extends Fixer {
                 }
             </div>
         );
+
+        property.getValue().then(x => result.querySelector("input").checked = x);
+
+        return result;
     }
 
     /**
@@ -96,7 +100,7 @@ export default class ScriptSettingsFixer extends Fixer {
     generateStringProperty(property) {
         let id = `github-defreshed_${property.name}`;
 
-        return (
+        const result = (
             <dl className="form-group">
                 <dt>
                     <label htmlFor={id}>
@@ -104,7 +108,7 @@ export default class ScriptSettingsFixer extends Fixer {
                     </label>
                 </dt>
                 <dd>
-                    <input id={id} value={property.value} type="text" className="form-control" onChange={function() { property.value = this.value; }}/>
+                    <input id={id} type="text" className="form-control" onChange={function() { property.setValue(this.value); }}/>
                     {
                         property.description &&
                         <div className="note">
@@ -114,5 +118,9 @@ export default class ScriptSettingsFixer extends Fixer {
                 </dd>
             </dl>
         );
+
+        property.getValue().then(x => result.querySelector("input").value = x);
+
+        return result;
     }
 }

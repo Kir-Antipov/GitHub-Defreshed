@@ -25,8 +25,8 @@ export default class CSSFixer extends Fixer {
     }
 
     /** @inheritdoc */
-    isApplieble() {
-        return this._option.value && !document.querySelector(`head > style[${this._name}]`);
+    async isApplieble() {
+        return await this._option.getValue() && !document.querySelector(`head > style[${this._name}]`);
     }
 
     /** @inheritdoc */

@@ -7,6 +7,6 @@ import CSSFixer from "./css-fixer";
 export default class CompatibilityCSSFixer extends CSSFixer {
     /** @inheritdoc */
     constructor() {
-        super({ value: true }, css, "compatibility");
+        super({ getValue: () => true }, css, "compatibility");
     }
 }

@@ -19,11 +19,11 @@ export default class MainBranchNameFixer extends Fixer {
     }
 
     /** @inheritdoc */
-    apply() {
+    async apply() {
         let helpElement = document.querySelector("main:nth-child(1) git-clone-help");
         let patterns = new Map([
-            [`-M ${settings.mainBranchName.defaultValue}`, `-M ${settings.mainBranchName.value}`],
-            [`origin ${settings.mainBranchName.defaultValue}`, `origin ${settings.mainBranchName.value}`]
+            [`-M ${settings.mainBranchName.defaultValue}`, `-M ${await settings.mainBranchName.getValue()}`],
+            [`origin ${settings.mainBranchName.defaultValue}`, `origin ${await settings.mainBranchName.getValue()}`]
         ]);
         for (let textContainer of [...helpElement.querySelectorAll("span")].filter(x => (x.innerText || "").trim())) {
             for (let pattern of patterns) {

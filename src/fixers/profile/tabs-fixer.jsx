@@ -9,8 +9,8 @@ import Fixer from "../fixer";
  */
 export default class TabsFixer extends Fixer {
     /** @inheritdoc */
-    isApplieble(location) {
-        return settings.defreshProfilePage.value && isProfile(location);
+    async isApplieble(location) {
+        return await settings.defreshProfilePage.getValue() && isProfile(location);
     }
 
     /** @inheritdoc */
@@ -19,7 +19,7 @@ export default class TabsFixer extends Fixer {
     }
 
     /** @inheritdoc */
-    apply(location) {
+    async apply(location) {
         let container = document.querySelector("main div.js-profile-editable-area > :not(.vcard-details)[class]");
 
         let tabs = document.querySelector("main nav");
@@ -28,7 +28,7 @@ export default class TabsFixer extends Fixer {
 
         container.parentElement.removeChild(container);
 
-        if (!settings.keepProfilePageIcons.value)
+        if (!await settings.keepProfilePageIcons.getValue())
             [...tabs.querySelectorAll("svg")].forEach(x => x.style.display = "none");
     }
 

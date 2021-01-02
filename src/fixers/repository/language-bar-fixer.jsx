@@ -19,11 +19,11 @@ export default class LanguageBarFixer extends Fixer {
     }
 
     /** @inheritdoc */
-    apply() {
+    async apply() {
         let langs = [...document.querySelector("main .BorderGrid-row .Progress").parentElement.nextElementSibling.children].map(this._extractLanguageData);
 
         document.querySelector(".repository-content").prepend(
-            <details className="details-reset mb-3" open={settings.openLanguagesByDefault.value || undefined}>
+            <details className="details-reset mb-3" open={(await settings.openLanguagesByDefault.getValue()) || undefined}>
                 <summary title="Click for language details">
                     <div className="d-flex repository-lang-stats-graph">
                         {langs.map(lang =>

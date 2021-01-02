@@ -145,7 +145,7 @@ export async function navigate(link = window.location.href, changeLocation = tru
     }
     newMain.style.display = "";
 
-    if (settings.jumpToTop.value)
+    if (await settings.jumpToTop.getValue())
         window.scrollTo(0, 0);
 
     updateDocument(result.document);

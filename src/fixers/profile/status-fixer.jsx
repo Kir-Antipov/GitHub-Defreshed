@@ -9,8 +9,8 @@ import Fixer from "../fixer";
  */
 export default class StatusFixer extends Fixer {
     /** @inheritdoc */
-    isApplieble(location) {
-        return settings.defreshProfilePage.value && settings.defreshProfilePageUserStatus.value && isProfile(location);
+    async isApplieble(location) {
+        return await settings.defreshProfilePage.getValue() && await settings.defreshProfilePageUserStatus.getValue() && isProfile(location);
     }
 
     /** @inheritdoc */

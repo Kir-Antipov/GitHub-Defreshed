@@ -8,8 +8,8 @@ import Fixer from "../fixer";
  */
 export default class BlockOrReportFixer extends Fixer {
     /** @inheritdoc */
-    isApplieble(location) {
-        return settings.defreshProfilePage.value && isProfile(location);
+    async isApplieble(location) {
+        return await settings.defreshProfilePage.getValue() && isProfile(location);
     }
 
     /** @inheritdoc */

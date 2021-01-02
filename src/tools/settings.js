@@ -23,21 +23,26 @@ export class SettingsProperty {
         Object.freeze(this);
     }
 
-    get value() {
-        let value = storage.getItem(this.name)
+    /**
+     * Gets property value.
+     * @returns {Promise<Value>} value
+     */
+    async getValue() {
+        let value = await storage.getItem(this.name);
         if (value === null || value === undefined)
             return this.defaultValue;
         return value;
     }
 
     /**
-     * Gets or sets property value.
+     * Sets property value.
      * @param {Value} value
      */
-    set value(value) {
+    async setValue(value) {
         if (typeof value != typeof this.defaultValue || Array.isArray(value) != Array.isArray(this.defaultValue))
             throw new Error("Invalid type.");
-        storage.setItem(this.name, value);
+
+        await storage.setItem(this.name, value);
     }
 }
 
