@@ -41,6 +41,7 @@ const manifest = {
     description,
     version,
     author,
+    homepage_url: metadata.homepageURL,
     icons: {
         48: "icons/icon.svg",
         96: "icons/icon.svg",
