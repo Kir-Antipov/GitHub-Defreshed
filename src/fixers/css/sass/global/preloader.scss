@@ -11,6 +11,12 @@ html.defreshing {
     }
 }
 
+html.defreshing[data-color-mode=dark] {
+    main::before {
+        filter: invert(1);
+    }
+}
+
 html.defreshed * {
     transition: 1000ms opacity;
 }
