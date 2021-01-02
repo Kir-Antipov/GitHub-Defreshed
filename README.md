@@ -4,7 +4,6 @@
   <a href="https://github.com/Kir-Antipov/GitHub-Defreshed/tags"><img alt="Version" src="https://img.shields.io/github/tag/Kir-Antipov/GitHub-Defreshed.svg?label=version&style=flat"></a>
   <a href="https://github.com/Kir-Antipov/GitHub-Defreshed/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/Kir-Antipov/GitHub-Defreshed.svg?style=flat"></a>
   <a href="https://www.codefactor.io/repository/github/kir-antipov/github-defreshed/overview"><img alt="Codefactor" src="https://www.codefactor.io/repository/github/Kir-Antipov/GitHub-Defreshed/badge"></a>
-  <a href="https://david-dm.org/Kir-Antipov/GitHub-Defreshed?type=dev"><img alt="devDependencies" src="https://img.shields.io/david/dev/Kir-Antipov/GitHub-Defreshed.svg?label=devDependencies&style=flat"></a>
   <a href="https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/LICENSE.md"><img alt="License" src="https://img.shields.io/github/license/Kir-Antipov/GitHub-Defreshed.svg?style=flat&label=license&cacheSeconds=36000"></a>
 </p>
 <h2 align="center">&nbsp;:star:&nbsp;this repo to&nbsp;:-1:&nbsp;repository page update</h2>
@@ -34,6 +33,22 @@ Dark mode:
 Just ol' buddy GitHub in person
 
 ## Installation
+
+### Firefox
+
+🦊 Install [Firefox add-on](https://addons.mozilla.org/firefox/addon/github-defreshed/).
+
+### Google Chrome
+
+📦 Install [Chrome extension](https://chrome.google.com/webstore/detail/github-defreshed/gdemlbajmchlbdfocbndaimmoiaocegp).
+
+### Opera
+
+🔧 Install [Opera add-on](https://addons.opera.com/en/extensions/details/install-chrome-extensions/) that adds Chrome extensions support to your browser.
+
+📦 Install [Chrome extension](https://chrome.google.com/webstore/detail/github-defreshed/gdemlbajmchlbdfocbndaimmoiaocegp).
+
+### Any browser
 
 🐵 Install [Greasemonkey](https://www.greasespot.net/), [Tampermonkey](https://www.tampermonkey.net/) or any other browser extension that supports an execution of user scripts and then
 
