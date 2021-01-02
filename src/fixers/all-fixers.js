@@ -31,9 +31,9 @@ import Fixer from "./fixer";
  * @type {Fixer[]}
  */
 export const allFixers = [
+    new PreloaderCSSFixer(),
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
-    new PreloaderCSSFixer(),
     new ScriptSettingsFixer(),
     new HeaderFixer(),
     new ContainerFixer(),
