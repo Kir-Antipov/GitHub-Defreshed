@@ -1,8 +1,10 @@
 const path = require("path");
 const { EOL } = require("os");
+const fs = require("fs/promises");
 const TerserPlugin = require("terser-webpack-plugin");
-const CreateFileWebpack = require("create-file-webpack");
+const EmitFilePlugin = require("emit-file-webpack-plugin");
 const RemoveFilesPlugin = require("remove-files-webpack-plugin");
+const ZipPlugin = require("zip-webpack-plugin");
 const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
 function transformMetadata(metadata) {
@@ -33,23 +35,49 @@ const metadata = {
     grant: `none`
 };
 
+const manifest = {
+    manifest_version: 2,
+    name: displayName,
+    description,
+    version,
+    author,
+    icons: {
+        48: "icons/icon.svg",
+        96: "icons/icon.svg",
+        120: "icons/icon.svg",
+        144: "icons/icon.svg",
+    },
+    content_scripts: [
+        {
+            matches: ["https://github.com/*"],
+            js: [`${name}.user.js`]
+        }
+    ],
+    applications: {
+        gecko: {
+            id: "{7945c276-9007-400b-b174-70db1146af7e}"
+        }
+    }
+};
+
 module.exports = {
     entry: "./src/index.js",
     output: {
         filename: `${name}.user.js`,
-        path: path.resolve(__dirname, "build"),
+        path: path.resolve(__dirname, "build")
     },
     optimization: {
         minimizer: [
             new TerserPlugin({
+                exclude: [/\.meta\.js$/],
                 terserOptions: {
                     output: {
                         beautify: false,
                         preamble: transformMetadata(metadata),
-                    },
-                },
-            }),
-        ],
+                    }
+                }
+            })
+        ]
     },
     module: {
         rules: [
@@ -63,43 +91,58 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        plugins: ["@babel/plugin-transform-react-jsx"]
-                    }
-                }
-            },
-            {
-                test: /\.jsx$/,
                 use: [
                     {
                         loader: "imports-loader",
                         options: {
-                            imports: [
-                                "default dom-chef React",
-                            ],
-                        },
+                            imports: ["default dom-chef React"]
+                        }
                     },
-                ],
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            plugins: ["@babel/plugin-transform-react-jsx"]
+                        }
+                    }
+                ]
             }
-        ],
+        ]
     },
     resolve: {
-        extensions: ["*", ".js", ".jsx"],
+        extensions: ["*", ".js", ".jsx"]
     },
     plugins: [
+        new EmitFilePlugin({
+            filename: `${name}.meta.js`,
+            content: transformMetadata(metadata)
+        }),
+        new EmitFilePlugin({
+            filename: `manifest.json`,
+            content: manifest
+        }),
+        new EmitFilePlugin({
+            path: "./icons",
+            filename: `icon.svg`,
+            content: fs.readFile(path.resolve(__dirname, "media", "icon.svg"))
+        }),
+        new ZipPlugin({
+            filename: `${name}`,
+            extension: "xpi",
+            exclude: [/\.meta\.js$/]
+        }),
         new RemoveFilesPlugin({
             before: {
                 include: [
                     path.resolve(__dirname, "build")
                 ]
+            },
+            after: {
+                root: path.resolve(__dirname, "build"),
+                include: [
+                    "manifest.json",
+                    "icons"
+                ]
             }
-        }),
-        new CreateFileWebpack({
-            fileName: `${name}.meta.js`,
-            path: path.resolve(__dirname, "build"),
-            content: transformMetadata(metadata)
         })
     ]
 };
