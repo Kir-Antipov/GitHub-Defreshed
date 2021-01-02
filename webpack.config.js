@@ -50,9 +50,15 @@ const manifest = {
     content_scripts: [
         {
             matches: ["https://github.com/*"],
+            all_frames: true,
+            run_at: "document_start",
             js: [`${name}.user.js`]
         }
     ],
+    options_ui: {
+        page: "options.html"
+    },
+    permissions: ["storage"],
     applications: {
         gecko: {
             id: "{7945c276-9007-400b-b174-70db1146af7e}"
@@ -121,6 +127,10 @@ module.exports = {
             content: manifest
         }),
         new EmitFilePlugin({
+            filename: `options.html`,
+            content: `<body onload="location.href='https://github.com/settings/profile'"/>`
+        }),
+        new EmitFilePlugin({
             path: "./icons",
             filename: `icon.svg`,
             content: fs.readFile(path.resolve(__dirname, "media", "icon.svg"))
@@ -140,6 +150,7 @@ module.exports = {
                 root: path.resolve(__dirname, "build"),
                 include: [
                     "manifest.json",
+                    "options.html",
                     "icons"
                 ]
             }
