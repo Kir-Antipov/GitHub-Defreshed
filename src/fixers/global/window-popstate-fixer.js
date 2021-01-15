@@ -1,6 +1,6 @@
-import navigate from "../../tools/navigate";
-import { isGitHub } from "../../tools/host-detector";
-import { isRepo, isAnchor } from "../../tools/path-detector";
+import navigate from "../../utils/navigate";
+import { isGitHub } from "../../utils/host-detector";
+import { isRepo, isAnchor } from "../../utils/path-detector";
 import Fixer from "../fixer";
 
 /**

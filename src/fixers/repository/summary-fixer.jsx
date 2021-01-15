@@ -1,6 +1,6 @@
-import { isRepoRoot, getRepoURL, isRepoSetup } from "../../tools/path-detector";
-import settings from "../../tools/settings";
-import parseElement from "../../tools/parse-element";
+import { isRepoRoot, getRepoURL, isRepoSetup } from "../../utils/path-detector";
+import settings from "../../utils/settings";
+import parseElement from "../../utils/parse-element";
 import Fixer from "../fixer";
 
 /**

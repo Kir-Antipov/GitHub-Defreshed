@@ -1,5 +1,5 @@
-import { waitUntilHeadReady } from "../../tools/wait-until-ready";
-import { SettingsProperty } from "../../tools/settings";
+import { waitUntilHeadReady } from "../../utils/wait-until-ready";
+import { SettingsProperty } from "../../utils/settings";
 import config from "../../../package.json";
 import Fixer from "../fixer";
 

@@ -1,6 +1,6 @@
-import navigate from "../../tools/navigate";
-import { isSameSiteURL, getAbsoluteURL } from "../../tools/host-detector";
-import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "../../tools/path-detector";
+import navigate from "../../utils/navigate";
+import { isSameSiteURL, getAbsoluteURL } from "../../utils/host-detector";
+import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "../../utils/path-detector";
 import Fixer from "../fixer";
 
 /**
@@ -15,21 +15,21 @@ export default class LinksFixer extends Fixer {
 
     /**
      * Determines whether the link's logic needs to be changed.
-     * 
+     *
      * @param {HTMLAnchorElement} a Anchor element.
-     * 
+     *
      * @returns {boolean} true if the link's logic needs to be changed; otherwise, false.
      */
     _needToBeFixed(a) {
-        return  !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) && 
-                isSameSiteURL(a.href) && 
+        return  !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) &&
+                isSameSiteURL(a.href) &&
                 (isRepo(a.href) || isProfileSettings(a.href) || isProfile(a.href)) &&
                 !isFile(a.href) && !isProject(a.href);
     }
 
     /**
      * Injects dynamic loading logic into the link.
-     * 
+     *
      * @param {HTMLAnchorElement} a Anchor element.
      */
     _fix(a) {
@@ -38,7 +38,7 @@ export default class LinksFixer extends Fixer {
         a.addEventListener("click", async function(e) {
             if (e.metaKey || e.ctrlKey)
                 return;
-            
+
             e.stopPropagation();
             e.preventDefault();
             navigate(getAbsoluteURL(this.href));

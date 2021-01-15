@@ -1,6 +1,6 @@
-import { isRepoSetup } from "../../tools/path-detector";
-import settings from "../../tools/settings";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { isRepoSetup } from "../../utils/path-detector";
+import settings from "../../utils/settings";
+import { waitUntilElementsReady } from "../../utils/wait-until-ready";
 import Fixer from "../fixer";
 
 /**

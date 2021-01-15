@@ -1,7 +1,7 @@
-import { isProfile } from "../../tools/path-detector";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
-import settings from "../../tools/settings";
-import parseElement from "../../tools/parse-element";
+import { isProfile } from "../../utils/path-detector";
+import { waitUntilElementsReady } from "../../utils/wait-until-ready";
+import settings from "../../utils/settings";
+import parseElement from "../../utils/parse-element";
 import Fixer from "../fixer";
 
 /**

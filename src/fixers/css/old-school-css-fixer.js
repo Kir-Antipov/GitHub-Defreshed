@@ -1,5 +1,5 @@
 import css from "./sass/old-school-css.scss";
-import settings from "../../tools/settings";
+import settings from "../../utils/settings";
 import CSSFixer from "./css-fixer";
 
 /**
