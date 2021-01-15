@@ -43,10 +43,8 @@ const manifest = {
     author,
     homepage_url: metadata.homepageURL,
     icons: {
-        48: "icons/icon.svg",
-        96: "icons/icon.svg",
-        120: "icons/icon.svg",
-        144: "icons/icon.svg",
+        48: "icons/icon-48.png",
+        96: "icons/icon-96.png"
     },
     content_scripts: [
         {
@@ -133,8 +131,13 @@ module.exports = {
         }),
         new EmitFilePlugin({
             path: "./icons",
-            filename: `icon.svg`,
-            content: fs.readFile(path.resolve(__dirname, "media", "icon.svg"))
+            filename: `icon-48.png`,
+            content: fs.readFile(path.resolve(__dirname, "media", "icon-48.png"))
+        }),
+        new EmitFilePlugin({
+            path: "./icons",
+            filename: `icon-96.png`,
+            content: fs.readFile(path.resolve(__dirname, "media", "icon-96.png"))
         }),
         new ZipPlugin({
             filename: `${name}`,
