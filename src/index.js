@@ -1,10 +1,10 @@
-import { sleep } from "./tools/sleep";
-import { isGitHub } from "./tools/host-detector";
-import { defresh, isDefreshed, markAsDefreshed } from "./tools/defresh";
+import { sleep } from "./utils/sleep";
+import { isGitHub } from "./utils/host-detector";
+import { defresh, isDefreshed, markAsDefreshed } from "./utils/defresh";
 
 /**
  * Script entry point.
- * 
+ *
  * Injects the script into the page.
  */
 async function start() {

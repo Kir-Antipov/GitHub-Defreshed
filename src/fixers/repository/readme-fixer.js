@@ -1,5 +1,5 @@
-import { isRepoRoot, isRepoSetup, isRepoTree } from "../../tools/path-detector";
-import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
+import { isRepoRoot, isRepoSetup, isRepoTree } from "../../utils/path-detector";
+import { waitUntilElementsReady, checkIfElementsReady } from "../../utils/wait-until-ready";
 import Fixer from "../fixer";
 
 /**

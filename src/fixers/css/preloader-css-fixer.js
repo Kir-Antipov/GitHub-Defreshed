@@ -1,5 +1,5 @@
 import css from "./sass/preloader.scss";
-import settings from "../../tools/settings";
+import settings from "../../utils/settings";
 import CSSFixer from "./css-fixer";
 
 /**

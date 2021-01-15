@@ -1,5 +1,5 @@
-import { isRepo, isProject } from "../../tools/path-detector";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { isRepo, isProject } from "../../utils/path-detector";
+import { waitUntilElementsReady } from "../../utils/wait-until-ready";
 import Fixer from "../fixer";
 
 /**

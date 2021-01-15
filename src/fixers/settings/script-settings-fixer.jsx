@@ -1,7 +1,7 @@
-import { isProfileSettings } from "../../tools/path-detector";
-import { waitUntilElementsReady } from "../../tools/wait-until-ready";
+import { isProfileSettings } from "../../utils/path-detector";
+import { waitUntilElementsReady } from "../../utils/wait-until-ready";
 import Fixer from "../fixer";
-import { settings, SettingsProperty } from "../../tools/settings";
+import { settings, SettingsProperty } from "../../utils/settings";
 
 /**
  * Generates a section with script settings at https://github.com/settings/profile.

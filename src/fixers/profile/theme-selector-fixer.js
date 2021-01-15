@@ -1,6 +1,6 @@
-import { isProfile } from "../../tools/path-detector";
-import { waitUntilElementsReady, checkIfElementsReady } from "../../tools/wait-until-ready";
-import settings from "../../tools/settings";
+import { isProfile } from "../../utils/path-detector";
+import { waitUntilElementsReady, checkIfElementsReady } from "../../utils/wait-until-ready";
+import settings from "../../utils/settings";
 import Fixer from "../fixer";
 
 /**

@@ -1,7 +1,7 @@
-import { isProfile } from "../../tools/path-detector";
-import { checkIfElementsReady } from "../../tools/wait-until-ready";
-import settings from "../../tools/settings";
-import submitForm from "../../tools/submit-form";
+import { isProfile } from "../../utils/path-detector";
+import { checkIfElementsReady } from "../../utils/wait-until-ready";
+import settings from "../../utils/settings";
+import submitForm from "../../utils/submit-form";
 import Fixer from "../fixer";
 
 /**
