@@ -1,51 +1,47 @@
-import { isProfile } from "../../utils/path-detector";
-import { checkIfElementsReady } from "../../utils/wait-until-ready";
-import settings from "../../utils/settings";
-import submitForm from "../../utils/submit-form";
-import Fixer from "../fixer";
+import { isProfile } from "@utils/path-detector";
+import { checkIfElementsReady } from "@utils/wait-until-ready";
+import settings from "@utils/settings";
+import submitForm from "@utils/submit-form";
+import Fixer from "@fixers/fixer";
 
 /**
  * Returns the classic look of user's status.
  */
 export default class StatusFixer extends Fixer {
-    /** @inheritdoc */
-    async isApplieble(location) {
+    async isApplieble(location: string) {
         return await settings.defreshProfilePage.getValue() && await settings.defreshProfilePageUserStatus.getValue() && isProfile(location);
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return checkIfElementsReady("main:nth-child(1) .user-status-container");
     }
 
-    /** @inheritdoc */
     apply() {
         let statusContainer = document.querySelector("main .user-status-container");
         let emoji = statusContainer.querySelector("img") || statusContainer.querySelector("g-emoji");
-        let textContainer = statusContainer.querySelector(".user-status-message-wrapper");
+        let textContainer = statusContainer.querySelector<HTMLElement>(".user-status-message-wrapper");
         let text = textContainer ? textContainer.innerText.trim() : "";
         let isBusy = !!statusContainer.querySelector(".user-status-busy");
-        let details = statusContainer.querySelector("details-dialog");
+        let details = statusContainer.querySelector<HTMLElement>("details-dialog");
 
         this._fixDetails(details);
         statusContainer.replaceWith(this._createStatusContainer(emoji, text, isBusy, details));
 
         let avatar = document.querySelector("main img.avatar");
-        if (avatar)
+        if (avatar) {
             avatar.classList.add("avatar-before-user-status");
+        }
     }
 
     /**
      * Creates old school status block.
      *
-     * @param {HTMLElement} emoji Status' emoji.
-     * @param {string} text Status' text.
-     * @param {boolean} isBusy Indicates whether the user is busy.
-     * @param {HTMLElement} details Status' editor.
-     *
-     * @returns {HTMLElement} Defreshed status block.
+     * @param emoji Status' emoji.
+     * @param text Status' text.
+     * @param isBusy Indicates whether the user is busy.
+     * @param details Status' editor.
      */
-    _createStatusContainer(emoji, text, isBusy = false, details = null) {
+    _createStatusContainer(emoji: HTMLElement, text: string, isBusy = false, details?: HTMLElement) {
         let DetailsTag = details ? "details" : "div";
         let SummaryTag = details ? "summary" : "div";
         return (
@@ -69,12 +65,11 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes status' editor.
-     *
-     * @param {HTMLElement} details Status' editor.
      */
-    _fixDetails(details) {
-        if (!details)
+    _fixDetails(details?: HTMLElement) {
+        if (!details) {
             return;
+        }
 
         this._fixDetailsFragments(details);
         this._fixDetailsEmojis(details);
@@ -83,27 +78,24 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Initiates loading of editor's content.
-     *
-     * @param {HTMLElement} details Status' editor.
      */
-    _fixDetailsFragments(details) {
-        for (let fragment of [...details.querySelectorAll("include-fragment")])
+    _fixDetailsFragments(details: HTMLElement) {
+        for (let fragment of [...details.querySelectorAll("include-fragment")]) {
             fragment.setAttribute("src", fragment.getAttribute("data-url"));
+        }
     }
 
     /**
      * Fixes editor's emojis.
-     *
-     * @param {HTMLElement} details Status' editor.
      */
-    _fixDetailsEmojis(details) {
-        let emojiContainer = details.querySelector(".js-user-status-custom-emoji");
+    _fixDetailsEmojis(details: HTMLElement) {
+        let emojiContainer = details.querySelector<HTMLElement>(".js-user-status-custom-emoji");
         let emojiInput = details.querySelector("form").emoji;
         let openPicker = details.querySelector(".btn.js-toggle-user-status-emoji-picker");
         openPicker.addEventListener("click", e => {
             e.preventDefault();
             e.stopPropagation();
-            let picker = details.querySelector("emoji-picker");
+            let picker = details.querySelector<HTMLElement & { open: Function, close: Function, fixed: boolean }>("emoji-picker");
             if (picker) {
                 this._fixEmojiPicker(emojiContainer, emojiInput, picker);
                 picker.open();
@@ -113,12 +105,8 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes editor's emoji picker.
-     *
-     * @param {HTMLElement} targetContainer Emoji container.
-     * @param {HTMLInputElement} targetInput Emoji input.
-     * @param {HTMLElement} picker Emoji picker.
      */
-    _fixEmojiPicker(targetContainer, targetInput, picker) {
+    _fixEmojiPicker(targetContainer: HTMLElement, targetInput: HTMLInputElement, picker: HTMLElement & { close: Function, fixed: boolean }) {
         if (picker.fixed)
             return;
 
@@ -138,10 +126,8 @@ export default class StatusFixer extends Fixer {
 
     /**
      * Fixes editor's submit button.
-     *
-     * @param {HTMLElement} details Status' editor.
      */
-    _fixDetailsButtons(details) {
+    _fixDetailsButtons(details: HTMLElement) {
         let submitButton = details.querySelector("form button[type='submit']");
         let clearButton = submitButton.parentElement.querySelector("button:not([type='submit'])");
 
