@@ -1,18 +1,16 @@
-import { isRepoRoot, isRepoSetup, isRepoTree } from "../../utils/path-detector";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
+import { isRepoRoot, isRepoSetup, isRepoTree } from "@utils/path-detector";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import Fixer from "@fixers/fixer";
 
 /**
  * Returns the classic view of the latest commit bar.
  */
 export default class CommitBarFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
-        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup(location);
+    isApplieble(location: string) {
+        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup();
     }
 
-    /** @inheritdoc */
-    waitUntilFixerReady(location) {
+    waitUntilFixerReady(location: string) {
         let selectors = [
             "main:nth-child(1) .repository-content .Box relative-time",
             "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)"
@@ -28,10 +26,10 @@ export default class CommitBarFixer extends Fixer {
         });
     }
 
-    /** @inheritdoc */
-    apply(location, backupContainer) {
-        if (isRepoRoot(location))
+    apply(location: string, backupContainer: HTMLElement) {
+        if (isRepoRoot(location)) {
             this._backupDetails(backupContainer);
+        }
         this._moveCommitBuildStatuses();
         this._moveCommitComments();
         this._moveCommitDetails();
@@ -41,9 +39,9 @@ export default class CommitBarFixer extends Fixer {
     /**
      * Backups branches and commits details for future use.
      *
-     * @param {HTMLElement} backupContainer Container for passing elements removed from the DOM between fixers.
+     * @param backupContainer Container for passing elements removed from the DOM between fixers.
      */
-    _backupDetails(backupContainer) {
+    _backupDetails(backupContainer: HTMLElement) {
         let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch").parentElement;
         branchesDetails.id = "backup-branches";
         let branchesDetailsContainer = branchesDetails.parentElement;
@@ -59,7 +57,6 @@ export default class CommitBarFixer extends Fixer {
 
     /**
      * Returns Build-Statuses element.
-     * @returns {HTMLElement} Build-Statuses element.
      */
     _getBuildStatuses() {
         return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") ||
@@ -72,7 +69,12 @@ export default class CommitBarFixer extends Fixer {
     _moveCommitBuildStatuses() {
         if (this._getBuildStatuses()) {
             let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header .commit-author").parentElement;
-            commitMessageContainer.parentElement.insertBefore(<div className="ml-1">{this._getBuildStatuses()}</div>, commitMessageContainer.nextSibling);
+            commitMessageContainer.parentElement.insertBefore(
+                <div className="ml-1">
+                    {this._getBuildStatuses()}
+                </div>,
+                commitMessageContainer.nextSibling
+            );
         }
     }
 
@@ -96,8 +98,9 @@ export default class CommitBarFixer extends Fixer {
         let wrongCommitDetailsContainer = document.querySelector(".repository-content .Box relative-time").parentElement.parentElement;
         let commitDetailsContainer = document.querySelector(".repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)");
 
-        for (let child of [...commitDetailsContainer.children])
+        for (let child of [...commitDetailsContainer.children]) {
             commitDetailsContainer.removeChild(child);
+        }
 
         let commitHash = wrongCommitDetailsContainer.querySelector(".text-mono");
         commitHash.classList.remove("ml-2");
@@ -116,7 +119,8 @@ export default class CommitBarFixer extends Fixer {
      */
     _removeSecondCommitTitle() {
         let secondCommitTitle = document.querySelector(".repository-content .Box .Box-header .Details-content--hidden a.text-bold");
-        if (secondCommitTitle)
+        if (secondCommitTitle) {
             secondCommitTitle.parentElement.parentElement.removeChild(secondCommitTitle.parentElement);
+        }
     }
 }
