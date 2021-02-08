@@ -1,23 +1,20 @@
-import { isRepoRoot, isRepoSetup, isRepoTree } from "../../utils/path-detector";
-import { waitUntilElementsReady, checkIfElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
+import { isRepoRoot, isRepoSetup, isRepoTree } from "@utils/path-detector";
+import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
+import Fixer from "@fixers/fixer";
 
 /**
  * Returns the classic look of the README.
  */
 export default class ReadmeFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
-        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup(location);
+    isApplieble(location: string) {
+        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup();
     }
 
-    /** @inheritdoc */
     async waitUntilFixerReady() {
         return  (await waitUntilElementsReady("main:nth-child(1) .repository-content")) &&
                 (await checkIfElementsReady("main:nth-child(1) #readme"));
     }
 
-    /** @inheritdoc */
     apply() {
         let readme = document.querySelector("#readme");
         readme.className = "Box md js-code-block-container Box--condensed";
