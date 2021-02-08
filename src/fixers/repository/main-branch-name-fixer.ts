@@ -1,24 +1,21 @@
-import { isRepoSetup } from "../../utils/path-detector";
-import settings from "../../utils/settings";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
+import { isRepoSetup } from "@utils/path-detector";
+import settings from "@utils/settings";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import Fixer from "@fixers/fixer";
 
 /**
  * Changes default name of the main branch name
  * to a user-specified one.
  */
 export default class MainBranchNameFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
-        return isRepoSetup(location);
+    isApplieble() {
+        return isRepoSetup();
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) git-clone-help");
     }
 
-    /** @inheritdoc */
     async apply() {
         let helpElement = document.querySelector("main:nth-child(1) git-clone-help");
         let patterns = new Map([
