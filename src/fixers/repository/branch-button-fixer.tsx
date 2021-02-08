@@ -1,22 +1,19 @@
-import { isRepoRoot, isRepoSetup, isRepoTree, isSingleFile } from "../../utils/path-detector";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
+import { isRepoRoot, isRepoSetup, isRepoTree, isSingleFile } from "@utils/path-detector";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import Fixer from "@fixers/fixer";
 
 /**
  * Adds "Branch: " label to the branch name.
  */
 export default class BranchButtonFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
-        return (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location)) && !isRepoSetup(location);
+    isApplieble(location: string) {
+        return (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location)) && !isRepoSetup();
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) #branch-select-menu", "main:nth-child(1) #branch-select-menu span.css-truncate-target");
     }
 
-    /** @inheritdoc */
     apply() {
         let button = document.querySelector("#branch-select-menu");
 
