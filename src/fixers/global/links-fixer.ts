@@ -1,13 +1,12 @@
-import navigate from "../../utils/navigate";
-import { isSameSiteURL, getAbsoluteURL } from "../../utils/host-detector";
-import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "../../utils/path-detector";
-import Fixer from "../fixer";
+import navigate from "@utils/navigate";
+import { isSameSiteURL, getAbsoluteURL } from "@utils/host-detector";
+import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "@utils/path-detector";
+import Fixer from "@fixers/fixer";
 
 /**
  * Injects dynamic loading logic into the anchors.
  */
 export default class LinksFixer extends Fixer {
-    /** @inheritdoc */
     apply() {
         this._setupObserver();
         this._fixAll();
@@ -16,11 +15,9 @@ export default class LinksFixer extends Fixer {
     /**
      * Determines whether the link's logic needs to be changed.
      *
-     * @param {HTMLAnchorElement} a Anchor element.
-     *
-     * @returns {boolean} true if the link's logic needs to be changed; otherwise, false.
+     * @returns true if the link's logic needs to be changed; otherwise, false.
      */
-    _needToBeFixed(a) {
+    _needToBeFixed(a: HTMLAnchorElement) {
         return  !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) &&
                 isSameSiteURL(a.href) &&
                 (isRepo(a.href) || isProfileSettings(a.href) || isProfile(a.href)) &&
@@ -29,10 +26,8 @@ export default class LinksFixer extends Fixer {
 
     /**
      * Injects dynamic loading logic into the link.
-     *
-     * @param {HTMLAnchorElement} a Anchor element.
      */
-    _fix(a) {
+    _fix(a: HTMLAnchorElement) {
         a.setAttribute("defreshed", "");
 
         a.addEventListener("click", async function(e) {
@@ -59,9 +54,9 @@ export default class LinksFixer extends Fixer {
      * appearance of new anchors on the page.
      */
     _setupObserver() {
-        if (!window.defreshObserver) {
-            window.defreshObserver = new MutationObserver(() => this._fixAll());
-            window.defreshObserver.observe(document.body, { childList: true, subtree: true });
+        if (!("defreshObserver" in window)) {
+            window["defreshObserver"] = new MutationObserver(() => this._fixAll());
+            window["defreshObserver"].observe(document.body, { childList: true, subtree: true });
         }
     }
 }
