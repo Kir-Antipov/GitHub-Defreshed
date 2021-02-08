@@ -1,11 +1,9 @@
 /**
  * Sets a timer which resolves the promise once the timer expires.
- * 
- * @param {number} ms The delay, in milliseconds.
- * 
- * @returns {Promise<void>} A promise representing the timer.
+ *
+ * @param ms The delay, in milliseconds.
  */
-export function sleep(ms) {
+export function sleep(ms: number) {
     return new Promise(resolve => {
         setTimeout(resolve, ms);
     });
