@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "test": "eslint src/**"
+    "test": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
