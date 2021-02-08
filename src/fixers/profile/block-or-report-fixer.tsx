@@ -1,23 +1,20 @@
-import { isProfile } from "../../utils/path-detector";
-import { waitUntilElementsReady, checkIfElementsReady } from "../../utils/wait-until-ready";
-import settings from "../../utils/settings";
-import Fixer from "../fixer";
+import { isProfile } from "@utils/path-detector";
+import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
+import settings from "@utils/settings";
+import Fixer from "@fixers/fixer";
 
 /**
  * Moves "Block or report user" button to its usual location.
  */
 export default class BlockOrReportFixer extends Fixer {
-    /** @inheritdoc */
-    async isApplieble(location) {
+    async isApplieble(location: string) {
         return await settings.defreshProfilePage.getValue() && isProfile(location);
     }
 
-    /** @inheritdoc */
     async waitUntilFixerReady() {
         return (await waitUntilElementsReady("main:nth-child(1) .h-card")) && (await checkIfElementsReady("main:nth-child(1) #blob-more-options-details"));
     }
 
-    /** @inheritdoc */
     apply() {
         let container = document.querySelector("#blob-more-options-details");
 
