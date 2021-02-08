@@ -1,24 +1,21 @@
-import { isRepoRoot, isRepoSetup } from "../../utils/path-detector";
-import { waitUntilElementsReady, checkIfElementsReady } from "../../utils/wait-until-ready";
-import settings from "../../utils/settings";
-import Fixer from "../fixer";
+import { isRepoRoot, isRepoSetup } from "@utils/path-detector";
+import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
+import settings from "@utils/settings";
+import Fixer from "@fixers/fixer";
 
 /**
  * Revives classical repository languages statistics bar.
  */
 export default class LanguageBarFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
-        return isRepoRoot(location) && !isRepoSetup(location);
+    isApplieble(location: string) {
+        return isRepoRoot(location) && !isRepoSetup();
     }
 
-    /** @inheritdoc */
     async waitUntilFixerReady() {
         return (await waitUntilElementsReady("main:nth-child(1) .BorderGrid-row:last-child")) &&
             (await checkIfElementsReady("main:nth-child(1) .BorderGrid-row .Progress"));
     }
 
-    /** @inheritdoc */
     async apply() {
         let langs = [...document.querySelector("main .BorderGrid-row .Progress").parentElement.nextElementSibling.children].map(this._extractLanguageData);
 
@@ -35,7 +32,7 @@ export default class LanguageBarFixer extends Fixer {
                 </summary>
                 <div className="repository-lang-stats">
                     <ol className="repository-lang-stats-numbers">
-                        {langs.map(lang => { lang.tagname = lang.link ? "a" : "span"; return lang; }).map(lang =>
+                        {langs.map(lang =>
                             <li>
                                 <lang.tagname href={lang.link}>
                                     <span className="color-block language-color" style={{ backgroundColor: lang.color }} />
@@ -52,14 +49,11 @@ export default class LanguageBarFixer extends Fixer {
 
     /**
      * Extracts language details from the DOM element.
-     *
-     * @param {HTMLElement} element Language element.
-     * @returns {{ name: string, percent: string, color: string, link: string }}
-     * Language details.
      */
-    _extractLanguageData(element) {
+    _extractLanguageData(element: HTMLElement) {
         if (element.querySelector("a")) {
             return {
+                tagname: "a",
                 name: element.querySelector("span").innerText,
                 percent: element.querySelectorAll("span")[1].innerText,
                 color: element.querySelector("svg").style.color,
@@ -67,6 +61,7 @@ export default class LanguageBarFixer extends Fixer {
             };
         } else {
             return {
+                tagname: "span",
                 name: element.querySelectorAll("span")[1].innerText,
                 percent: element.querySelectorAll("span")[2].innerText,
                 color: element.querySelector("svg").style.color,
