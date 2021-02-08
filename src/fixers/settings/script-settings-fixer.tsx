@@ -1,23 +1,21 @@
-import { isProfileSettings } from "../../utils/path-detector";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
-import { settings, SettingsProperty } from "../../utils/settings";
+import { isProfileSettings } from "@utils/path-detector";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import { settings, SettingsProperty } from "@utils/settings";
+import config from "@config";
+import Fixer from "@fixers/fixer";
 
 /**
  * Generates a section with script settings at https://github.com/settings/profile.
  */
 export default class ScriptSettingsFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
+    isApplieble(location: string) {
         return isProfileSettings(location);
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady(".Subhead--spacious");
     }
 
-    /** @inheritdoc */
     apply() {
         let nextTitle = document.querySelector(".Subhead--spacious");
 
@@ -51,16 +49,13 @@ export default class ScriptSettingsFixer extends Fixer {
 
     /**
      * Generates a section for the specified option.
-     *
-     * @param {SettingsProperty<*>} property Target option.
-     * @returns {HTMLElement} Option's section.
      */
-    generateProperty(property) {
+    generateProperty(property: SettingsProperty) {
         switch (typeof property.defaultValue) {
             case "boolean":
-                return this.generateBooleanProperty(property);
+                return this.generateBooleanProperty(property as SettingsProperty<boolean>);
             case "string":
-                return this.generateStringProperty(property);
+                return this.generateStringProperty(property as SettingsProperty<string>);
             default:
                 return null;
         }
@@ -68,12 +63,9 @@ export default class ScriptSettingsFixer extends Fixer {
 
     /**
      * Generates a section for the boolean option.
-     *
-     * @param {SettingsProperty<boolean>} property Target option.
-     * @returns {HTMLElement} Option's section.
      */
-    generateBooleanProperty(property) {
-        let id = `github-defreshed_${property.name}`;
+    generateBooleanProperty(property: SettingsProperty<boolean>) {
+        let id = `${config.name}_${property.name}`;
 
         const result = (
             <div className="form-checkbox mt-0">
@@ -93,12 +85,9 @@ export default class ScriptSettingsFixer extends Fixer {
 
     /**
      * Generates a section for the string option.
-     *
-     * @param {SettingsProperty<string>} property Target option.
-     * @returns {HTMLElement} Option's section.
      */
-    generateStringProperty(property) {
-        let id = `github-defreshed_${property.name}`;
+    generateStringProperty(property: SettingsProperty<string>) {
+        let id = `${config.name}_${property.name}`;
 
         const result = (
             <dl className="form-group">
