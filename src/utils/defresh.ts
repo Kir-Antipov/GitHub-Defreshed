@@ -1,11 +1,11 @@
-import allFixers from "../fixers/all-fixers";
-import config from "../../package.json";
+import allFixers from "@fixers/all-fixers";
+import config from "@config";
 
 /**
  * Indicates whether the script has already
  * been successfully injected into the page.
  *
- * @returns {boolean} true if the script has been injected; otherwise, false.
+ * @returns true if the script has been injected; otherwise, false.
  */
 export function isDefreshed() {
     return document.documentElement.classList.contains(config.name);
@@ -22,7 +22,7 @@ export function markAsDefreshed() {
 /**
  * Defreshes the page.
  *
- * @param {string} location Page's URL. Can be either absolute or relative.
+ * @param location Page's URL. Can be either absolute or relative.
  */
 export async function defresh(location = window.location.href) {
     let backupContainer = document.createElement("backup");
