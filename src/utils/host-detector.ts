@@ -1,14 +1,11 @@
-import { cleanPathname } from "./path-detector";
+import { cleanPathname } from "@utils/path-detector";
 
 /**
  * Indicates whether location's host is equal to the given host.
- * 
- * @param {string} location
- * @param {string} host
- * 
- * @returns {boolean} true if location's host is equal to the given host; otherwise, false.
+ *
+ * @returns true if location's host is equal to the given host; otherwise, false.
  */
-export function isGivenHost(location, host) {
+export function isGivenHost(location: string, host: string) {
     try {
         return new URL(location).host == host;
     } catch (_) {
@@ -18,28 +15,22 @@ export function isGivenHost(location, host) {
 
 /**
  * Indicates whether the url is absolute.
- * 
- * @param {string} url
- * 
- * @returns {boolean} true if the url is absolute; otherwise, false.
+ *
+ * @returns true if the url is absolute; otherwise, false.
  */
-export function isAbsoluteURL(url) {
+export function isAbsoluteURL(url: string) {
     try {
         new URL(url);
         return true;
     } catch (_) {
         return false;
-    } 
+    }
 }
 
 /**
  * Builds absolute URL.
- * 
- * @param {string} path URL's path.
- * @param {string} host URL's host.
- * @param {string} protocol URL's protocol.
- * 
- * @returns {string} Absolute URL.
+ *
+ * @returns Absolute URL.
  */
 export function getAbsoluteURL(path = location.pathname, host = location.host, protocol = location.protocol) {
     if (isAbsoluteURL(path))
@@ -51,12 +42,10 @@ export function getAbsoluteURL(path = location.pathname, host = location.host, p
 
 /**
  * Indicates whether the url belongs to the current site.
- * 
- * @param {string} url URL. Can be either absolute or relative.
- * 
- * @returns {boolean} true if the url belongs to the current site; otherwise, false.
+ *
+ * @returns true if the url belongs to the current site; otherwise, false.
  */
-export function isSameSiteURL(url) {
+export function isSameSiteURL(url: string) {
     if (!url)
         return false;
 
@@ -65,10 +54,8 @@ export function isSameSiteURL(url) {
 
 /**
  * Indicates whether the location belongs to github.com.
- * 
- * @param {string} location Page's URL. Can be either absolute or relative.
- * 
- * @returns {boolean} true if the location belongs to github.com; otherwise, false.
+ *
+ * @returns true if the location belongs to github.com; otherwise, false.
  */
 export function isGitHub(location = window.location.href) {
     return isGivenHost(location, "github.com");
@@ -76,10 +63,8 @@ export function isGitHub(location = window.location.href) {
 
 /**
  * Indicates whether the location belongs to gist.github.com.
- * 
- * @param {string} location Page's URL. Can be either absolute or relative.
- * 
- * @returns {boolean} true if the location belongs to gist.github.com; otherwise, false.
+ *
+ * @returns true if the location belongs to gist.github.com; otherwise, false.
  */
 export function isGitHubGist(location = window.location.href) {
     return isGivenHost(location, "gist.github.com");
