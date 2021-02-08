@@ -1,46 +1,42 @@
-import { isProfile } from "../../utils/path-detector";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import settings from "../../utils/settings";
-import parseElement from "../../utils/parse-element";
-import Fixer from "../fixer";
+import { isProfile } from "@utils/path-detector";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import settings from "@utils/settings";
+import parseElement from "@utils/parse-element.ts";
+import Fixer from "@fixers/fixer";
 
 /**
  * Moves tabs to tabs container ¯\\_(ツ)_/¯
  */
 export default class TabsFixer extends Fixer {
-    /** @inheritdoc */
-    async isApplieble(location) {
+    async isApplieble(location: string) {
         return await settings.defreshProfilePage.getValue() && isProfile(location);
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) nav", "main:nth-child(1) div.js-profile-editable-area > :not(.vcard-details)[class]");
     }
 
-    /** @inheritdoc */
-    async apply(location) {
-        let container = document.querySelector("main div.js-profile-editable-area > :not(.vcard-details)[class]");
+    async apply(location: string) {
+        let container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.vcard-details)[class]");
 
-        let tabs = document.querySelector("main nav");
+        let tabs = document.querySelector<HTMLElement>("main nav");
         tabs.style.overflow = "hidden";
         tabs.append(...this._generateTabs(container, location));
 
         container.parentElement.removeChild(container);
 
-        if (!await settings.keepProfilePageIcons.getValue())
+        if (!await settings.keepProfilePageIcons.getValue()) {
             [...tabs.querySelectorAll("svg")].forEach(x => x.style.display = "none");
+        }
     }
 
     /**
      * Generates Stars/Followers/Following tabs.
      *
-     * @param {HTMLElement} container Profile details container.
-     * @param {string} location Page's URL.
-     *
-     * @returns {HTMLAnchorElement[]} Tabs.
+     * @param container Profile details container.
+     * @param location Page's URL.
      */
-    _generateTabs(container, location) {
+    _generateTabs(container: HTMLElement, location: string) {
         let tabNames = ["stars", "followers", "following"];
         let tabSvgs = [
             null,
@@ -57,31 +53,29 @@ export default class TabsFixer extends Fixer {
 
     /**
      * Parses tab's name from url.
-     *
-     * @param {string} href Tab's url.
-     *
-     * @returns {string} Tab's name.
      */
-    _getTabName(href) {
+    _getTabName(href: string) {
         let separatorIndex = href.indexOf("?");
-        if (separatorIndex == -1)
+        if (separatorIndex == -1) {
             return "";
+        }
         return new URLSearchParams(href.substring(separatorIndex)).get("tab");
     }
 
     /**
      * Generates tab.
      *
-     * @param {string} location Page's URL.
-     * @param {HTMLElement} element Element that contains tab's data.
-     * @param {string} defaultSvg Default SVG.
+     * @param location Page's URL.
+     * @param element Element that contains tab's data.
+     * @param  defaultSvg Default SVG.
      *
      * @returns {HTMLAnchorElement} Tab.
      */
-    _generateTab(location, element, defaultSvg = null) {
-        let svg = element.querySelector("svg");
-        if (!svg && defaultSvg)
+    _generateTab(location: string, element: HTMLAnchorElement, defaultSvg: string = null) {
+        let svg = element.querySelector<SVGElement>("svg");
+        if (!svg && defaultSvg) {
             svg = parseElement(defaultSvg);
+        }
 
         let text = this._getTabName(element.href).trim();
         text = text[0].toUpperCase() + text.slice(1);
