@@ -1,24 +1,21 @@
-import { isRepo, isProject } from "../../utils/path-detector";
-import { waitUntilElementsReady } from "../../utils/wait-until-ready";
-import Fixer from "../fixer";
+import { isRepo, isProject } from "@utils/path-detector";
+import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import Fixer from "@fixers/fixer";
 
 /**
  * Returns the classic look of the repository's
  * header and its tabs.
  */
 export default class HeaderFixer extends Fixer {
-    /** @inheritdoc */
-    isApplieble(location) {
+    isApplieble(location: string) {
         return isRepo(location);
     }
 
-    /** @inheritdoc */
     waitUntilFixerReady() {
         return waitUntilElementsReady("main:nth-child(1) > div > nav");
     }
 
-    /** @inheritdoc */
-    apply(location) {
+    apply(location: string) {
         let header = document.querySelector("main > div > nav").parentElement;
 
         if (!isProject(location)) {
