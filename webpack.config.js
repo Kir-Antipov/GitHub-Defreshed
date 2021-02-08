@@ -4,6 +4,7 @@ const fs = require("fs/promises");
 const TerserPlugin = require("terser-webpack-plugin");
 const EmitFilePlugin = require("emit-file-webpack-plugin");
 const RemoveFilesPlugin = require("remove-files-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
 const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
@@ -66,7 +67,7 @@ const manifest = {
 };
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.ts",
     output: {
         filename: `${name}.user.js`,
         path: path.resolve(__dirname, "build")
@@ -94,9 +95,15 @@ module.exports = {
                 ]
             },
             {
-                test: /\.jsx$/,
-                exclude: /node_modules/,
+                test: /\.ts(x?)$/,
+                exclude: [/node_modules/, /test/],
                 use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            plugins: ["@babel/plugin-transform-react-jsx"]
+                        }
+                    },
                     {
                         loader: "imports-loader",
                         options: {
@@ -104,17 +111,17 @@ module.exports = {
                         }
                     },
                     {
-                        loader: "babel-loader",
-                        options: {
-                            plugins: ["@babel/plugin-transform-react-jsx"]
-                        }
+                        loader: "ts-loader"
                     }
                 ]
             }
         ]
     },
     resolve: {
-        extensions: ["*", ".js", ".jsx"]
+        extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
+        plugins: [
+            new TsconfigPathsPlugin()
+        ]
     },
     plugins: [
         new EmitFilePlugin({

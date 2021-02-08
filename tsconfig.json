@@ -1,0 +1,18 @@
+{
+    "include": ["./src/**/*", "./package.json"],
+    "compilerOptions": {
+        "target": "ES6",
+        "jsx": "preserve",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "baseUrl": "./src",
+        "outDir": "./build",
+        "paths": {
+            "@fixers/*": ["fixers/*"],
+            "@components/*": ["ui/components/*"],
+            "@utils/*": ["utils/*"],
+            "@config": ["../package.json"]
+        }
+    },
+}
