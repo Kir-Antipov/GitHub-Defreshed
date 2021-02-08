@@ -1,16 +1,16 @@
-import defresh from "./defresh";
-import { isRoot, isProject } from "./path-detector";
-import settings from "./settings";
+import defresh from "@utils/defresh";
+import { isRoot, isProject } from "@utils/path-detector";
+import settings from "@utils/settings";
 
 /**
  * Updates the current location.
  *
- * @param {string} link Actual page URL.
+ * @param link Actual page URL.
  */
-function setLocation(link) {
+function setLocation(link: string) {
     try {
         history.pushState(null, null, link);
-    } catch (_) {
+    } catch {
         location.hash = "#" + link;
     }
 }
@@ -19,32 +19,33 @@ function setLocation(link) {
  * Shows a dummy progress bar at the top of the page.
  */
 function imitateLoading() {
-    let loader = document.querySelector(".progress-pjax-loader");
+    let loader = document.querySelector<HTMLElement>(".progress-pjax-loader");
     if (loader) {
+        const bar = loader.firstElementChild as HTMLElement;
         const loadingTime = 1200;
         const step = 100;
 
-        loader.firstElementChild.style.width = 0;
+        bar.style.width = "0";
         loader.style.opacity = "100%";
         for (let i = 0; i < loadingTime; i += step) {
             let percentValue = Math.floor((Math.exp(i / loadingTime) - 1) / (Math.E - 1) * 100);
             percentValue = Math.min(percentValue, 100);
-            setTimeout(() => loader.firstElementChild.style.width = `${percentValue}%`, i);
+            setTimeout(() => bar.style.width = `${percentValue}%`, i);
         }
-        setTimeout(() => loader.style.opacity = 0, loadingTime + step);
+        setTimeout(() => loader.style.opacity = "0", loadingTime + step);
     }
 }
 
 /**
  * Loads a document from the specified address.
  *
- * @param {string} link The address of the page to download.
+ * @param link The address of the page to download.
  *
- * @returns {Promise<{ document: Document, url: string }>}
+ * @returns
  * Returns the document and its final address
  * (it may differ from the passed parameter if there was a redirect).
  */
-async function getDocumentAndURL(link) {
+async function getDocumentAndURL(link: string) {
     imitateLoading();
     let response = await fetch(link);
     return {
@@ -56,32 +57,33 @@ async function getDocumentAndURL(link) {
 /**
  * Retrieves script's src value.
  *
- * @param {HTMLScriptElement} scriptElement The script element.
+ * @param scriptElement The script element.
  *
- * @returns {string} The URL to an external file that contains the source code.
+ * @returns The URL to an external file that contains the source code.
  */
-function getScriptSrc(scriptElement) {
+function getScriptSrc(scriptElement: HTMLScriptElement) {
     return scriptElement.src || scriptElement.getAttribute("data-src");
 }
 
 /**
  * Updates document's header.
  *
- * @param {Document} newDocument New header source.
+ * @param newDocument New header source.
  */
-function updateHeader(newDocument) {
+function updateHeader(newDocument: Document) {
     let oldHeader = document.querySelector("header");
     let newHeader = newDocument.querySelector("header");
-    if (oldHeader && newHeader)
+    if (oldHeader && newHeader) {
         oldHeader.replaceWith(newHeader);
+    }
 }
 
 /**
  * Loads scripts into the document that haven't been added previously.
  *
- * @param {Document} newDocument New scripts source.
+ * @param newDocument New scripts source.
  */
-function updateScripts(newDocument) {
+function updateScripts(newDocument: Document) {
     let activeScripts = [...document.querySelectorAll("script")];
     let newScripts = [...newDocument.querySelectorAll("script")];
     let inactiveScripts = newScripts
@@ -94,9 +96,9 @@ function updateScripts(newDocument) {
 /**
  * Updates the document with the new data.
  *
- * @param {Document} newDocument Update source.
+ * @param newDocument Update source.
  */
-function updateDocument(newDocument) {
+function updateDocument(newDocument: Document) {
     // body's class is important for some css rules
     document.body.className = newDocument.body.className;
 
@@ -113,8 +115,8 @@ function updateDocument(newDocument) {
 /**
  * Dynamically loads a new page and substitutes its content into the current one.
  *
- * @param {string} link The address of the page to download.
- * @param {boolean} changeLocation Indicates whether to update the current page URL.
+ * @param link The address of the page to download.
+ * @param changeLocation Indicates whether to update the current page URL.
  */
 export async function navigate(link = window.location.href, changeLocation = true) {
     let root = isRoot();
@@ -127,7 +129,9 @@ export async function navigate(link = window.location.href, changeLocation = tru
     if (root) {
         let app = document.querySelector("body > div.application-main");
         app.prepend(
-            <div itemScope="" itemType="http://schema.org/SoftwareSourceCode"><main/></div>
+            <div itemScope={true} itemType="http://schema.org/SoftwareSourceCode">
+                <main/>
+            </div>
         );
     }
     let oldMain = document.querySelector("main");
@@ -138,20 +142,23 @@ export async function navigate(link = window.location.href, changeLocation = tru
     oldMain.replaceWith(newMain);
     if (root) {
         let app = document.querySelector("body > div.application-main");
-        for (let child of [...app.children].splice(1))
+        for (let child of [...app.children].splice(1)) {
             app.removeChild(child);
+        }
     } else if (project) {
         newMain.parentElement.className = "";
     }
     newMain.style.display = "";
 
-    if (await settings.jumpToTop.getValue())
+    if (await settings.jumpToTop.getValue()) {
         window.scrollTo(0, 0);
+    }
 
     updateDocument(result.document);
 
-    if (changeLocation)
+    if (changeLocation) {
         setLocation(result.url);
+    }
 }
 
 export default navigate;
