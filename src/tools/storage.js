@@ -98,7 +98,7 @@ class ExtensionStorage {
  */
 function getAvailableStorage() {
     return  typeof browser != "undefined" && new ExtensionStorage(browser) || // eslint-disable-line no-undef
-            typeof chrome != "undefined" && new ExtensionStorage(chrome) || // eslint-disable-line no-undef
+            typeof chrome != "undefined" && chrome.storage !== undefined && new ExtensionStorage(chrome) || // eslint-disable-line no-undef
             window.localStorage ||
             window.sessionStorage ||
             new ObjectStorage({});
