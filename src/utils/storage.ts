@@ -29,6 +29,10 @@ interface WebAPI {
     storage: WebExtensionStorageSource;
 }
 
+function isValidWebAPI(api: WebAPI) {
+    return api.storage && !!(api.storage.sync || api.storage.local);
+}
+
 declare const browser: WebAPI;
 declare const chrome: WebAPI;
 
@@ -53,9 +57,6 @@ class StorageWrapper {
     /**
      * Returns the current value associated with the given key,
      * or null if the given key does not exist.
-     *
-     * @returns The current value associated with
-     * the given key, or null if the given key does not exist.
      */
     async getItem<T = unknown>(name: string) {
         let item = await this.storage.getItem(name);
@@ -100,15 +101,15 @@ class ExtensionStorage implements StorageLike {
 
 /**
  * Returns the most suitable storage-like object.
- *
- * @returns Storage-like object.
  */
-function getAvailableStorage() {
-    return  typeof browser != "undefined" && new ExtensionStorage(browser) ||
-            typeof chrome != "undefined" && new ExtensionStorage(chrome) ||
-            window.localStorage as unknown as StorageLike ||
-            window.sessionStorage as unknown as StorageLike ||
-            new ObjectStorage({});
+function getAvailableStorage(): StorageLike {
+    return (
+        typeof browser != "undefined" && isValidWebAPI(browser) && new ExtensionStorage(browser) ||
+        typeof chrome != "undefined" && isValidWebAPI(chrome) && new ExtensionStorage(chrome) ||
+        window.localStorage as unknown as StorageLike ||
+        window.sessionStorage as unknown as StorageLike ||
+        new ObjectStorage({})
+    );
 }
 
 /**
