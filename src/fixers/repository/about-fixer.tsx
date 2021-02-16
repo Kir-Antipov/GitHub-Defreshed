@@ -1,6 +1,6 @@
 import { isRepoRoot, isRepoSetup } from "@utils/path-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
-import About from "@components/repository/about";
+import AboutContainer from "@components/repository/about-container";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -26,9 +26,9 @@ export default class AboutFixer extends Fixer {
             ?.href;
 
         repositoryContent.prepend(
-            <About website={website}>
+            <AboutContainer website={website}>
                 {about.childNodes}
-            </About>
+            </AboutContainer>
         );
     }
 }
