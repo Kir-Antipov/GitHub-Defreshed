@@ -107,7 +107,7 @@ module.exports = {
                     {
                         loader: "imports-loader",
                         options: {
-                            imports: ["default dom-chef React"]
+                            imports: ["default jsx-dom React"]
                         }
                     },
                     {
