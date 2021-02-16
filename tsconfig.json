@@ -10,9 +10,10 @@
         "outDir": "./build",
         "paths": {
             "@fixers/*": ["fixers/*"],
-            "@components/*": ["ui/components/*"],
+            "@views/*": ["views/*"],
+            "@components/*": ["views/components/*"],
             "@utils/*": ["utils/*"],
-            "@config": ["../package.json"]
-        }
+            "@config": ["../package.json"],
+        },
     },
 }
