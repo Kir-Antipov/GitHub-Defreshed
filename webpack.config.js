@@ -96,7 +96,7 @@ module.exports = {
             },
             {
                 test: /\.ts(x?)$/,
-                exclude: [/node_modules/, /test/],
+                exclude: [/node_modules/, /test[/\\]/],
                 use: [
                     {
                         loader: "babel-loader",
