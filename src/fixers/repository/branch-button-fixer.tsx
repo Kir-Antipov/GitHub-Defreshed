@@ -1,5 +1,6 @@
 import { isRepoRoot, isRepoSetup, isRepoTree, isSingleFile } from "@utils/path-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import BranchLabel from "@components/repository/branch-label";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -7,22 +8,28 @@ import Fixer from "@fixers/fixer";
  */
 export default class BranchButtonFixer extends Fixer {
     isApplieble(location: string) {
-        return (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location)) && !isRepoSetup();
+        return (
+            (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location))
+            && !isRepoSetup()
+        );
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) #branch-select-menu", "main:nth-child(1) #branch-select-menu span.css-truncate-target");
+        return waitUntilElementsReady(
+            "main:nth-child(1) #branch-select-menu",
+            "main:nth-child(1) #branch-select-menu span.css-truncate-target",
+        );
     }
 
     apply() {
-        let button = document.querySelector("#branch-select-menu");
+        const button = document.querySelector("#branch-select-menu");
 
-        let menu = button.querySelector("details-menu");
-        let src = menu && menu.getAttribute("src");
-        let fragment = button.querySelector("include-fragment");
+        const menu = button.querySelector("details-menu");
+        const src = menu && menu.getAttribute("src");
+        const fragment = button.querySelector("include-fragment");
         fragment && fragment.setAttribute("src", src);
 
-        let branchName = button.querySelector("span.css-truncate-target");
-        branchName.parentElement.insertBefore(<i className="d-none d-lg-inline">Branch: </i>, branchName);
+        const branchName = button.querySelector("span.css-truncate-target");
+        branchName.parentElement.insertBefore(<BranchLabel/>, branchName);
     }
 }
