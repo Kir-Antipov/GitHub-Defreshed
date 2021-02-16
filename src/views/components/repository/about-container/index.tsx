@@ -1,6 +1,6 @@
 import { FC } from "jsx-dom";
 
-const About: FC<{ website?: string }, JSX.Element> = ({ website, children }) => (
+const AboutContainer: FC<{ website?: string }, JSX.Element> = ({ website, children }) => (
     <div>
         <div className="f4">
             <span className="text-gray-dark mr-2">
@@ -17,4 +17,4 @@ const About: FC<{ website?: string }, JSX.Element> = ({ website, children }) => 
     </div>
 );
 
-export default About;
+export default AboutContainer;
