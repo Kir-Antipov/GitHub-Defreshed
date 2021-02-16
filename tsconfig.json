@@ -10,8 +10,8 @@
         "outDir": "./build",
         "paths": {
             "@fixers/*": ["fixers/*"],
-            "@views/*": ["views/*"],
             "@components/*": ["views/components/*"],
+            "@views/*": ["views/*"],
             "@utils/*": ["utils/*"],
             "@config": ["../package.json"],
         },
