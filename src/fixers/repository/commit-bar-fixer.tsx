@@ -1,22 +1,27 @@
 import { isRepoRoot, isRepoSetup, isRepoTree } from "@utils/path-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
+import LatestCommit from "@components/repository/latest-commit";
 import Fixer from "@fixers/fixer";
+import BuildStatusesContainer from "@components/repository/build-statuses-container";
 
 /**
  * Returns the classic view of the latest commit bar.
  */
 export default class CommitBarFixer extends Fixer {
     isApplieble(location: string) {
-        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup();
+        return (
+            (isRepoRoot(location) || isRepoTree(location))
+            && !isRepoSetup()
+        );
     }
 
     waitUntilFixerReady(location: string) {
-        let selectors = [
+        const selectors = [
             "main:nth-child(1) .repository-content .Box relative-time",
-            "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)"
+            "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)",
         ];
         if (isRepoRoot(location)) {
-            selectors.push("main:nth-child(1) .repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch");
+            selectors.push(`main:nth-child(1) .repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch`);
             selectors.push("main:nth-child(1) .repository-content .Box ul.list-style-none svg.octicon-history");
         }
 
@@ -28,12 +33,12 @@ export default class CommitBarFixer extends Fixer {
 
     apply(location: string, backupContainer: HTMLElement) {
         if (isRepoRoot(location)) {
-            this._backupDetails(backupContainer);
+            this.backupDetails(backupContainer);
         }
-        this._moveCommitBuildStatuses();
-        this._moveCommitComments();
-        this._moveCommitDetails();
-        this._removeSecondCommitTitle();
+        this.moveCommitBuildStatuses();
+        this.moveCommitComments();
+        this.moveCommitDetails();
+        this.removeSecondCommitTitle();
     }
 
     /**
@@ -41,38 +46,48 @@ export default class CommitBarFixer extends Fixer {
      *
      * @param backupContainer Container for passing elements removed from the DOM between fixers.
      */
-    _backupDetails(backupContainer: HTMLElement) {
-        let branchesDetails = document.querySelector(".repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch").parentElement;
+    private backupDetails(backupContainer: HTMLElement) {
+        const branchesDetails = document
+            .querySelector(".repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch")
+            .parentElement;
         branchesDetails.id = "backup-branches";
-        let branchesDetailsContainer = branchesDetails.parentElement;
-        branchesDetailsContainer.parentElement.removeChild(branchesDetailsContainer);
+        const branchesDetailsContainer = branchesDetails.parentElement;
+        branchesDetailsContainer.remove();
         backupContainer.append(branchesDetails);
 
-        let commitsDetails = document.querySelector(".repository-content .Box ul.list-style-none svg.octicon-history").parentElement;
+        const commitsDetails = document
+            .querySelector(".repository-content .Box ul.list-style-none svg.octicon-history")
+            .parentElement;
         commitsDetails.id = "backup-commits";
-        let commitsDetailsContainer = commitsDetails.parentElement.parentElement;
-        commitsDetailsContainer.parentElement.removeChild(commitsDetailsContainer);
+        const commitsDetailsContainer = commitsDetails.parentElement.parentElement;
+        commitsDetailsContainer.remove();
         backupContainer.append(commitsDetails);
     }
 
     /**
      * Returns Build-Statuses element.
      */
-    _getBuildStatuses() {
-        return  document.querySelector("main:nth-child(1) .repository-content .Box .Box-header details.commit-build-statuses") ||
-                document.querySelector("main:nth-child(1) .repository-content .Box .Box-header include-fragment");
+    private getBuildStatuses() {
+        const container = document.querySelector("main:nth-child(1) .repository-content .Box .Box-header");
+        return (
+            container.querySelector("details.commit-build-statuses") ||
+            container.querySelector("include-fragment")
+        );
     }
 
     /**
      * Moves Build-Statuses to their usual location.
      */
-    _moveCommitBuildStatuses() {
-        if (this._getBuildStatuses()) {
-            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header .commit-author").parentElement;
+    private moveCommitBuildStatuses() {
+        if (this.getBuildStatuses()) {
+            const commitMessageContainer = document
+                .querySelector(".repository-content .Box .Box-header .commit-author")
+                .parentElement;
+
             commitMessageContainer.parentElement.insertBefore(
-                <div className="ml-1">
-                    {this._getBuildStatuses()}
-                </div>,
+                <BuildStatusesContainer>
+                    {this.getBuildStatuses()}
+                </BuildStatusesContainer>,
                 commitMessageContainer.nextSibling
             );
         }
@@ -81,46 +96,52 @@ export default class CommitBarFixer extends Fixer {
     /**
      * Moves commit's comments to their usual location.
      */
-    _moveCommitComments() {
-        let commentsSvg = document.querySelector("main:nth-child(1) .repository-content .Box .Box-header svg.octicon-comment");
+    private moveCommitComments() {
+        const commentsSvg = document.querySelector("main:nth-child(1) .repository-content .Box .Box-header svg.octicon-comment");
+
         if (commentsSvg) {
-            let commentsLink = commentsSvg.parentElement;
+            const commentsLink = commentsSvg.parentElement;
             commentsLink.className = "no-wrap muted-link text-inherit ml-2";
-            let commitMessageContainer = document.querySelector(".repository-content .Box .Box-header a.commit-author").parentElement;
-            commitMessageContainer.parentElement.insertBefore(commentsLink, commitMessageContainer.nextSibling);
+
+            const commitMessageContainer = document
+                .querySelector(".repository-content .Box .Box-header a.commit-author")
+                .parentElement;
+            commitMessageContainer
+                .parentElement
+                .insertBefore(commentsLink, commitMessageContainer.nextSibling);
         }
     }
 
     /**
      * Moves commit's details to their usual location.
      */
-    _moveCommitDetails() {
-        let wrongCommitDetailsContainer = document.querySelector(".repository-content .Box relative-time").parentElement.parentElement;
-        let commitDetailsContainer = document.querySelector(".repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)");
+    private moveCommitDetails() {
+        const wrongCommitDetailsContainer = document
+            .querySelector(".repository-content .Box relative-time")
+            .parentElement
+            .parentElement;
 
-        for (let child of [...commitDetailsContainer.children]) {
+        const commitDetailsContainer = document.querySelector(".repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)");
+        for (const child of [...commitDetailsContainer.children]) {
             commitDetailsContainer.removeChild(child);
         }
 
-        let commitHash = wrongCommitDetailsContainer.querySelector(".text-mono");
-        commitHash.classList.remove("ml-2");
-        let commitTime = wrongCommitDetailsContainer.querySelector("relative-time");
+        const commitHash = wrongCommitDetailsContainer.querySelector<HTMLAnchorElement>("a.text-mono");
+        const commitTime = wrongCommitDetailsContainer.querySelector("relative-time");
 
         commitDetailsContainer.append(
-            <div className="css-truncate css-truncate-overflow text-gray">
-                Latest commit {commitHash} {commitTime}
-            </div>
+            <LatestCommit href={commitHash.href} datetime={commitTime.getAttribute("datetime")}/>
         );
-        wrongCommitDetailsContainer.parentElement.removeChild(wrongCommitDetailsContainer);
+        wrongCommitDetailsContainer.remove();
     }
 
     /**
      * Removes unnecessary commit subtitle that duplicates its first line.
      */
-    _removeSecondCommitTitle() {
-        let secondCommitTitle = document.querySelector(".repository-content .Box .Box-header .Details-content--hidden a.text-bold");
+    private removeSecondCommitTitle() {
+        const secondCommitTitle = document.querySelector(".repository-content .Box .Box-header .Details-content--hidden a.text-bold");
         if (secondCommitTitle) {
-            secondCommitTitle.parentElement.parentElement.removeChild(secondCommitTitle.parentElement);
+            secondCommitTitle.parentElement.remove();
         }
     }
 }
