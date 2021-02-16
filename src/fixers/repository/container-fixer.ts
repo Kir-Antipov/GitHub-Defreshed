@@ -15,6 +15,7 @@ export default class ContainerFixer extends Fixer {
     }
 
     apply() {
-        document.querySelector("main .container-xl").className = "container-lg clearfix new-discussion-timeline px-3";
+        const container = document.querySelector("main .container-xl");
+        container.className = "container-lg clearfix new-discussion-timeline px-3";
     }
 }
