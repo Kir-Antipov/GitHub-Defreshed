@@ -7,7 +7,10 @@ import Fixer from "@fixers/fixer";
  */
 export default class BranchesFixer extends Fixer {
     isApplieble(location: string) {
-        return (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location)) && !isRepoSetup();
+        return (
+            (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location))
+            && !isRepoSetup()
+        );
     }
 
     waitUntilFixerReady() {
