@@ -16,7 +16,7 @@ export default class HeaderFixer extends Fixer {
     }
 
     apply(location: string) {
-        let header = document.querySelector("main > div > nav").parentElement;
+        const header = document.querySelector("main > div > nav").parentElement;
 
         if (!isProject(location)) {
             header.className = "pagehead repohead hx_repohead readability-menu bg-gray-light pb-0 pt-3";
@@ -25,11 +25,11 @@ export default class HeaderFixer extends Fixer {
         header.querySelector("nav").className = "js-repo-nav js-sidenav-container-pjax clearfix hx_reponav reponav px-3 container-lg";
         header.querySelector("nav > ul").className = "list-style-none";
 
-        [...header.querySelectorAll("nav > ul > li")].forEach(tabWrapper => {
+        for (const tabWrapper of header.querySelectorAll("nav > ul > li")) {
             tabWrapper.className = "";
-            let tab = tabWrapper.querySelector("a");
-            let selected = tab.classList.contains("selected");
+            const tab = tabWrapper.querySelector("a");
+            const selected = tab.classList.contains("selected");
             tab.className = "js-selected-navigation-item reponav-item" + (selected ? " selected" : "");
-        });
+        }
     }
 }
