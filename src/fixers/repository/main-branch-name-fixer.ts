@@ -17,14 +17,15 @@ export default class MainBranchNameFixer extends Fixer {
     }
 
     async apply() {
-        let helpElement = document.querySelector("main:nth-child(1) git-clone-help");
-        let patterns = new Map([
+        const helpElement = document.querySelector("main:nth-child(1) git-clone-help");
+        const patterns = new Map([
             [`-M ${settings.mainBranchName.defaultValue}`, `-M ${await settings.mainBranchName.getValue()}`],
-            [`origin ${settings.mainBranchName.defaultValue}`, `origin ${await settings.mainBranchName.getValue()}`]
+            [`origin ${settings.mainBranchName.defaultValue}`, `origin ${await settings.mainBranchName.getValue()}`],
         ]);
-        for (let textContainer of [...helpElement.querySelectorAll("span")].filter(x => (x.innerText || "").trim())) {
-            for (let pattern of patterns) {
-                textContainer.innerText = textContainer.innerText.replace(pattern[0], pattern[1]);
+        const hints = [...helpElement.querySelectorAll("span")].filter(x => (x.innerText || "").trim());
+        for (const hint of hints) {
+            for (const pattern of patterns) {
+                hint.innerText = hint.innerText.replace(pattern[0], pattern[1]);
             }
         }
     }
