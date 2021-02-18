@@ -92,7 +92,7 @@ module.exports = {
                 use: [
                     "css-loader",
                     "sass-loader"
-                ]
+                ],
             },
             {
                 test: /\.ts(x?)$/,
@@ -101,27 +101,65 @@ module.exports = {
                     {
                         loader: "babel-loader",
                         options: {
-                            plugins: ["@babel/plugin-transform-react-jsx"]
-                        }
+                            plugins: [
+                                ["@babel/plugin-transform-react-jsx", { pragma: "h", pragmaFrag: "Fragment" }],
+                            ],
+                        },
                     },
                     {
                         loader: "imports-loader",
                         options: {
-                            imports: ["default jsx-dom React"]
-                        }
+                            imports: [
+                                "named jsx-dom h",
+                                "named jsx-dom Fragment",
+                            ],
+                        },
                     },
                     {
-                        loader: "ts-loader"
-                    }
-                ]
-            }
+                        loader: "ts-loader",
+                    },
+                ],
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            plugins: [
+                                ["@babel/plugin-transform-react-jsx", { pragma: "h" }],
+                            ],
+                        },
+                    },
+                    {
+                        loader: "imports-loader",
+                        options: {
+                            imports: [
+                                "named jsx-dom h",
+                            ],
+                        },
+                    },
+                    // Best practices in the industry right over here!
+                    // Pls star my repo
+                    {
+                        loader: "append-prepend-loader",
+                        options: {
+                            prepend: "export default () => (",
+                            append: ")",
+                        },
+                    },
+                ],
+            },
         ]
     },
     resolve: {
         extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
         plugins: [
             new TsconfigPathsPlugin()
-        ]
+        ],
+        alias: {
+            react: "jsx-dom"
+        },
     },
     plugins: [
         new EmitFilePlugin({
