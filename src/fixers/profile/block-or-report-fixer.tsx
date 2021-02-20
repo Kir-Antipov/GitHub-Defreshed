@@ -1,6 +1,7 @@
 import { isProfile } from "@utils/path-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
+import ActionsContainer from "@components/profile/actions-container";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -12,20 +13,21 @@ export default class BlockOrReportFixer extends Fixer {
     }
 
     async waitUntilFixerReady() {
-        return (await waitUntilElementsReady("main:nth-child(1) .h-card")) && (await checkIfElementsReady("main:nth-child(1) #blob-more-options-details"));
+        return (
+            await waitUntilElementsReady("main:nth-child(1) .h-card") &&
+            await checkIfElementsReady("main:nth-child(1) #blob-more-options-details")
+        );
     }
 
     apply() {
-        let container = document.querySelector("#blob-more-options-details");
+        const container = document.querySelector("#blob-more-options-details");
 
-        let reportBlock = container.querySelector("details").parentElement;
-        reportBlock.querySelector("summary").className = "btn-link text-small muted-link my-1";
-
-        let userInfo = document.querySelector("main .h-card");
+        const reportBlock = container.querySelector("details").parentElement;
+        const userInfo = document.querySelector("main .h-card");
         userInfo.append(
-            <div className="pt-3">
+            <ActionsContainer>
                 {reportBlock}
-            </div>
+            </ActionsContainer>
         );
 
         container.parentElement.remove();
