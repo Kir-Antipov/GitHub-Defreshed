@@ -9,7 +9,7 @@ import Fixer from "@fixers/fixer";
 export default class WindowPopstateFixer extends Fixer {
     apply() {
         window.onpopstate = function () {
-            let link = document.location.href;
+            const link = document.location.href;
             if (isGitHub(link) && isRepo(link) && !isAnchor(link)) {
                 navigate(link, false);
             }
