@@ -1,4 +1,4 @@
-import css from "./sass/old-school-css.scss";
+import css from "@styles/old-school-css.scss";
 import settings from "@utils/settings";
 import CSSFixer from "./css-fixer";
 

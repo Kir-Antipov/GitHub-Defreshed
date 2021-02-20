@@ -14,6 +14,7 @@
             "@components/*": ["ui/components/*"],
             "@images/*": ["ui/assets/images/*"],
             "@assets/*": ["ui/assets/*"],
+            "@styles/*": ["ui/styles/*"],
             "@ui/*": ["ui/*"],
             "@utils/*": ["utils/*"],
             "@config": ["../package.json"],
