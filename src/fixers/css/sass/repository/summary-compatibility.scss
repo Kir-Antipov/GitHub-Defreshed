@@ -1,7 +1,11 @@
 .overall-summary {
     position: relative;
-    margin-bottom: 10px;
     border: 1px solid;
+
+    &.rounded-bottom-0 {
+        border-bottom-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
 
     > ul.numbers-summary {
         display: table;
