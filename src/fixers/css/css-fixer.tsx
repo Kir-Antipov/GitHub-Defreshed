@@ -2,14 +2,15 @@ import { waitUntilHeadReady } from "@utils/wait-until-ready";
 import { SettingsProperty } from "@utils/settings";
 import config from "@config";
 import Fixer from "@fixers/fixer";
+import Style from "@components/css/style/style";
 
 /**
  * Base class for css injectors.
  */
 export default class CSSFixer extends Fixer {
-    _option: SettingsProperty<boolean>;
-    _css: string;
-    _name: string;
+    private option: SettingsProperty<boolean>;
+    private css: string;
+    private name: string;
 
     /**
      * Initializes a new instance of the CSSFixer class.
@@ -23,13 +24,13 @@ export default class CSSFixer extends Fixer {
      */
     constructor(option: SettingsProperty<boolean>, css: string, name: string) {
         super();
-        this._css = css.toString();
-        this._option = option;
-        this._name = `${config.name}-${name}`;
+        this.css = css.toString();
+        this.option = option;
+        this.name = `${config.name}-${name}`;
     }
 
     async isApplieble() {
-        return await this._option.getValue() && !document.querySelector(`head > style[${this._name}]`);
+        return await this.option.getValue() && !document.querySelector(`head > style[${this.name}]`);
     }
 
     waitUntilFixerReady() {
@@ -38,9 +39,9 @@ export default class CSSFixer extends Fixer {
 
     apply() {
         document.head.append(
-            <style type="text/css" {...{ [this._name]: "" }}>
-                {this._css}
-            </style>
+            <Style name={this.name}>
+                {this.css}
+            </Style>
         );
     }
 }
