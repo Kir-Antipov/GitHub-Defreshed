@@ -1,4 +1,4 @@
-import css from "./sass/compatibility.scss";
+import css from "@styles/compatibility.scss";
 import CSSFixer from "./css-fixer";
 
 /**

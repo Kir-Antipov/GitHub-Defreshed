@@ -1,4 +1,4 @@
-import css from "./sass/preloader.scss";
+import css from "@styles/preloader.scss";
 import settings from "@utils/settings";
 import CSSFixer from "./css-fixer";
 
