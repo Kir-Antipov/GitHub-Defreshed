@@ -1,7 +1,8 @@
 import { isProfile } from "@utils/path-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
-import parseElement from "@utils/parse-element.ts";
+import Tab from "@components/profile/tab";
+import OcticonPeople from "@images/octicon-people.svg";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -17,16 +18,18 @@ export default class TabsFixer extends Fixer {
     }
 
     async apply(location: string) {
-        let container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.vcard-details)[class]");
+        const container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.vcard-details)[class]");
 
-        let tabs = document.querySelector<HTMLElement>("main nav");
+        const tabs = document.querySelector<HTMLElement>("main nav");
         tabs.style.overflow = "hidden";
-        tabs.append(...this._generateTabs(container, location));
+        tabs.append(...this.generateTabs(container, location));
 
         container.parentElement.removeChild(container);
 
         if (!await settings.keepProfilePageIcons.getValue()) {
-            [...tabs.querySelectorAll("svg")].forEach(x => x.style.display = "none");
+            for (const icon of tabs.querySelectorAll("svg")) {
+                icon.style.display = "none";
+            }
         }
     }
 
@@ -36,26 +39,26 @@ export default class TabsFixer extends Fixer {
      * @param container Profile details container.
      * @param location Page's URL.
      */
-    _generateTabs(container: HTMLElement, location: string) {
-        let tabNames = ["stars", "followers", "following"];
-        let tabSvgs = [
-            null,
-            null,
-            `<svg height="16" class="octicon octicon-people text-gray-light" text="gray-light" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path></svg>`
-        ];
+    private generateTabs(container: HTMLElement, location: string) {
+        const defaultIcons = new Map([
+            ["stars", null],
+            ["followers", null],
+            ["following", <OcticonPeople />],
+        ]);
+        const tabNames = [...defaultIcons.keys()];
 
         return [...container.querySelectorAll("a")]
-            .filter(x => tabNames.includes(this._getTabName(x.href)))
-            .sort((a, b) => tabNames.indexOf(this._getTabName(a.href)) - tabNames.indexOf(this._getTabName(b.href)))
-            .map(x => this._generateTab(location, x, tabSvgs[tabNames.indexOf(this._getTabName(x.href))]))
+            .filter(x => defaultIcons.has(this.getTabName(x.href)))
+            .sort((a, b) => tabNames.indexOf(this.getTabName(a.href)) - tabNames.indexOf(this.getTabName(b.href)))
+            .map(x => this.generateTab(location, x, defaultIcons.get(this.getTabName(x.href))))
             .filter(x => x);
     }
 
     /**
      * Parses tab's name from url.
      */
-    _getTabName(href: string) {
-        let separatorIndex = href.indexOf("?");
+    private getTabName(href: string) {
+        const separatorIndex = href.indexOf("?");
         if (separatorIndex == -1) {
             return "";
         }
@@ -67,31 +70,25 @@ export default class TabsFixer extends Fixer {
      *
      * @param location Page's URL.
      * @param element Element that contains tab's data.
-     * @param  defaultSvg Default SVG.
-     *
-     * @returns {HTMLAnchorElement} Tab.
+     * @param defaultIcon Default icon.
      */
-    _generateTab(location: string, element: HTMLAnchorElement, defaultSvg: string = null) {
-        let svg = element.querySelector<SVGElement>("svg");
-        if (!svg && defaultSvg) {
-            svg = parseElement(defaultSvg);
-        }
+    private generateTab(location: string, element: HTMLAnchorElement, defaultIcon: JSX.Element = null) {
+        const icon = element.querySelector("svg") || defaultIcon;
 
-        let text = this._getTabName(element.href).trim();
+        let text = this.getTabName(element.href).trim();
         text = text[0].toUpperCase() + text.slice(1);
 
-        let countElement = element.querySelector("span");
-        let countText = !countElement || !countElement.innerText ? "0" : countElement.innerText.trim();
-        let count = countText != "0" && (
-            <span className="Counter" title={countText}>
-                {countText}
-            </span>
-        );
+        const counter = element.querySelector("span");
+        const count = counter?.innerText?.trim() || 0;
 
         return (
-            <a href={element.href} className={"UnderlineNav-item" + (this._getTabName(location) == this._getTabName(element.href) ? " selected" : "")}>
-                {svg} {text} {count}
-            </a>
+            <Tab
+                href={element.href}
+                selected={this.getTabName(location) == this.getTabName(element.href)}
+                icon={icon}
+                text={text}
+                count={count}
+            />
         );
     }
 }
