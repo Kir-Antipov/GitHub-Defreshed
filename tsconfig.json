@@ -10,6 +10,7 @@
         "outDir": "./build",
         "paths": {
             "@fixers/*": ["fixers/*"],
+            "@fixers": ["fixers"],
             "@components/*": ["ui/components/*"],
             "@images/*": ["ui/assets/images/*"],
             "@assets/*": ["ui/assets/*"],
