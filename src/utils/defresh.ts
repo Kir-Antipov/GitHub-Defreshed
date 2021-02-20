@@ -1,4 +1,4 @@
-import allFixers from "@fixers/all-fixers";
+import fixers from "@fixers";
 import config from "@config";
 
 /**
@@ -25,8 +25,8 @@ export function markAsDefreshed() {
  * @param location Page's URL. Can be either absolute or relative.
  */
 export async function defresh(location = window.location.href) {
-    let backupContainer = document.createElement("backup");
-    for (let fixer of allFixers) {
+    const backupContainer = document.createElement("backup");
+    for (const fixer of fixers) {
         if (await fixer.isApplieble(location, backupContainer) && await fixer.waitUntilFixerReady(location, backupContainer))
             try {
                 await fixer.apply(location, backupContainer);

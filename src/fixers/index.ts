@@ -28,7 +28,7 @@ import Fixer from "./fixer";
 /**
  * All registered fixers.
  */
-export const allFixers: Fixer[] = [
+const fixers: Fixer[] = [
     new PreloaderCSSFixer(),
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
@@ -56,4 +56,4 @@ export const allFixers: Fixer[] = [
     new NoticeFixer()
 ];
 
-export default allFixers;
+export default fixers;
