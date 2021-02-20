@@ -8,8 +8,8 @@ import Fixer from "@fixers/fixer";
  */
 export default class LinksFixer extends Fixer {
     apply() {
-        this._setupObserver();
-        this._fixAll();
+        this.setupObserver();
+        this.fixAll();
     }
 
     /**
@@ -17,22 +17,25 @@ export default class LinksFixer extends Fixer {
      *
      * @returns true if the link's logic needs to be changed; otherwise, false.
      */
-    _needToBeFixed(a: HTMLAnchorElement) {
-        return  !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) &&
-                isSameSiteURL(a.href) &&
-                (isRepo(a.href) || isProfileSettings(a.href) || isProfile(a.href)) &&
-                !isFile(a.href) && !isProject(a.href);
+    private needsToBeFixed(a: HTMLAnchorElement) {
+        return (
+            !a.hasAttribute("defreshed") && a.href && !isAnchor(a.href) &&
+            isSameSiteURL(a.href) &&
+            (isRepo(a.href) || isProfileSettings(a.href) || isProfile(a.href)) &&
+            !isFile(a.href) && !isProject(a.href)
+        );
     }
 
     /**
      * Injects dynamic loading logic into the link.
      */
-    _fix(a: HTMLAnchorElement) {
+    private fix(a: HTMLAnchorElement) {
         a.setAttribute("defreshed", "");
 
         a.addEventListener("click", async function(e) {
-            if (e.metaKey || e.ctrlKey)
+            if (e.metaKey || e.ctrlKey) {
                 return;
+            }
 
             e.stopPropagation();
             e.preventDefault();
@@ -43,20 +46,21 @@ export default class LinksFixer extends Fixer {
     /**
      * Fixes all anchors provided on the page.
      */
-    _fixAll() {
+    private fixAll() {
         [...document.querySelectorAll("a")]
-        .filter(this._needToBeFixed)
-        .forEach(this._fix);
+        .filter(this.needsToBeFixed)
+        .forEach(this.fix);
     }
 
     /**
      * Setups an observer that monitors the
      * appearance of new anchors on the page.
      */
-    _setupObserver() {
+    private setupObserver() {
         if (!("defreshObserver" in window)) {
-            window["defreshObserver"] = new MutationObserver(() => this._fixAll());
-            window["defreshObserver"].observe(document.body, { childList: true, subtree: true });
+            const observer = new MutationObserver(() => this.fixAll());
+            observer.observe(document.body, { childList: true, subtree: true });
+            window["defreshObserver"] = observer;
         }
     }
 }
