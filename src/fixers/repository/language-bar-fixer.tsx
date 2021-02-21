@@ -15,7 +15,7 @@ export default class LanguageBarFixer extends Fixer {
     async waitUntilFixerReady() {
         return (
             await waitUntilElementsReady("main:nth-child(1) .BorderGrid-row:last-child") &&
-            await checkIfElementsReady("main:nth-child(1) .BorderGrid-row .Progress")
+            checkIfElementsReady("main:nth-child(1) .BorderGrid-row .Progress")
         );
     }
 
