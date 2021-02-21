@@ -13,7 +13,7 @@ export default class EditDetailsFixer extends Fixer {
     async waitUntilFixerReady() {
         return (
             await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row") &&
-            await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-row:nth-child(1) details")
+            checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-row:nth-child(1) details")
         );
     }
 
