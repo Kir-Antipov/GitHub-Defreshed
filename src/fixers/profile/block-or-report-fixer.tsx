@@ -15,7 +15,7 @@ export default class BlockOrReportFixer extends Fixer {
     async waitUntilFixerReady() {
         return (
             await waitUntilElementsReady("main:nth-child(1) .h-card") &&
-            await checkIfElementsReady("main:nth-child(1) #blob-more-options-details")
+            checkIfElementsReady("main:nth-child(1) #blob-more-options-details")
         );
     }
 
