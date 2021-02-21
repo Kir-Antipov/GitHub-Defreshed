@@ -1,7 +1,7 @@
 import { FC } from "jsx-dom";
 import Language from "./language";
 
-const LanguageStats: FC<{ lang: Language }, JSX.Element> = ({ lang }) => {
+const LanguageStats: FC<{ lang: Language }> = ({ lang }) => {
     const TagName = lang.link ? "a" : "span";
     return (
         <li>
