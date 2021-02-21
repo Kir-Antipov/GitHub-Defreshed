@@ -1,0 +1,12 @@
+*:not(select) {
+    scrollbar-width: thin !important;
+}
+
+::-webkit-scrollbar {
+    max-width: 6px !important;
+    max-height: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0 !important;
+}
