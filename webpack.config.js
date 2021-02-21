@@ -6,6 +6,8 @@ const EmitFilePlugin = require("emit-file-webpack-plugin");
 const RemoveFilesPlugin = require("remove-files-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
 
 function transformMetadata(metadata) {
@@ -44,8 +46,10 @@ const manifest = {
     author,
     homepage_url: metadata.homepageURL,
     icons: {
+        19: "icons/icon-19.png",
+        38: "icons/icon-38.png",
         48: "icons/icon-48.png",
-        96: "icons/icon-96.png"
+        96: "icons/icon-96.png",
     },
     content_scripts: [
         {
@@ -55,8 +59,13 @@ const manifest = {
             js: [`${name}.user.js`]
         }
     ],
-    options_ui: {
-        page: "options.html"
+    browser_action: {
+        default_title: displayName,
+        default_icon: {
+            19: "icons/icon-19.png",
+            38: "icons/icon-38.png",
+        },
+        default_popup: "popup/index.html",
     },
     permissions: ["storage"],
     applications: {
@@ -67,10 +76,25 @@ const manifest = {
 };
 
 module.exports = {
-    entry: "./src/index.ts",
+    entry: {
+        main: "./src/index.ts",
+
+        popup_js: "./src/ui/popup/index.tsx",
+        popup_css: "./src/ui/styles/popup.scss",
+    },
     output: {
-        filename: `${name}.user.js`,
-        path: path.resolve(__dirname, "build")
+        filename: (data) => {
+            switch (data.chunk.name) {
+                case "main":
+                    return `${name}.user.js`;
+                case "popup_js":
+                    return "./popup/index.js";
+                case "popup_css":
+                    return "./popup/index";
+            }
+            throw new RangeError(`I don't know who are you, ${data.chunk.name}`);
+        },
+        path: path.resolve(__dirname, "build"),
     },
     optimization: {
         minimizer: [
@@ -88,10 +112,19 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /popup.scss$/,
+                use: MiniCssExtractPlugin.loader,
+            },
+            {
                 test: /\.scss$/,
                 use: [
-                    "css-loader",
-                    "sass-loader"
+                    {
+                        loader: "css-loader",
+                        options: {
+                            url: false,
+                        },
+                    },
+                    "sass-loader",
                 ],
             },
             {
@@ -162,6 +195,20 @@ module.exports = {
         },
     },
     plugins: [
+        new MiniCssExtractPlugin({
+            filename: (data) => {
+                switch (data.chunk.name) {
+                    case "popup_css":
+                        return "./popup/index.css";
+                }
+                throw new RangeError(`I don't know who are you, ${data.chunk.name}`);
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "src", "ui", "popup", "index.html"),
+            filename: "./popup/index.html",
+            inject: false,
+        }),
         new EmitFilePlugin({
             filename: `${name}.meta.js`,
             content: transformMetadata(metadata)
@@ -170,24 +217,20 @@ module.exports = {
             filename: `manifest.json`,
             content: manifest
         }),
-        new EmitFilePlugin({
-            filename: `options.html`,
-            content: `<body onload="location.href='https://github.com/settings/profile'"/>`
-        }),
-        new EmitFilePlugin({
-            path: "./icons",
-            filename: `icon-48.png`,
-            content: fs.readFile(path.resolve(__dirname, "media", "icon-48.png"))
-        }),
-        new EmitFilePlugin({
-            path: "./icons",
-            filename: `icon-96.png`,
-            content: fs.readFile(path.resolve(__dirname, "media", "icon-96.png"))
-        }),
+        ...Object.keys(manifest.icons).map(size =>
+            new EmitFilePlugin({
+                path: "./icons",
+                filename: `icon-${size}.png`,
+                content: fs.readFile(path.resolve(__dirname, "media", `icon-${size}.png`))
+            })
+        ),
         new ZipPlugin({
             filename: `${name}`,
             extension: "xpi",
-            exclude: [/\.meta\.js$/]
+            exclude: [
+                /\.meta\.js$/,
+                /[/\\][^\.]*$/,
+            ]
         }),
         new RemoveFilesPlugin({
             before: {
@@ -199,9 +242,10 @@ module.exports = {
                 root: path.resolve(__dirname, "build"),
                 include: [
                     "manifest.json",
-                    "options.html",
-                    "icons"
-                ]
+                    "popup",
+                    "icons",
+                ],
+
             }
         })
     ]

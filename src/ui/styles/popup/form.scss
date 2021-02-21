@@ -1,0 +1,102 @@
+input[type="text"].form-control,
+input[type="url"].form-control,
+textarea.form-control,
+label.form-control,
+div.tag-input.form-control,
+select.form-select,
+button.btn {
+    border-radius: 3px !important;
+}
+
+label {
+    font-weight: 600;
+}
+
+.note {
+    min-height: 17px;
+    margin: 4px 0 2px;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+.form {
+    &-group {
+        margin: 15px 0;
+
+        dt {
+            margin: 0 0 6px;
+        }
+
+        dd {
+            margin-left: 0;
+        }
+
+        label {
+            position: static;
+        }
+
+        .form-control {
+            width: 440px;
+            max-width: 100%;
+            margin-right: 5px;
+            background-color: var(--color-input-contrast-bg);
+        }
+    }
+
+    &-control, &-select {
+        padding: 5px 12px;
+        font-size: 14px;
+        line-height: 20px;
+        color: var(--color-text-primary);
+        vertical-align: middle;
+        background-color: var(--color-input-bg);
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        border: 1px solid var(--color-input-border);
+        border-radius: 6px;
+        outline: none;
+        box-shadow: var(--color-shadow-inset);
+    }
+
+    &-checkbox {
+        padding-left: 20px;
+        margin: 15px 0;
+        vertical-align: middle;
+
+        input[type=checkbox], input[type=radio] {
+            float: left;
+            margin: 4px 0 0 -20px;
+            vertical-align: middle;
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        .note {
+            display: block;
+            margin: 0;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+        }
+    }
+}
+
+.btn {
+    color: var(--color-btn-text);
+    background-color: var(--color-btn-bg);
+    box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+    transition: .2s cubic-bezier(.3,0, .5,1);
+    transition-property: color, background-color, border-color;
+    position: relative;
+    display: inline-block;
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 15px;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px var(--color-btn-border) solid;
+    appearance: none;
+}

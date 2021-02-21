@@ -1,0 +1,39 @@
+:root {
+    --color-text-primary: #24292e;
+    --color-text-secondary: #586069;
+
+    --color-bg-canvas: #fff;
+    --color-border-secondary: #eaecef;
+
+    --color-input-bg: #fff;
+    --color-input-contrast-bg: #fafbfc;
+    --color-input-border: #e1e4e8;
+    --color-shadow-inset: inset 0 1px 0 rgba(225, 228, 232, 0.2);
+
+    --color-btn-text: #24292e;
+    --color-btn-bg: #fafbfc;
+    --color-btn-border: rgba(27, 31, 35, 0.15);
+    --color-btn-shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
+    --color-btn-inset-shadow: inset 0 1px 0 hsla(0, 0, 1, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text-primary: #c9d1d9;
+        --color-text-secondary: #8b949e;
+
+        --color-bg-canvas: #0d1117;
+        --color-border-secondary: #21262d;
+
+        --color-input-bg: #0d1117;
+        --color-input-contrast-bg: rgba(1,4,9,0.3);
+        --color-input-border: #21262d;
+        --color-shadow-inset: 0 0 transparent;
+
+        --color-btn-text: #c9d1d9;
+        --color-btn-bg: #21262d;
+        --color-btn-border: #30363d;
+        --color-btn-shadow: 0 0 transparent;
+        --color-btn-inset-shadow: 0 0 transparent;
+    }
+}
