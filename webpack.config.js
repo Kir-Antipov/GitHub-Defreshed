@@ -172,14 +172,11 @@ module.exports = {
                             ],
                         },
                     },
-                    // Best practices in the industry right over here!
-                    // Pls star my repo
                     {
-                        loader: "append-prepend-loader",
+                        loader: "react-svg-loader",
                         options: {
-                            prepend: "export default () => (",
-                            append: ")",
-                        },
+                            jsx: true,
+                        }
                     },
                 ],
             },
