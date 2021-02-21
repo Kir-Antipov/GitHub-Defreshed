@@ -11,15 +11,18 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "test": "npm run build"
+    "test": "eslint src/** && npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.12.17",
     "@babel/plugin-transform-react-jsx": "^7.12.17",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
     "emit-file-webpack-plugin": "^1.1.0",
     "eslint": "^7.20.0",
+    "eslint-plugin-react": "^7.22.0",
     "github-reserved-names": "^2.0.4",
     "html-webpack-plugin": "^5.2.0",
     "imports-loader": "^2.0.0",
