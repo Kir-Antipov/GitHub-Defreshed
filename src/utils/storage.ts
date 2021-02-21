@@ -95,7 +95,7 @@ class ExtensionStorage implements StorageLike {
     }
 
     async getItem<T = unknown>(name: string) {
-        return await bindAndConvertToAsync(this.storage, this.storage.get, name).then(x => (x || {})[name] as T);
+        return bindAndConvertToAsync(this.storage, this.storage.get, name).then(x => (x || {})[name] as T);
     }
 }
 
