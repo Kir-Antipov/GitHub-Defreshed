@@ -14,7 +14,7 @@ export default class TopicsFixer extends Fixer {
     async waitUntilFixerReady() {
         return (
             await waitUntilElementsReady("main:nth-child(1) .repository-content .BorderGrid-row") &&
-            await checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-cell .topic-tag")
+            checkIfElementsReady("main:nth-child(1) .repository-content .BorderGrid-cell .topic-tag")
         );
     }
 
