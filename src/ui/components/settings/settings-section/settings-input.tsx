@@ -14,5 +14,5 @@ export default abstract class SettingsInput<T = unknown> extends Component<Setti
         super(props);
     }
 
-    abstract render(): Element;
+    abstract render(): JSX.Element;
 }
