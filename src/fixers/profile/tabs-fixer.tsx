@@ -74,6 +74,7 @@ export default class TabsFixer extends Fixer {
      */
     private generateTab(location: string, element: HTMLAnchorElement, defaultIcon: JSX.Element = null) {
         const icon = element.querySelector("svg") || defaultIcon;
+        icon?.classList.add("UnderlineNav-octicon");
 
         let text = this.getTabName(element.href).trim();
         text = text[0].toUpperCase() + text.slice(1);
