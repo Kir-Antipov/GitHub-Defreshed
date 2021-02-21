@@ -14,7 +14,7 @@ export default class ReadmeFixer extends Fixer {
     async waitUntilFixerReady() {
         return (
             await waitUntilElementsReady("main:nth-child(1) .repository-content") &&
-            await checkIfElementsReady("main:nth-child(1) #readme")
+            checkIfElementsReady("main:nth-child(1) #readme")
         );
     }
 
