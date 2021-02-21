@@ -94,7 +94,7 @@ export default class StatusFixer extends Fixer {
             return;
         }
 
-        for (const btn of [...picker.querySelectorAll(".js-emoji-button")])
+        for (const btn of [...picker.querySelectorAll(".js-emoji-button")]) {
             btn.addEventListener("click", function (e) {
                 e.preventDefault();
 
@@ -107,6 +107,7 @@ export default class StatusFixer extends Fixer {
 
                 picker.close();
             });
+        }
 
         picker.fixed = true;
     }

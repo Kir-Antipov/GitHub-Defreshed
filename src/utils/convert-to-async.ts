@@ -4,7 +4,7 @@
 export function convertToAsync<T>(func: Function, ...args: any[]) {
     return new Promise<T>((resolve, reject) => {
         try {
-            let result = func(...args, resolve);
+            const result = func(...args, resolve);
             if (result instanceof Promise) {
                 result.then(resolve).catch(reject);
             } else if (result !== undefined) {

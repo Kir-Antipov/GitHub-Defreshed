@@ -59,9 +59,10 @@ class StorageWrapper {
      * or null if the given key does not exist.
      */
     async getItem<T = unknown>(name: string) {
-        let item = await this.storage.getItem(name);
-        if (typeof item != "string")
+        const item = await this.storage.getItem(name);
+        if (typeof item != "string") {
             return null;
+        }
 
         return JSON.parse(item) as T;
     }

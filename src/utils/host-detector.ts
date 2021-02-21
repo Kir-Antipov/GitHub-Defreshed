@@ -7,9 +7,9 @@ import { cleanPathname } from "@utils/path-detector";
  */
 export function isGivenHost(location: string, host: string) {
     try {
-        return new URL(location).host == host;
+        return new URL(location).host === host;
     } catch (_) {
-        return window.location.host == host && location.startsWith("/");
+        return window.location.host === host && location.startsWith("/");
     }
 }
 
@@ -33,8 +33,9 @@ export function isAbsoluteURL(url: string) {
  * @returns Absolute URL.
  */
 export function getAbsoluteURL(path = location.pathname, host = location.host, protocol = location.protocol) {
-    if (isAbsoluteURL(path))
+    if (isAbsoluteURL(path)) {
         return path;
+    }
 
     path = cleanPathname(path);
     return `${protocol}//${host}/${path}`;
@@ -46,8 +47,9 @@ export function getAbsoluteURL(path = location.pathname, host = location.host, p
  * @returns true if the url belongs to the current site; otherwise, false.
  */
 export function isSameSiteURL(url: string) {
-    if (!url)
+    if (!url) {
         return false;
+    }
 
     return url.startsWith("/") || isGivenHost(url, location.host);
 }

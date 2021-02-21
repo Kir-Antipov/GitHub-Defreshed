@@ -27,10 +27,11 @@ export function cleanPathname(path = location.pathname) {
  */
 export function getOwnerAndRepo(path = location.pathname) {
     path = cleanPathname(path);
-    if (!isRepo(path))
+    if (!isRepo(path)) {
         return null;
+    }
 
-	let [owner, repo] = path.split("/");
+	const [owner, repo] = path.split("/");
 	return { owner, repo };
 }
 
@@ -38,9 +39,10 @@ export function getOwnerAndRepo(path = location.pathname) {
  * Extracts the relative path to the root of the repository.
  */
 export function getRepoURL(path = location.pathname) {
-    let data = getOwnerAndRepo(path);
-    if (!data)
+    const data = getOwnerAndRepo(path);
+    if (!data) {
         return null;
+    }
 
     return `${data.owner}/${data.repo}`;
 }
@@ -50,12 +52,14 @@ export function getRepoURL(path = location.pathname) {
  */
 export function getRepoPath(path = location.pathname) {
     path = cleanPathname(path);
-	if (!isRepo(path))
+	if (!isRepo(path)) {
         return null;
+    }
 
-    let match = path.match(/^[^/]+[/][^/]+[/]?(.*)$/);
-    if (!match)
+    const match = path.match(/^[^/]+[/][^/]+[/]?(.*)$/);
+    if (!match) {
         return null;
+    }
 
 	return match[1];
 }
@@ -94,7 +98,7 @@ export function isNotifications(path = location.pathname) {
  */
 export function isRepo(path = location.pathname) {
     path = cleanPathname(path);
-    let owner = path.substring(0, path.indexOf("/"));
+    const owner = path.substring(0, path.indexOf("/"));
 
     return !is404() &&
         /^[^/]+\/[^/]+/.test(path) &&
@@ -110,12 +114,13 @@ export function isRepo(path = location.pathname) {
  */
 export function isRepoRoot(path = location.pathname) {
     let repoPath = getRepoPath(path);
-    let commonTestResult = /^(tree[/][^/]+)?$/.test(repoPath);
-    if (commonTestResult || !(repoPath || "").startsWith("tree/"))
+    const commonTestResult = /^(tree[/][^/]+)?$/.test(repoPath);
+    if (commonTestResult || !(repoPath || "").startsWith("tree/")) {
         return commonTestResult;
+    }
 
     repoPath = repoPath.substring(5); // "tree/".length
-    return !is404() && getRepoBranches().some(x => x == repoPath);
+    return !is404() && getRepoBranches().some(x => x === repoPath);
 }
 
 /**
@@ -224,6 +229,6 @@ export function isProfile(path = location.pathname) {
  * @returns true if current page is a 404 template; otherwise, false.
  */
 export function is404() {
-    let title = (document.head.querySelector("title") || {}).innerText || "";
+    const title = (document.head.querySelector("title") || {}).innerText || "";
     return title === "Page not found · GitHub";
 }

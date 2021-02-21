@@ -59,7 +59,7 @@ export default class TabsFixer extends Fixer {
      */
     private getTabName(href: string) {
         const separatorIndex = href.indexOf("?");
-        if (separatorIndex == -1) {
+        if (separatorIndex === -1) {
             return "";
         }
         return new URLSearchParams(href.substring(separatorIndex)).get("tab");
@@ -85,7 +85,7 @@ export default class TabsFixer extends Fixer {
         return (
             <Tab
                 href={element.href}
-                selected={this.getTabName(location) == this.getTabName(element.href)}
+                selected={this.getTabName(location) === this.getTabName(element.href)}
                 icon={icon}
                 text={text}
                 count={count}

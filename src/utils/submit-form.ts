@@ -5,7 +5,7 @@ export function submitForm(form: HTMLFormElement, method: string = null) {
     method = method || form.method;
 
     return fetch(form.action, {
-        method: method,
+        method,
         body: new URLSearchParams(new FormData(form) as any),
     });
 }

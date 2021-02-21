@@ -19,7 +19,7 @@ function setLocation(link: string) {
  * Shows a dummy progress bar at the top of the page.
  */
 function imitateLoading() {
-    let loader = document.querySelector<HTMLElement>(".progress-pjax-loader");
+    const loader = document.querySelector<HTMLElement>(".progress-pjax-loader");
     if (loader) {
         const bar = loader.firstElementChild as HTMLElement;
         const loadingTime = 1200;
@@ -47,7 +47,7 @@ function imitateLoading() {
  */
 async function getDocumentAndURL(link: string) {
     imitateLoading();
-    let response = await fetch(link);
+    const response = await fetch(link);
     return {
         document: new DOMParser().parseFromString(await response.text(), "text/html"),
         url : response.url
@@ -71,8 +71,8 @@ function getScriptSrc(scriptElement: HTMLScriptElement) {
  * @param newDocument New header source.
  */
 function updateHeader(newDocument: Document) {
-    let oldHeader = document.querySelector("header");
-    let newHeader = newDocument.querySelector("header");
+    const oldHeader = document.querySelector("header");
+    const newHeader = newDocument.querySelector("header");
     if (oldHeader && newHeader) {
         oldHeader.replaceWith(newHeader);
     }
@@ -84,11 +84,11 @@ function updateHeader(newDocument: Document) {
  * @param newDocument New scripts source.
  */
 function updateScripts(newDocument: Document) {
-    let activeScripts = [...document.querySelectorAll("script")];
-    let newScripts = [...newDocument.querySelectorAll("script")];
-    let inactiveScripts = newScripts
+    const activeScripts = [...document.querySelectorAll("script")];
+    const newScripts = [...newDocument.querySelectorAll("script")];
+    const inactiveScripts = newScripts
         .map(getScriptSrc)
-        .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) == src))
+        .filter(src => !activeScripts.some(activeScript => getScriptSrc(activeScript) === src))
         .map(src => <script src={src}/>);
     document.body.append(...inactiveScripts);
 }
@@ -119,30 +119,30 @@ function updateDocument(newDocument: Document) {
  * @param changeLocation Indicates whether to update the current page URL.
  */
 export async function navigate(link = window.location.href, changeLocation = true) {
-    let root = isRoot();
-    let project = isProject();
+    const root = isRoot();
+    const project = isProject();
 
-    let result = await getDocumentAndURL(link);
-    let newMain = result.document.querySelector("main");
+    const result = await getDocumentAndURL(link);
+    const newMain = result.document.querySelector("main");
     newMain.style.display = "none";
 
     if (root) {
-        let app = document.querySelector("body > div.application-main");
+        const app = document.querySelector("body > div.application-main");
         app.prepend(
             <div itemScope={true} itemType="http://schema.org/SoftwareSourceCode">
                 <main/>
             </div>
         );
     }
-    let oldMain = document.querySelector("main");
+    const oldMain = document.querySelector("main");
     oldMain.parentElement.insertBefore(newMain, oldMain);
 
     await defresh(result.url);
 
     oldMain.replaceWith(newMain);
     if (root) {
-        let app = document.querySelector("body > div.application-main");
-        for (let child of [...app.children].splice(1)) {
+        const app = document.querySelector("body > div.application-main");
+        for (const child of [...app.children].splice(1)) {
             app.removeChild(child);
         }
     } else if (project) {

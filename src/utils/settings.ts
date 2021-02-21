@@ -21,9 +21,10 @@ export class SettingsProperty<TValue = unknown> {
      * Gets property value.
      */
     async getValue() {
-        let value = await storage.getItem<TValue>(this.name);
-        if (value === null || value === undefined)
+        const value = await storage.getItem<TValue>(this.name);
+        if (value === null || value === undefined) {
             return this.defaultValue;
+        }
         return value;
     }
 
@@ -31,8 +32,9 @@ export class SettingsProperty<TValue = unknown> {
      * Sets property value.
      */
     async setValue(value: TValue) {
-        if (typeof value != typeof this.defaultValue || Array.isArray(value) != Array.isArray(this.defaultValue))
+        if (typeof value !== typeof this.defaultValue || Array.isArray(value) !== Array.isArray(this.defaultValue)) {
             throw new Error("Invalid type.");
+        }
 
         await storage.setItem(this.name, value);
     }

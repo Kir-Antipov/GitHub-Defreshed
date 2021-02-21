@@ -20,13 +20,14 @@ export default class CommitBarFixer extends Fixer {
             "main:nth-child(1) .repository-content .Box relative-time",
             "main:nth-child(1) .repository-content .Box div.flex-shrink-0:not(.hx_avatar_stack_commit)",
         ];
+
         if (isRepoRoot(location)) {
-            selectors.push(`main:nth-child(1) .repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch`);
+            selectors.push("main:nth-child(1) .repository-content .file-navigation > :not(:first-child) svg.octicon-git-branch");
             selectors.push("main:nth-child(1) .repository-content .Box ul.list-style-none svg.octicon-history");
         }
 
         return waitUntilElementsReady({
-            selectors: selectors,
+            selectors,
             dynamic: true
         });
     }

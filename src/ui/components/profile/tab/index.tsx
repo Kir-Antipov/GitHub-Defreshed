@@ -12,6 +12,7 @@ const Tab: FC<TabProps> = ({ href, icon, text, count, selected }) => (
     <a href={href} class={["UnderlineNav-item", selected && "selected"]}>
         {icon}
         {text}
+        {/* eslint-disable-next-line eqeqeq */}
         { count != 0 &&
             <span className="Counter" title={count as string}>
                 {count}

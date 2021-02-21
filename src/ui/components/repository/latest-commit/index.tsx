@@ -12,7 +12,7 @@ const LatestCommit: FC<{ href: string, datetime: string }> = ({ href, datetime }
     <div className="css-truncate css-truncate-overflow text-gray">
         Latest commit
         {" "}
-        <a href={href} class="f6 link-gray text-mono d-none d-lg-inline">
+        <a href={href} className="f6 link-gray text-mono d-none d-lg-inline">
             {parseHashFromUrl(href)}
         </a>
         {" "}

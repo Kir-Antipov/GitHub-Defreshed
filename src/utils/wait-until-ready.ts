@@ -56,11 +56,12 @@ type ElementPredicate = (
  * @returns Last predicate value.
  */
 async function waitUntilBoolean(predicate: () => boolean | null, interval: number, timeout: number) {
-    let start = new Date();
+    const start = new Date();
     while ((new Date().valueOf() - start.valueOf()) < timeout) {
-        let result = predicate();
-        if (typeof result == "boolean")
+        const result = predicate();
+        if (typeof result == "boolean") {
             return result;
+        }
         await sleep(interval);
     }
 
@@ -112,7 +113,7 @@ function hasNextSibling(element: Node): boolean {
  * @returns true if the element is ready; otherwise, false.
  */
 function waitUntilElementReady(container: HTMLElement, selector: string, interval: number, timeout: number, enableDynamicLoading: boolean) {
-    let predicate = enableDynamicLoading ?
+    const predicate = enableDynamicLoading ?
         (() => isElementReady(container.querySelector(selector)) ? true : null) :
         (() => isDocumentReady() ? isElementReady(container.querySelector(selector)) : (isElementReady(container.querySelector(selector)) ? true : null));
 
@@ -133,7 +134,7 @@ function waitUntilElementReady(container: HTMLElement, selector: string, interva
  * @returns true if the element exists; otherwise, false.
  */
 function waitUntilEntryReady(container: HTMLElement, selector: string, interval: number, timeout: number, enableDynamicLoading: boolean) {
-    let predicate = enableDynamicLoading ?
+    const predicate = enableDynamicLoading ?
         (() => container.querySelector(selector) ? true : null) :
         (() => isDocumentReady() ? !!container.querySelector(selector) : (container.querySelector(selector) ? true : null));
 
@@ -177,7 +178,7 @@ async function waitUntilElements(args: WaitArgs, predicate: ElementPredicate) {
         options.selectors = [...options.selectors];
     }
 
-    let results = await Promise.all(options.selectors.map(selector => predicate(options.container, selector, options.interval, options.timeout, options.dynamic)));
+    const results = await Promise.all(options.selectors.map(selector => predicate(options.container, selector, options.interval, options.timeout, options.dynamic)));
     return results.every(x => x);
 }
 
@@ -199,8 +200,8 @@ export function checkIfElementsReady(...args: WaitArgs) {
     }
     else if (args[0] instanceof Node) {
         options = {
-            container: arguments[0],
-            selectors: [...arguments].splice(1)
+            container: args[0],
+            selectors: [...args as string[]].splice(1)
         };
     } else {
         options = args[0];

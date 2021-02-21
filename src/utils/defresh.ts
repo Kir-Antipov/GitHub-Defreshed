@@ -27,12 +27,13 @@ export function markAsDefreshed() {
 export async function defresh(location = window.location.href) {
     const backupContainer = document.createElement("backup");
     for (const fixer of fixers) {
-        if (await fixer.isApplieble(location, backupContainer) && await fixer.waitUntilFixerReady(location, backupContainer))
+        if (await fixer.isApplieble(location, backupContainer) && await fixer.waitUntilFixerReady(location, backupContainer)) {
             try {
                 await fixer.apply(location, backupContainer);
             } catch (e) {
                 console.log("Fixer exception: ", e);
             }
+        }
     }
 }
 

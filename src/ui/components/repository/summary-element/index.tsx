@@ -11,7 +11,7 @@ interface SummaryElementProps {
 const SummaryElement: FC<SummaryElementProps> = ({ icon, href, text, count }) => (
     <li>
         <a href={href}>
-            {icon} {count != -1 && <span className="num text-emphasized">{count}</span>} {pluralize(text, count)}
+            {icon} {String(count) !== "-1" && <span className="num text-emphasized">{count}</span>} {pluralize(text, count)}
         </a>
     </li>
 );

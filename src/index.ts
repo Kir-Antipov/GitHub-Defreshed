@@ -11,7 +11,7 @@ async function main() {
     if (!isDefreshed() && isGitHub()) {
         markAsDefreshed();
 
-        let classList = document.documentElement.classList;
+        const classList = document.documentElement.classList;
 
         classList.add("defreshing");
         await defresh();
