@@ -1,6 +1,6 @@
 import { FC } from "jsx-dom";
 
-const AboutContainer: FC<{ website?: string }, JSX.Element> = ({ website, children }) => (
+const AboutContainer: FC<{ website?: string }> = ({ website, children }) => (
     <div>
         <div className="f4">
             <span className="text-gray-dark mr-2">

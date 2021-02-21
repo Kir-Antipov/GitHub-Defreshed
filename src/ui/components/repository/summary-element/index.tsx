@@ -8,7 +8,7 @@ interface SummaryElementProps {
     count?: number | string;
 }
 
-const SummaryElement: FC<SummaryElementProps, JSX.Element> = ({ icon, href, text, count }) => (
+const SummaryElement: FC<SummaryElementProps> = ({ icon, href, text, count }) => (
     <li>
         <a href={href}>
             {icon} {count != -1 && <span className="num text-emphasized">{count}</span>} {pluralize(text, count)}

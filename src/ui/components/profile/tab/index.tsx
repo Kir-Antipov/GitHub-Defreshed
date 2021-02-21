@@ -8,7 +8,7 @@ interface TabProps {
     selected: boolean;
 }
 
-const Tab: FC<TabProps, JSX.Element> = ({ href, icon, text, count, selected }) => (
+const Tab: FC<TabProps> = ({ href, icon, text, count, selected }) => (
     <a href={href} class={["UnderlineNav-item", selected && "selected"]}>
         {icon}
         {text}

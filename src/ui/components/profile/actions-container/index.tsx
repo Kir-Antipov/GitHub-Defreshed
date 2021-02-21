@@ -1,6 +1,6 @@
 import { FC } from "jsx-dom";
 
-const ActionsContainer: FC<{}, JSX.Element> = ({ children }) => (
+const ActionsContainer: FC = ({ children }) => (
     <div className="pt-3">
         {(children as Array<JSX.Element>).map(x => {
             const summary = x?.querySelector?.("summary");

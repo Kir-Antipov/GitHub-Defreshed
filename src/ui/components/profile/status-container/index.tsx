@@ -7,7 +7,7 @@ interface StatusContainerProps {
     dialog?: JSX.Element;
 }
 
-const StatusContainer: FC<StatusContainerProps, JSX.Element> = ({ emoji, text, isBusy, dialog }) => {
+const StatusContainer: FC<StatusContainerProps> = ({ emoji, text, isBusy, dialog }) => {
     const DetailsTag = dialog ? "details" : "div";
     const SummaryTag = dialog ? "summary" : "div";
 

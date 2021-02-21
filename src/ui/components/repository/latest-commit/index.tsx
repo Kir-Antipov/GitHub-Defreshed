@@ -8,7 +8,7 @@ const parseHashFromUrl = (url: string) => {
     return hash.slice(0, hashLength);
 };
 
-const LatestCommit: FC<{ href: string, datetime: string }, JSX.Element> = ({ href, datetime }) => (
+const LatestCommit: FC<{ href: string, datetime: string }> = ({ href, datetime }) => (
     <div className="css-truncate css-truncate-overflow text-gray">
         Latest commit
         {" "}

@@ -3,7 +3,7 @@ import Language from "./language";
 import LanguageGraph from "./language-graph";
 import LanguageStats from "./language-stats";
 
-const LanguageBar: FC<{ open?: boolean, langs: Language[] }, JSX.Element> = ({ open, langs }) => (
+const LanguageBar: FC<{ open?: boolean, langs: Language[] }> = ({ open, langs }) => (
     <details className="details-reset mb-3" open={open}>
         <summary title="Click for language details">
             <div className="d-flex repository-lang-stats-graph">
