@@ -101,14 +101,25 @@ class ExtensionStorage implements StorageLike {
 }
 
 /**
+ * Returns window storage if it's available.
+ */
+function getWindowStorage(type: "local" | "session") {
+    try {
+        return window[type + "Storage"] as StorageLike;
+    } catch {
+        return null;
+    }
+}
+
+/**
  * Returns the most suitable storage-like object.
  */
 function getAvailableStorage(): StorageLike {
     return (
         typeof browser != "undefined" && isValidWebAPI(browser) && new ExtensionStorage(browser) ||
         typeof chrome != "undefined" && isValidWebAPI(chrome) && new ExtensionStorage(chrome) ||
-        window.localStorage as unknown as StorageLike ||
-        window.sessionStorage as unknown as StorageLike ||
+        getWindowStorage("local") ||
+        getWindowStorage("session") ||
         new ObjectStorage({})
     );
 }
