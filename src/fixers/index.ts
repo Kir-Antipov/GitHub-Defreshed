@@ -20,6 +20,7 @@ import ProfileTabsFixer from "./profile/tabs-fixer";
 import ThemeSelectorFixer from "./profile/theme-selector-fixer";
 import ProfileStatusFixer from "./profile/status-fixer";
 import ProfileBlockOrReportFixer from "./profile/block-or-report-fixer";
+import PjaxFixer from "./global/pjax-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
 import NoticeFixer from "./global/notice-fixer";
@@ -51,6 +52,7 @@ const fixers: Fixer[] = [
     new ThemeSelectorFixer(),
     new ProfileStatusFixer(),
     new ProfileBlockOrReportFixer(),
+    new PjaxFixer(),
     new LinksFixer(),
     new WindowPopstateFixer(),
     new NoticeFixer()
