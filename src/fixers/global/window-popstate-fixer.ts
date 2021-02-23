@@ -1,12 +1,18 @@
 import navigate from "@utils/navigate";
 import { isGitHub } from "@utils/host-detector";
 import { isRepo, isAnchor } from "@utils/path-detector";
+import settings from "@utils/settings";
+import Engines from "@utils/engines";
 import Fixer from "@fixers/fixer";
 
 /**
  * Fixes popstate logic.
  */
 export default class WindowPopstateFixer extends Fixer {
+    async isApplieble() {
+        return await settings.engine.getValue() === Engines.Original;
+    }
+
     apply() {
         window.onpopstate = function () {
             const link = document.location.href;
