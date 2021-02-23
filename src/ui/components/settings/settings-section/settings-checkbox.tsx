@@ -1,4 +1,5 @@
 import SettingsInput from "./settings-input";
+import SettingsNote from "./settings-note";
 
 export default class SettingsCheckbox extends SettingsInput<boolean> {
     render() {
@@ -12,9 +13,7 @@ export default class SettingsCheckbox extends SettingsInput<boolean> {
                     ref={input => property.getValue().then(x => input.checked = x)}
                 />
                 <label htmlFor={this.id}>{property.title}</label>
-                { property.description &&
-                    <span className="note">{property.description}</span>
-                }
+                <SettingsNote text={property.description}/>
             </div>
         );
     }

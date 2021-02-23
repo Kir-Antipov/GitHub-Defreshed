@@ -3,6 +3,7 @@
     --color-text-secondary: #586069;
 
     --color-bg-canvas: #fff;
+    --color-bg-primary: #fff;
     --color-border-secondary: #eaecef;
 
     --color-input-bg: #fff;
@@ -15,6 +16,8 @@
     --color-btn-border: rgba(27, 31, 35, 0.15);
     --color-btn-shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
     --color-btn-inset-shadow: inset 0 1px 0 hsla(0, 0, 1, 0.25);
+
+    --select-background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9IiM1ODYwNjkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQuNDI3IDkuNDI3bDMuMzk2IDMuMzk2YS4yNTEuMjUxIDAgMDAuMzU0IDBsMy4zOTYtMy4zOTZBLjI1LjI1IDAgMDAxMS4zOTYgOUg0LjYwNGEuMjUuMjUgMCAwMC0uMTc3LjQyN3pNNC40MjMgNi40N0w3LjgyIDMuMDcyYS4yNS4yNSAwIDAxLjM1NCAwTDExLjU3IDYuNDdhLjI1LjI1IDAgMDEtLjE3Ny40MjdINC42YS4yNS4yNSAwIDAxLS4xNzctLjQyN3oiLz48L3N2Zz4=");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +26,7 @@
         --color-text-secondary: #8b949e;
 
         --color-bg-canvas: #0d1117;
+        --color-bg-primary: #0d1117;
         --color-border-secondary: #21262d;
 
         --color-input-bg: #0d1117;
@@ -35,5 +39,7 @@
         --color-btn-border: #30363d;
         --color-btn-shadow: 0 0 transparent;
         --color-btn-inset-shadow: 0 0 transparent;
+
+        --select-background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9IiM2ZTc2ODEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQuNDI3IDkuNDI3bDMuMzk2IDMuMzk2YS4yNTEuMjUxIDAgMDAuMzU0IDBsMy4zOTYtMy4zOTZBLjI1LjI1IDAgMDAxMS4zOTYgOUg0LjYwNGEuMjUuMjUgMCAwMC0uMTc3LjQyN3pNNC40MjMgNi40N0w3LjgyIDMuMDcyYS4yNS4yNSAwIDAxLjM1NCAwTDExLjU3IDYuNDdhLjI1LjI1IDAgMDEtLjE3Ny40MjdINC42YS4yNS4yNSAwIDAxLS4xNzctLjQyN3oiLz48L3N2Zz4=");
     }
 }

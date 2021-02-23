@@ -1,24 +1,29 @@
 import SettingsInput from "./settings-input";
 import SettingsNote from "./settings-note";
 
-export default class SettingsText extends SettingsInput<string> {
+export default class SettingsSelect extends SettingsInput<string> {
     render() {
         const property = this.props.property;
+        const value = property.getValue();
         return (
-            <dl className="form-group">
+            <dl class="form-group">
                 <dt>
                     <label htmlFor={this.id}>
                         {property.title}
                     </label>
                 </dt>
                 <dd>
-                    <input
+                    <select
                         id={this.id}
-                        type="text"
-                        className="form-control"
+                        className="form-select form-control"
                         onChange={function () { property.setValue(this.value); }}
-                        ref={input => property.getValue().then(x => input.value = x)}
-                    />
+                    >
+                        {property.options.map(x => (
+                            <option value={x} ref={it => value.then(v => it.selected = x === v)}>
+                                {x}
+                            </option>
+                        ))}
+                    </select>
                     <SettingsNote text={property.description}/>
                 </dd>
             </dl>

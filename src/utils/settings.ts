@@ -8,12 +8,17 @@ export class SettingsProperty<TValue = unknown> {
     title: string;
     description: string;
     defaultValue: TValue;
+    options?: TValue[];
 
-    constructor(name: string, title: string, description: string, defaultValue: TValue) {
+    constructor(name: string, title: string, description: string, defaultValue: TValue, options: TValue[] = null) {
+        if (options && !options.includes(defaultValue) && !options.includes(null)) {
+            throw new RangeError("defaultValue should be in the list of available options.");
+        }
         this.name = name;
         this.title = title;
         this.description = description;
         this.defaultValue = defaultValue;
+        this.options = options;
         Object.freeze(this);
     }
 
@@ -34,6 +39,9 @@ export class SettingsProperty<TValue = unknown> {
     async setValue(value: TValue) {
         if (typeof value !== typeof this.defaultValue || Array.isArray(value) !== Array.isArray(this.defaultValue)) {
             throw new Error("Invalid type.");
+        }
+        if (this.options && !this.options.includes(value) && !this.options.includes(null)) {
+            throw new RangeError("value should be in the list of available options.");
         }
 
         await storage.setItem(this.name, value);
