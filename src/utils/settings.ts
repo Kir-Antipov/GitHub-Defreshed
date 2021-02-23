@@ -1,4 +1,5 @@
 import storage from "@utils/storage";
+import config from "@config";
 
 /**
  * Represents property of the script settings.
@@ -63,6 +64,7 @@ class Settings extends Array<SettingsProperty> {
     openLanguagesByDefault = new SettingsProperty("openLanguagesByDefault", "Open language bar by default", "This option allows you to change the default state of the language bar.", false);
     showLatestReleasePopup = new SettingsProperty("showLatestReleasePopup", "Show information about the latest release", "This will show information about the latest release (if any) when hovering over the releases section.", true);
     mainBranchName = new SettingsProperty("mainBranchName", "Main branch name", "Here you can specify default name of the main branch.", "main");
+    engine = new SettingsProperty("engine", `Engine that powers ${config.displayName}`, "`original` engine completely replaces the GitHub navigation system with dynamic page loading.\n`pjax` engine was designed to be compatible with other scripts/extensions (e.g. Refined GitHub) and is based on listening for pjax events.", "original", ["original", "pjax"]);
 
     constructor() {
         super();
