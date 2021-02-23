@@ -1,6 +1,7 @@
 import CompatibilityCSSFixer from "./css/compatibility-css-fixer";
 import OldSchoolCSSFixer from "./css/old-school-css-fixer";
 import PreloaderCSSFixer from "./css/preloader-css-fixer";
+import PreloaderStartFixer from "./global/preloader-start-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
 import HeaderFixer from "./repository/header-fixer";
@@ -24,6 +25,7 @@ import PjaxFixer from "./global/pjax-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
 import NoticeFixer from "./global/notice-fixer";
+import PreloaderEndFixer from "./global/preloader-end-fixer";
 import Fixer from "./fixer";
 
 /**
@@ -34,6 +36,7 @@ const fixers: Fixer[] = [
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
     new ScriptSettingsFixer(),
+    new PreloaderStartFixer(),
     new HeaderFixer(),
     new ContainerFixer(),
     new HelpFixer(),
@@ -55,7 +58,8 @@ const fixers: Fixer[] = [
     new PjaxFixer(),
     new LinksFixer(),
     new WindowPopstateFixer(),
-    new NoticeFixer()
+    new NoticeFixer(),
+    new PreloaderEndFixer(),
 ];
 
 export default fixers;
