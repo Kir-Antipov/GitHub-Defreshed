@@ -88,7 +88,7 @@ export function isDashboard(path = location.pathname) {
  * @returns true if url satisfies the condition; otherwise, false.
  */
 export function isNotifications(path = location.pathname) {
-    return /^([^/]+[/][^/]+\/)?notifications/.test(cleanPathname(path));
+    return /^([^/]+[/][^/]+\/)?notifications$/.test(cleanPathname(path));
 }
 
 /**
