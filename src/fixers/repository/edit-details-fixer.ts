@@ -1,4 +1,5 @@
-import { isRepoRoot, isRepoSetup } from "@utils/path-detector";
+import { isRepoRoot } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
 import Fixer from "@fixers/fixer";
 
@@ -7,7 +8,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class EditDetailsFixer extends Fixer {
     isApplieble(location: string) {
-        return isRepoRoot(location) && !isRepoSetup();
+        return isRepoRoot(location) && !isRepoSetup() && !is404();
     }
 
     async waitUntilFixerReady() {

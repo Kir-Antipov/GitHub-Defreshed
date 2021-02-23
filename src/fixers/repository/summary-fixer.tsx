@@ -1,4 +1,5 @@
-import { isRepoRoot, getRepoURL, isRepoSetup } from "@utils/path-detector";
+import { isRepoRoot, getRepoURL } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import settings from "@utils/settings";
 import Fixer from "@fixers/fixer";
 import pluralize from "@utils/pluralize";
@@ -15,7 +16,7 @@ import SummaryContainer from "@components/repository/summary-container";
  */
 export default class SummaryFixer extends Fixer {
     isApplieble(location: string) {
-        return isRepoRoot(location) && !isRepoSetup();
+        return isRepoRoot(location) && !isRepoSetup() && !is404();
     }
 
     async apply(location: string, backupContainer: HTMLElement) {

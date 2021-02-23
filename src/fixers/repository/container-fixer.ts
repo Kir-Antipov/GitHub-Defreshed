@@ -1,4 +1,5 @@
 import { isRepo, isProject } from "@utils/path-detector";
+import { is404 } from "@utils/page-detector";
 import { waitUntilEntriesReady } from "@utils/wait-until-ready";
 import Fixer from "@fixers/fixer";
 
@@ -7,7 +8,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class ContainerFixer extends Fixer {
     isApplieble(location: string) {
-        return isRepo(location) && !isProject(location);
+        return isRepo(location) && !isProject(location) && !is404();
     }
 
     waitUntilFixerReady() {

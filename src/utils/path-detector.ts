@@ -100,11 +100,12 @@ export function isRepo(path = location.pathname) {
     path = cleanPathname(path);
     const owner = path.substring(0, path.indexOf("/"));
 
-    return !is404() &&
+    return (
         /^[^/]+\/[^/]+/.test(path) &&
         !isReserved(owner) &&
         !isDashboard(path) &&
-        !isNotifications(path);
+        !isNotifications(path)
+    );
 }
 
 /**
@@ -120,7 +121,7 @@ export function isRepoRoot(path = location.pathname) {
     }
 
     repoPath = repoPath.substring(5); // "tree/".length
-    return !is404() && getRepoBranches().some(x => x === repoPath);
+    return getRepoBranches().some(x => x === repoPath);
 }
 
 /**
@@ -129,16 +130,7 @@ export function isRepoRoot(path = location.pathname) {
  * @returns true if url satisfies the condition; otherwise, false.
  */
 export function isRepoTree(path = location.pathname) {
-    return !is404() && /^tree\//.test(getRepoPath(path));
-}
-
-/**
- * Determines if current page is a repository setup page.
- *
- * @returns true if current page is a repository setup page; otherwise, false.
- */
-export function isRepoSetup() {
-    return !!document.querySelector("main:nth-child(1) div.repository-content > git-clone-help");
+    return /^tree\//.test(getRepoPath(path));
 }
 
 /**
@@ -210,7 +202,7 @@ export function isAnchor(path = location.pathname) {
  * @returns true if url satisfies the condition; otherwise, false.
  */
 export function isProfileSettings(path = location.pathname) {
-    return !is404() && cleanPathname(path).startsWith("settings/profile");
+    return /^settings[/]profile$/.test(cleanPathname(path));
 }
 
 /**
@@ -220,15 +212,5 @@ export function isProfileSettings(path = location.pathname) {
  */
 export function isProfile(path = location.pathname) {
     path = cleanPathname(path);
-    return !is404() && path && !path.includes("/") && !isReserved(path);
-}
-
-/**
- * Determines if current page is a 404 template.
- *
- * @returns true if current page is a 404 template; otherwise, false.
- */
-export function is404() {
-    const title = (document.head.querySelector("title") || {}).innerText || "";
-    return title === "Page not found · GitHub";
+    return path && !path.includes("/") && !isReserved(path);
 }

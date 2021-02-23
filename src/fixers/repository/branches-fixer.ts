@@ -1,4 +1,5 @@
-import { isRepoRoot, isRepoSetup, isRepoTree, isSingleFile } from "@utils/path-detector";
+import { isRepoRoot, isRepoTree, isSingleFile } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import Fixer from "@fixers/fixer";
 
@@ -8,8 +9,8 @@ import Fixer from "@fixers/fixer";
 export default class BranchesFixer extends Fixer {
     isApplieble(location: string) {
         return (
-            (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location))
-            && !isRepoSetup()
+            (isRepoRoot(location) || isRepoTree(location) || isSingleFile(location)) &&
+            !(isRepoSetup() || is404())
         );
     }
 

@@ -1,4 +1,5 @@
-import { isRepoRoot, isRepoSetup, isRepoTree } from "@utils/path-detector";
+import { isRepoRoot, isRepoTree } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
 import OcticonBook from "@images/octicon-book.svg";
 import Fixer from "@fixers/fixer";
@@ -8,7 +9,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class ReadmeFixer extends Fixer {
     isApplieble(location: string) {
-        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup();
+        return (isRepoRoot(location) || isRepoTree(location)) && !isRepoSetup() && !is404();
     }
 
     async waitUntilFixerReady() {

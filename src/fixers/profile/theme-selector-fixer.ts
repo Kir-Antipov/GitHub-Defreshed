@@ -1,4 +1,5 @@
 import { isProfile } from "@utils/path-detector";
+import { is404 } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
 import Fixer from "@fixers/fixer";
@@ -11,7 +12,8 @@ export default class ThemeSelectorFixer extends Fixer {
         return (
             await settings.defreshProfilePage.getValue() &&
             await settings.removeThemeSelector.getValue() &&
-            isProfile(location)
+            isProfile(location) &&
+            !is404()
         );
     }
 

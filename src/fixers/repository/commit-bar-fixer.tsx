@@ -1,4 +1,5 @@
-import { isRepoRoot, isRepoSetup, isRepoTree } from "@utils/path-detector";
+import { isRepoRoot, isRepoTree } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import LatestCommit from "@components/repository/latest-commit";
 import Fixer from "@fixers/fixer";
@@ -10,8 +11,8 @@ import BuildStatusesContainer from "@components/repository/build-statuses-contai
 export default class CommitBarFixer extends Fixer {
     isApplieble(location: string) {
         return (
-            (isRepoRoot(location) || isRepoTree(location))
-            && !isRepoSetup()
+            (isRepoRoot(location) || isRepoTree(location)) &&
+            !(isRepoSetup() || is404())
         );
     }
 

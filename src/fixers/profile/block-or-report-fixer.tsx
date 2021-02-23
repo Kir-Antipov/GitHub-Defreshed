@@ -1,4 +1,5 @@
 import { isProfile } from "@utils/path-detector";
+import { is404 } from "@utils/page-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
 import ActionsContainer from "@components/profile/actions-container";
@@ -9,7 +10,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class BlockOrReportFixer extends Fixer {
     async isApplieble(location: string) {
-        return await settings.defreshProfilePage.getValue() && isProfile(location);
+        return await settings.defreshProfilePage.getValue() && isProfile(location) && !is404();
     }
 
     async waitUntilFixerReady() {

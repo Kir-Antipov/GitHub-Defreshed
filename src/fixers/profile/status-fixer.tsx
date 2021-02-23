@@ -1,4 +1,5 @@
 import { isProfile } from "@utils/path-detector";
+import { is404 } from "@utils/page-detector";
 import { checkIfElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
 import submitForm from "@utils/submit-form";
@@ -19,7 +20,8 @@ export default class StatusFixer extends Fixer {
         return (
             await settings.defreshProfilePage.getValue() &&
             await settings.defreshProfilePageUserStatus.getValue() &&
-            isProfile(location)
+            isProfile(location) &&
+            !is404()
         );
     }
 

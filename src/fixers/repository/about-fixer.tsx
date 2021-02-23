@@ -1,4 +1,5 @@
-import { isRepoRoot, isRepoSetup } from "@utils/path-detector";
+import { isRepoRoot } from "@utils/path-detector";
+import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import AboutContainer from "@components/repository/about-container";
 import Fixer from "@fixers/fixer";
@@ -8,7 +9,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class AboutFixer extends Fixer {
     isApplieble(location: string) {
-        return isRepoRoot(location) && !isRepoSetup();
+        return isRepoRoot(location) && !isRepoSetup() && !is404();
     }
 
     waitUntilFixerReady() {
