@@ -1,4 +1,4 @@
-import { isRepoSetup } from "@utils/path-detector";
+import { isRepoSetup } from "@utils/page-detector";
 import settings from "@utils/settings";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import Fixer from "@fixers/fixer";
