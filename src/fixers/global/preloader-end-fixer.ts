@@ -11,9 +11,21 @@ export default class PreloaderEndFixer extends Fixer {
 
     async apply() {
         const classList = document.documentElement.classList;
-        classList.add("defreshed");
         classList.remove("defreshing");
-        await sleep(1500);
-        classList.remove("defreshed");
+
+        const startedAt = +document.documentElement.dataset.defreshedAt;
+        delete document.documentElement.dataset.defreshedAt;
+
+        const defreshingTook = new Date().valueOf() - startedAt;
+        // This should be in the settings section,
+        // but I'm in lazy mood right now.
+        // Let's see if anyone will complain ¯\_(ツ)_/¯
+        const minimumAmountOfTimeItTakesToNoticePreloader = 100;
+
+        if (defreshingTook > minimumAmountOfTimeItTakesToNoticePreloader) {
+            classList.add("defreshed");
+            await sleep(1500);
+            classList.remove("defreshed");
+        }
     }
 }

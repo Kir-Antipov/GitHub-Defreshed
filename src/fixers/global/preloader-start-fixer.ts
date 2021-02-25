@@ -18,5 +18,6 @@ export default class PreloaderStartFixer extends Fixer {
     apply() {
         this.wasShown = true;
         document.documentElement.classList.add("defreshing");
+        document.documentElement.dataset.defreshedAt = String(new Date().valueOf());
     }
 }
