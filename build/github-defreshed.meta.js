@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub Defreshed
 // @namespace    GitHub
-// @version      3.1.0
+// @version      4.0.0
 // @author       Kir_Antipov
 // @description  Classical GitHub at its finest
 // @license      MIT
