@@ -66,11 +66,12 @@ Just ol' buddy GitHub in person
  - Unrounded buttons, avatars and containers and another CSS-improvements
  - Full support of custom themes (e.g., `GitHub-Dark`)
  - Full support of dark mode
+ - Partial support of other scripts and extensions (e.g., `Refined GitHub`). Partial, since none of developers (including myself) can be sure that their extension is compatible with every plugin with unknown functionality in the world
  - And much more!
 
 ## Settings
 
-Some features of the script are optional. You can customize behavior of the `GitHub-Defreshed` on the [profile settings page](https://github.com/settings/profile):
+Some features of the script are optional. You can customize behavior of the `GitHub-Defreshed` using the web extension popup or on the [profile settings page](https://github.com/settings/profile):
 
 ![Preview of the GitHub Defreshed's settings](./media/preview-settings.png)
 
