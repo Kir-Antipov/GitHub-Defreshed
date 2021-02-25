@@ -16,13 +16,13 @@
     "test": "npm run lint && npm run unit-tests && npm run build"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.17",
+    "@babel/core": "^7.13.1",
     "@babel/plugin-transform-react-jsx": "^7.12.17",
     "@types/chai": "^4.2.15",
     "@types/jsdom": "^16.2.6",
     "@types/mocha": "^8.2.1",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.0",
     "css-loader": "^5.0.2",
@@ -46,8 +46,8 @@
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
-    "typescript": "^4.1.5",
-    "webpack": "^5.23.0",
+    "typescript": "^4.2.2",
+    "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "zip-webpack-plugin": "^4.0.1"
