@@ -4,7 +4,7 @@
         "target": "ES6",
         "jsx": "preserve",
         "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "moduleResolution": "node",
         "baseUrl": "./src",
         "outDir": "./build",
