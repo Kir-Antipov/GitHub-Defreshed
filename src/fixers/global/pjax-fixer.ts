@@ -15,6 +15,6 @@ export default class PjaxFixer extends Fixer {
 
     apply() {
         this.isActive = true;
-        document.addEventListener("pjax:end", () => defresh());
+        document.addEventListener("pjax:success", () => defresh());
     }
 }
