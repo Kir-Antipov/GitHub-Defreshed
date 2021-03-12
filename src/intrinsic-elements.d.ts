@@ -8,6 +8,7 @@ declare global {
     namespace JSX {
         interface IntrinsicElements {
             "relative-time": DetailedHTMLProps<RelativeTimeHTMLAttributes<HTMLElement>, HTMLElement>
+            "details-menu": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
         }
     }
 }
