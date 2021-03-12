@@ -19,13 +19,13 @@ export default class TabsFixer extends Fixer {
     }
 
     async apply(location: string) {
-        const container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.vcard-details)[class]");
+        const container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.js-user-profile-bio)[class]");
 
         const tabs = document.querySelector<HTMLElement>("main nav");
         tabs.style.overflow = "hidden";
         tabs.append(...this.generateTabs(container, location));
 
-        container.parentElement.removeChild(container);
+        container.remove();
 
         if (!await settings.keepProfilePageIcons.getValue()) {
             for (const icon of tabs.querySelectorAll("svg")) {
