@@ -76,16 +76,7 @@ module.exports = {
                         loader: "babel-loader",
                         options: {
                             plugins: [
-                                ["@babel/plugin-transform-react-jsx", { pragma: "h", pragmaFrag: "Fragment" }],
-                            ],
-                        },
-                    },
-                    {
-                        loader: "imports-loader",
-                        options: {
-                            imports: [
-                                "named jsx-dom h",
-                                "named jsx-dom Fragment",
+                                ["@babel/plugin-transform-react-jsx", { runtime: "automatic" }],
                             ],
                         },
                     },
@@ -101,15 +92,7 @@ module.exports = {
                         loader: "babel-loader",
                         options: {
                             plugins: [
-                                ["@babel/plugin-transform-react-jsx", { pragma: "h" }],
-                            ],
-                        },
-                    },
-                    {
-                        loader: "imports-loader",
-                        options: {
-                            imports: [
-                                "named jsx-dom h",
+                                ["@babel/plugin-transform-react-jsx", { runtime: "automatic" }],
                             ],
                         },
                     },
