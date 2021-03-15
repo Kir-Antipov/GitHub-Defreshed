@@ -2,6 +2,7 @@ import { isRepo, isProject } from "@utils/path-detector";
 import { is404 } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import UnderlineNav from "@components/global/underline-nav";
+import ResizeObserver from "@utils/resize-observer";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -9,8 +10,6 @@ import Fixer from "@fixers/fixer";
  * header and its tabs.
  */
 export default class HeaderFixer extends Fixer {
-    private activeCallback?: (this: Window, e: UIEvent) => void;
-
     isApplieble(location: string) {
         return isRepo(location) && !is404();
     }
@@ -50,10 +49,14 @@ export default class HeaderFixer extends Fixer {
             </UnderlineNav>
         );
 
-        if (this.activeCallback) {
-            window.removeEventListener("resize", this.activeCallback);
+        const existingUnderlineNav = nav.querySelector(":scope > div");
+        if (existingUnderlineNav) {
+            existingUnderlineNav.replaceWith(smartUnderlineNav);
+        } else {
+            nav.append(smartUnderlineNav);
         }
-        this.activeCallback = function () {
+
+        const repairHeader = () => {
             let someHasOffset = false;
             for (const tab of nav.querySelectorAll<HTMLAnchorElement>(":scope > ul > li > a")) {
                 tab.style.display = "block";
@@ -62,19 +65,13 @@ export default class HeaderFixer extends Fixer {
                     const hasOffset = !!tab.offsetTop;
                     someHasOffset ||= hasOffset;
                     tab.style.display = hasOffset ? "none" : "block";
+                    tab.style.visibility = hasOffset ? "hidden" : "visible";
                     underlineTab.style.display = hasOffset ? "block" : "none";
                 }
             }
             smartUnderlineNav.style.display = someHasOffset ? "block" : "none";
         };
-        window.addEventListener("resize", this.activeCallback);
-        this.activeCallback.call(window);
 
-        const existingUnderlineNav = nav.querySelector(":scope > div");
-        if (existingUnderlineNav) {
-            existingUnderlineNav.replaceWith(smartUnderlineNav);
-        } else {
-            nav.append(smartUnderlineNav);
-        }
+        new ResizeObserver(repairHeader).observe(nav);
     }
 }
