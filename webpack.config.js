@@ -1,6 +1,13 @@
+// Built-in modules
 const path = require("path");
-const { EOL } = require("os");
 const fs = require("fs/promises");
+
+// Metadata
+const { name } = require("./package.json");
+const addonManifest = require("./metadata/addon.manifest");
+const userscriptManifest = require("./metadata/userscript.manifest");
+
+// Plugins
 const TerserPlugin = require("terser-webpack-plugin");
 const EmitFilePlugin = require("emit-file-webpack-plugin");
 const RemoveFilesPlugin = require("remove-files-webpack-plugin");
@@ -8,72 +15,6 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { name, namespace, displayName, version, author, description, githubUser, githubRepo, license } = require("./package.json");
-
-function transformMetadata(metadata) {
-    const maxLength = (Object.keys(metadata).map(x => x.length).sort((a, b) => b - a)[0] || 0) + 6;
-
-    return [
-        "// ==UserScript==",
-        ...Object
-            .entries(metadata)
-            .map(([key, value]) => `// @${key}`.padEnd(maxLength, " ") + value),
-        "// ==/UserScript=="
-    ].join(EOL);
-}
-
-const metadata = {
-    name: displayName,
-    namespace,
-    version,
-    author,
-    description,
-    license,
-    homepageURL: `https://github.com/${githubUser}/${githubRepo}`,
-    updateURL: `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.meta.js`,
-    downloadURL: `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/master/build/${name}.user.js`,
-    supportURL: `https://github.com/${githubUser}/${githubRepo}/issues/new/choose`,
-    match: `https://github.com/*`,
-    "run-at": `document-start`,
-    grant: `none`
-};
-
-const manifest = {
-    manifest_version: 2,
-    name: displayName,
-    description,
-    version,
-    author,
-    homepage_url: metadata.homepageURL,
-    icons: {
-        19: "icons/icon-19.png",
-        38: "icons/icon-38.png",
-        48: "icons/icon-48.png",
-        96: "icons/icon-96.png",
-    },
-    content_scripts: [
-        {
-            matches: ["https://github.com/*"],
-            all_frames: true,
-            run_at: "document_start",
-            js: [`${name}.user.js`]
-        }
-    ],
-    browser_action: {
-        default_title: displayName,
-        default_icon: {
-            19: "icons/icon-19.png",
-            38: "icons/icon-38.png",
-        },
-        default_popup: "popup/index.html",
-    },
-    permissions: ["storage"],
-    applications: {
-        gecko: {
-            id: "{7945c276-9007-400b-b174-70db1146af7e}"
-        }
-    }
-};
 
 module.exports = {
     entry: {
@@ -103,7 +44,7 @@ module.exports = {
                 terserOptions: {
                     output: {
                         beautify: false,
-                        preamble: transformMetadata(metadata),
+                        preamble: userscriptManifest.toString(),
                     }
                 }
             })
@@ -208,13 +149,13 @@ module.exports = {
         }),
         new EmitFilePlugin({
             filename: `${name}.meta.js`,
-            content: transformMetadata(metadata)
+            content: userscriptManifest.toString(),
         }),
         new EmitFilePlugin({
             filename: `manifest.json`,
-            content: manifest
+            content: addonManifest
         }),
-        ...Object.keys(manifest.icons).map(size =>
+        ...Object.keys(addonManifest.icons).map(size =>
             new EmitFilePlugin({
                 path: "./icons",
                 filename: `icon-${size}.png`,
@@ -242,7 +183,6 @@ module.exports = {
                     "popup",
                     "icons",
                 ],
-
             }
         })
     ]
