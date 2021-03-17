@@ -1,0 +1,11 @@
+[data-color-mode="light"] {
+    --color-header-text: #333 !important;
+    --color-header-bg: #f5f5f5 !important;
+    --color-header-logo: #333 !important;
+    --color-header-search-bg: #fff !important;
+    --color-header-search-border: #dadbdc !important;
+
+    & .header-search-input::placeholder {
+        color: #333 !important;
+    }
+}

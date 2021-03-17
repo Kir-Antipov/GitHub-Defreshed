@@ -55,6 +55,7 @@ export class SettingsProperty<TValue = unknown> {
  */
 class Settings extends Array<SettingsProperty> {
     useOldCSS = new SettingsProperty("useOldCSS", "Use old css styles", "This will revert old css styles where it's possible. For example, it will unround edges of avatars and containers.", true);
+    enableLightHeader = new SettingsProperty("enableLightHeader", "Enable light header", "Some folks are nostalgic for the days when the GitHub header was light. This option is specifically for them.", false);
     usePreloader = new SettingsProperty("usePreloader", "Use preloader", "This will activate preloader during script initialization (first load of any GitHub page) to make the load look way smoother.", true);
     defreshProfilePage = new SettingsProperty("defreshProfilePage", "Defresh profile page", "This will roll back the changes of the profile page interface.", true);
     removeThemeSelector = new SettingsProperty("removeThemeSelector", "Remove theme selector from the profile page", "This will remove the theme selector from your profile page. (Why in the world is it here?)", true);

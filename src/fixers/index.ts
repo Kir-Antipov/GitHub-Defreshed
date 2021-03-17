@@ -1,5 +1,6 @@
 import CompatibilityCSSFixer from "./css/compatibility-css-fixer";
 import OldSchoolCSSFixer from "./css/old-school-css-fixer";
+import LightHeaderCSSFixer from "./css/light-header-css-fixer";
 import PreloaderCSSFixer from "./css/preloader-css-fixer";
 import PreloaderStartFixer from "./global/preloader-start-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
@@ -35,6 +36,7 @@ const fixers: Fixer[] = [
     new PreloaderCSSFixer(),
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
+    new LightHeaderCSSFixer(),
     new ScriptSettingsFixer(),
     new PreloaderStartFixer(),
     new HeaderFixer(),
