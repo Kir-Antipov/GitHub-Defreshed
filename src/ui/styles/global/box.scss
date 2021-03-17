@@ -1,8 +1,23 @@
 .Box {
     border-radius: $border-radius !important;
+
+    &-header {
+        margin: 0;
+        border: none;
+        border-bottom: 1px solid var(--color-border-primary);
+    }
 }
 
 .Box-header, :not(li).Box-row:first-of-type, .Box--danger li.Box-row:first-of-type {
     border-top-left-radius: $border-radius !important;
     border-top-right-radius: $border-radius !important;
+}
+
+.Box-row, .Box-header, .Box-body {
+    padding: 8px 12px;
+}
+
+.Box-header .ml-n1 {
+    margin-left: 0 !important;
+    margin-right: -8px !important;
 }
