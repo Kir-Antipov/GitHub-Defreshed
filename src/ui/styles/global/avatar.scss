@@ -1,13 +1,13 @@
 // Fixes aggressive rounding of avatars
-img.avatar, img.avatar-user, a.avatar-user {
+.avatar, .avatar-user {
     border-radius: $border-radius !important;
 }
 
-body:not(.page-profile) {
-    img.avatar, img.avatar-user, a.avatar-user {
-        box-shadow: none !important;
-        background-color: transparent !important;
-    }
+body:not(.page-profile) .avatar,
+body:not(.page-profile) .avatar-user,
+.avatar-small {
+    box-shadow: none !important;
+    background-color: transparent !important;
 }
 
 .Box-header .avatar[width="24"], .Box-header .avatar-user[width="24"] {
@@ -19,4 +19,8 @@ body:not(.page-profile) {
 .avatar[width="24"], .avatar-user[width="24"] {
     width: 20px;
     height: 20px;
+}
+
+.hx_avatar_stack_commit, .AvatarStack-body {
+    background-color: transparent !important;
 }
