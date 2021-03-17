@@ -2,11 +2,16 @@
     border-radius: $border-radius !important;
 }
 
-.repository-content .file-navigation .btn {
+.repository-content .file-navigation .btn,
+.repository-content .flex-items-start .btn {
     padding: 3px 10px !important;
     font-size: 12px !important;
     line-height: 20px !important;
     font-weight: 600 !important;
+}
+
+.repository-content #blob-path {
+    line-height: 20px;
 }
 
 #branch-select-menu > .btn > svg {
