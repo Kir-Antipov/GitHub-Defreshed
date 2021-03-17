@@ -5,6 +5,18 @@ img.avatar, img.avatar-user, a.avatar-user {
 
 body:not(.page-profile) {
     img.avatar, img.avatar-user, a.avatar-user {
+        box-shadow: none !important;
         background-color: transparent !important;
     }
+}
+
+.Box-header .avatar[width="24"], .Box-header .avatar-user[width="24"] {
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+
+.avatar[width="24"], .avatar-user[width="24"] {
+    width: 20px;
+    height: 20px;
 }
