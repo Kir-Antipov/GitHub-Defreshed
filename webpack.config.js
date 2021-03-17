@@ -15,8 +15,12 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { DefinePlugin } = require("webpack");
 
-module.exports = {
+const isRelease = mode => mode === "production";
+const isDebug = mode => !isRelease(mode);
+
+module.exports = (_, { mode }) => ({
     entry: {
         main: "./src/index.ts",
 
@@ -37,13 +41,17 @@ module.exports = {
         },
         path: path.resolve(__dirname, "build"),
     },
+    devtool: false,
     optimization: {
+        minimize: true,
         minimizer: [
             new TerserPlugin({
                 exclude: [/\.meta\.js$/],
+                extractComments: false,
                 terserOptions: {
+                    mangle: isRelease(mode),
                     output: {
-                        beautify: false,
+                        beautify: isDebug(mode),
                         preamble: userscriptManifest.toString(),
                     }
                 }
@@ -116,6 +124,9 @@ module.exports = {
         },
     },
     plugins: [
+        new DefinePlugin({
+            IS_DEBUG: isDebug(mode),
+        }),
         new MiniCssExtractPlugin({
             filename: (data) => {
                 switch (data.chunk.name) {
@@ -169,4 +180,4 @@ module.exports = {
             }
         })
     ]
-};
+});
