@@ -39,7 +39,7 @@ if (typeof window.ResizeObserver === "undefined") {
                     bottom: target.clientTop + target.clientHeight,
                     left: target.clientLeft,
                     right: target.clientLeft + target.clientWidth,
-                    toJSON: function () {
+                    toJSON() {
                         return {
                             bottom: this.bottom,
                             height: this.height,
