@@ -20,6 +20,7 @@ import ColumnsFixer from "./repository/columns-fixer";
 import ReadmeFixer from "./repository/readme-fixer";
 import ProfileTabsFixer from "./profile/tabs-fixer";
 import ThemeSelectorFixer from "./profile/theme-selector-fixer";
+import DisableStatusEditorFixer from "./global/disable-status-editor-fixer";
 import ProfileStatusFixer from "./profile/status-fixer";
 import ProfileBlockOrReportFixer from "./profile/block-or-report-fixer";
 import PjaxFixer from "./global/pjax-fixer";
@@ -55,6 +56,7 @@ const fixers: Fixer[] = [
     new ReadmeFixer(),
     new ProfileTabsFixer(),
     new ThemeSelectorFixer(),
+    new DisableStatusEditorFixer(),
     new ProfileStatusFixer(),
     new ProfileBlockOrReportFixer(),
     new PjaxFixer(),
