@@ -17,18 +17,26 @@ This time effective managers from Microsoft (tbh, I don't think there were any U
 
 ## Preview
 
-Repository page:
+Repository page (`Default light`):
 
 ![Preview of GitHub Defreshed: Repository page](./media/preview-0.png)
 ![Preview of GitHub Defreshed: Repository page](./media/preview-1.png)
 
-Profile page:
+Profile page (`Default light`):
 
 ![Preview of GitHub Defreshed: Profile page](./media/preview-2.png)
 
-Dark mode:
+Repository page (`Default light` + `Enable light header`):
+
+![Preview of GitHub Defreshed: Light mode](./media/preview-light.png)
+
+Repository page (`Default dark`):
 
 ![Preview of GitHub Defreshed: Dark mode](./media/preview-dark.png)
+
+Repository page (`Dark dimmed`):
+
+![Preview of GitHub Defreshed: Dimmed dark mode](./media/preview-dark-dimmed.png)
 
 Just ol' buddy GitHub in person
 
@@ -57,15 +65,15 @@ Just ol' buddy GitHub in person
 ## Features
 
  - Old style header
- - About and Summary sections moved back
+ - Light header
+ - Prettified `About` and `Summary` sections
  - Prettified README
  - Unhidden commit message
  - Unhidden user status
- - "Stars", "Followers" and "Following" tabs are back
- - Container dimensions returned to adequate proportions
- - Unrounded buttons, avatars and containers and another CSS-improvements
+ - `Stars`, `Followers` and `Following` tabs are back
+ - Unrounded buttons, avatars and containers
  - Full support of custom themes (e.g., `GitHub-Dark`)
- - Full support of dark mode
+ - Full support of default themes (`Default light`, `Default dark` and `Dark dimmed`)
  - Partial support of other scripts and extensions (e.g., `Refined GitHub`). Partial, since none of developers (including myself) can be sure that their extension is compatible with every plugin with unknown functionality in the world
  - And much more!
 
