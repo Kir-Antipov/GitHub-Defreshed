@@ -1,5 +1,5 @@
 import settings from "@utils/settings";
-import Engines from "@utils/engines";
+import Engine from "@utils/engine";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -10,7 +10,7 @@ export default class PreloaderStartFixer extends Fixer {
 
     async isApplieble() {
         return (
-            (!this.wasShown || await settings.engine.getValue() === Engines.Pjax) &&
+            (!this.wasShown || await settings.engine.getValue() === Engine.Pjax) &&
             await settings.usePreloader.getValue()
         );
     }

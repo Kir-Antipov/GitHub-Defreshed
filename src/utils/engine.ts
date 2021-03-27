@@ -1,7 +1,7 @@
 /**
  * Available engines.
  */
-enum Engines {
+enum Engine {
     /**
      * Original engine completely replaces
      * the GitHub navigation system with dynamic page loading.
@@ -16,4 +16,4 @@ enum Engines {
     Pjax = "pjax",
 }
 
-export default Engines;
+export default Engine;

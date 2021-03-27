@@ -2,7 +2,7 @@ import navigate from "@utils/navigate";
 import { isSameSiteURL, getAbsoluteURL } from "@utils/host-detector";
 import { isRepo, isProject, isAnchor, isFile, isProfileSettings, isProfile } from "@utils/path-detector";
 import settings from "@utils/settings";
-import Engines from "@utils/engines";
+import Engine from "@utils/engine";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -10,7 +10,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class LinksFixer extends Fixer {
     async isApplieble() {
-        return await settings.engine.getValue() === Engines.Original;
+        return await settings.engine.getValue() === Engine.Original;
     }
 
     apply() {

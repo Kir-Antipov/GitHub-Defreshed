@@ -1,6 +1,6 @@
 import defresh from "@utils/defresh";
 import settings from "@utils/settings";
-import Engines from "@utils/engines";
+import Engine from "@utils/engine";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -10,7 +10,7 @@ export default class PjaxFixer extends Fixer {
     private isActive = false;
 
     async isApplieble() {
-        return !this.isActive && await settings.engine.getValue() === Engines.Pjax;
+        return !this.isActive && await settings.engine.getValue() === Engine.Pjax;
     }
 
     apply() {
