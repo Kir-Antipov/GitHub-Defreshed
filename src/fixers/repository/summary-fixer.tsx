@@ -4,11 +4,11 @@ import settings from "@utils/settings";
 import Fixer from "@fixers/fixer";
 import pluralize from "@utils/pluralize";
 import SummaryElement from "@components/repository/summary-element";
-import OcticonLaw from "@images/octicon-law.svg";
-import OcticonPeople from "@images/octicon-people.svg";
-import OcticonTag from "@images/octicon-tag.svg";
-import OcticonBranch from "@images/octicon-git-branch.svg";
-import OcticonCommit from "@images/octicon-git-commit.svg";
+import { LawIcon } from "@primer/octicons-react";
+import { PeopleIcon } from "@primer/octicons-react";
+import { TagIcon } from "@primer/octicons-react";
+import { GitBranchIcon } from "@primer/octicons-react";
+import { CommitIcon } from "@primer/octicons-react";
 import SummaryContainer from "@components/repository/summary-container";
 
 /**
@@ -43,7 +43,7 @@ export default class SummaryFixer extends Fixer {
         const count = data.querySelector("strong").innerText;
         const link = data.href;
         const text = "commit";
-        const icon = <OcticonCommit />;
+        const icon = <CommitIcon />;
 
         return <SummaryElement icon={icon} href={link} text={text} count={count} />;
     }
@@ -56,7 +56,7 @@ export default class SummaryFixer extends Fixer {
         const count = data.querySelector("strong").innerText;
         const link = data.href;
         const text = "branch";
-        const icon = <OcticonBranch />;
+        const icon = <GitBranchIcon />;
 
         return <SummaryElement icon={icon} href={link} text={text} count={count} />;
     }
@@ -65,7 +65,7 @@ export default class SummaryFixer extends Fixer {
      * Creates packages element for the summary block.
      */
     private createPackagesSummaryElement(location: string) {
-        const icon = <OcticonTag />;
+        const icon = <TagIcon />;
         const text = "package";
         const defaultCount = 0;
         const path = "";
@@ -77,7 +77,7 @@ export default class SummaryFixer extends Fixer {
      * Creates releases element for the summary block.
      */
     private createReleasesSummaryElement(location: string, treatTagsAsReleases: boolean, showLatestReleasePopup: boolean) {
-        const icon = <OcticonTag />;
+        const icon = <TagIcon />;
         const text = "release";
         const defaultCount = 0;
         const path = "";
@@ -103,7 +103,7 @@ export default class SummaryFixer extends Fixer {
      * Creates contributors element for the summary block.
      */
     private createContributorsSummaryElement(location: string) {
-        const icon = <OcticonPeople />;
+        const icon = <PeopleIcon />;
         const text = "contributor";
         const defaultCount = 1;
         const path = "graphs/";
@@ -120,7 +120,7 @@ export default class SummaryFixer extends Fixer {
             const anchor = data.parentElement as HTMLAnchorElement;
             const link = anchor.href;
             const text = anchor.innerText.replace("License", "").trim();
-            const icon = <OcticonLaw />;
+            const icon = <LawIcon />;
 
             return <SummaryElement icon={icon} href={link} text={text} />;
         }

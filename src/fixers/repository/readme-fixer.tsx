@@ -1,7 +1,7 @@
 import { isRepoRoot, isRepoTree } from "@utils/path-detector";
 import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
-import OcticonBook from "@images/octicon-book.svg";
+import { BookIcon } from "@primer/octicons-react";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -27,6 +27,6 @@ export default class ReadmeFixer extends Fixer {
         header.className = "Box-header d-flex flex-items-center flex-justify-between";
 
         const title = readme.querySelector(".Box-title.pr-3");
-        title.prepend(<OcticonBook/>);
+        title.prepend(<BookIcon />);
     }
 }

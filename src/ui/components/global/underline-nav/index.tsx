@@ -1,12 +1,12 @@
 import { FC } from "jsx-dom";
-import OcticonKebabHorizontal from "@assets/images/octicon-kebab-horizontal.svg";
+import { KebabHorizontalIcon } from "@primer/octicons-react";
 
 const UnderlineNav: FC = ({ children }) => (
     <div class="UnderlineNav-actions js-responsive-underlinenav-overflow position-absolute pr-3 pr-md-4 pr-lg-5 right-0">
         <details class="details-overlay details-reset position-relative">
             <summary role="button">
                 <div class="UnderlineNav-item mr-0 border-0">
-                    <OcticonKebabHorizontal />
+                    <KebabHorizontalIcon />
                     <span class="sr-only">More</span>
                 </div>
             </summary>

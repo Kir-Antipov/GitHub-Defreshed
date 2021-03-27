@@ -3,7 +3,7 @@ import { is404 } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import settings from "@utils/settings";
 import Tab from "@components/profile/tab";
-import OcticonPeople from "@images/octicon-people.svg";
+import { PeopleIcon } from "@primer/octicons-react";
 import Fixer from "@fixers/fixer";
 
 /**
@@ -44,7 +44,7 @@ export default class TabsFixer extends Fixer {
         const defaultIcons = new Map([
             ["stars", null],
             ["followers", null],
-            ["following", <OcticonPeople />],
+            ["following", <PeopleIcon />],
         ]);
         const tabNames = [...defaultIcons.keys()];
 
