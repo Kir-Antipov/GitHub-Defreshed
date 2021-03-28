@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import { SettingsProperty, settings } from "@utils/settings";
+import settings from "@utils/settings";
+import SettingsProperty from "@utils/settings-property";
 
 describe("@utils/settings", () => {
     describe("SettingsProperty", () => {

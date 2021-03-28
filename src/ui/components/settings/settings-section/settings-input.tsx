@@ -1,5 +1,5 @@
 import { Component } from "jsx-dom";
-import { SettingsProperty } from "@utils/settings";
+import SettingsProperty from "@utils/settings-property";
 
 interface SettingsInputProps<T> {
     property: SettingsProperty<T>
