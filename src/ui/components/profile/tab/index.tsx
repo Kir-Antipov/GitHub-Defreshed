@@ -9,7 +9,7 @@ interface TabProps {
 }
 
 const Tab: FC<TabProps> = ({ href, icon, text, count, selected }) => (
-    <a href={href} class={["UnderlineNav-item", selected && "selected"]}>
+    <a href={href} className={["UnderlineNav-item", selected && "selected"]}>
         {icon}
         {text}
         {/* eslint-disable-next-line eqeqeq */}

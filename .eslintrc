@@ -28,7 +28,6 @@
     "react/no-children-prop": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/no-unknown-property": ["warn", { "ignore": ["class"] }],
     "@typescript-eslint/ban-types": ["error", {
       "types": { "Function": false },
       "extendDefaults": true

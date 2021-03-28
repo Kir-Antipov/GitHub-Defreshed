@@ -6,7 +6,7 @@ export default class SettingsSelect extends SettingsInput<string> {
         const property = this.props.property;
         const value = property.getValue();
         return (
-            <dl class="form-group">
+            <dl className="form-group">
                 <dt>
                     <label htmlFor={this.id}>
                         {property.title}

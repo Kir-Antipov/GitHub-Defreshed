@@ -13,7 +13,7 @@ const StatusContainer: FC<StatusContainerProps> = ({ emoji, text, isBusy, dialog
 
     return (
         <DetailsTag
-            class={[
+            className={[
                 "user-status-container", "border", "position-relative", "hide-sm", "bg-white", "hide-md",
                 dialog
                     ? ["details-reset", "details-overlay", "details-overlay-dark"]
@@ -22,7 +22,7 @@ const StatusContainer: FC<StatusContainerProps> = ({ emoji, text, isBusy, dialog
         >
             <SummaryTag className="d-flex">
                 <div
-                    class={[
+                    className={[
                         "d-flex", "p-2", "width-full", "border-0", "rounded-bottom-0",
                         isBusy
                             ? ["user-status-container-border-busy", "bg-yellow-light", "border-yellow"]

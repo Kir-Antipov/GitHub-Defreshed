@@ -16,7 +16,7 @@ const LatestCommit: FC<{ href: string, datetime: string }> = ({ href, datetime }
             {parseHashFromUrl(href)}
         </a>
         {" "}
-        <relative-time datetime={datetime} class="no-wrap"/>
+        <relative-time datetime={datetime} className="no-wrap"/>
     </div>
 );
 
