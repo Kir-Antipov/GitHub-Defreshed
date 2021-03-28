@@ -5,7 +5,7 @@ import Engine from "@utils/engine";
 /**
  * Represents property of the script settings.
  */
-export class SettingsProperty<TValue = unknown> {
+export class SettingsProperty<TValue = unknown> implements PromiseLike<TValue> {
     name: string;
     title: string;
     description: string;
@@ -47,6 +47,16 @@ export class SettingsProperty<TValue = unknown> {
         }
 
         await storage.setItem(this.name, value);
+    }
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the value.
+     * @param onfulfilled The callback to execute when the value is resolved.
+     * @param onrejected The callback to execute when the value is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TFulfilledResult = TValue, TRejectedResult = never>(onfulfilled?: (value: TValue) => TFulfilledResult | PromiseLike<TFulfilledResult>, onrejected?: (reason: any) => TRejectedResult | PromiseLike<TRejectedResult>) {
+        return this.getValue().then(onfulfilled, onrejected);
     }
 }
 

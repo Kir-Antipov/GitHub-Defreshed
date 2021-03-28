@@ -6,8 +6,8 @@ import Fixer from "@fixers/fixer";
  * Disables the status editor.
  */
 export default class DisableStatusEditorFixer extends Fixer {
-    isApplieble() {
-        return settings.disableUserStatus.getValue();
+    async isApplieble() {
+        return await settings.disableUserStatus;
     }
 
     waitUntilFixerReady() {

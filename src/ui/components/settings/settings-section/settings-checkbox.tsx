@@ -10,7 +10,7 @@ export default class SettingsCheckbox extends SettingsInput<boolean> {
                     id={this.id}
                     type="checkbox"
                     onChange={function() { property.setValue(this.checked); }}
-                    ref={input => property.getValue().then(x => input.checked = x)}
+                    ref={input => property.then(x => input.checked = x)}
                 />
                 <label htmlFor={this.id}>{property.title}</label>
                 <SettingsNote text={property.description}/>

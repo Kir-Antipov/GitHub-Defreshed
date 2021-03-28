@@ -10,7 +10,7 @@ export default class PjaxFixer extends Fixer {
     private isActive = false;
 
     async isApplieble() {
-        return !this.isActive && await settings.engine.getValue() === Engine.Pjax;
+        return !this.isActive && await settings.engine === Engine.Pjax;
     }
 
     apply() {

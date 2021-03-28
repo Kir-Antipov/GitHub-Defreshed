@@ -17,7 +17,7 @@ export default class SettingsText extends SettingsInput<string> {
                         type="text"
                         className="form-control"
                         onChange={function () { property.setValue(this.value); }}
-                        ref={input => property.getValue().then(x => input.value = x)}
+                        ref={input => property.then(x => input.value = x)}
                     />
                     <SettingsNote text={property.description}/>
                 </dd>

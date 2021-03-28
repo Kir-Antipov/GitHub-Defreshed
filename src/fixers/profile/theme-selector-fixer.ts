@@ -10,8 +10,8 @@ import Fixer from "@fixers/fixer";
 export default class ThemeSelectorFixer extends Fixer {
     async isApplieble(location: string) {
         return (
-            await settings.defreshProfilePage.getValue() &&
-            await settings.removeThemeSelector.getValue() &&
+            await settings.defreshProfilePage &&
+            await settings.removeThemeSelector &&
             isProfile(location) &&
             !is404()
         );

@@ -10,7 +10,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class LinksFixer extends Fixer {
     async isApplieble() {
-        return await settings.engine.getValue() === Engine.Original;
+        return await settings.engine === Engine.Original;
     }
 
     apply() {

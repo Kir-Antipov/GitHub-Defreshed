@@ -150,7 +150,7 @@ export async function navigate(link = window.location.href, changeLocation = tru
     }
     newMain.style.display = "";
 
-    if (await settings.jumpToTop.getValue()) {
+    if (await settings.jumpToTop) {
         window.scrollTo(0, 0);
     }
 

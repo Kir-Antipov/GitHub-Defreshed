@@ -11,7 +11,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class TabsFixer extends Fixer {
     async isApplieble(location: string) {
-        return await settings.defreshProfilePage.getValue() && isProfile(location) && !is404();
+        return await settings.defreshProfilePage && isProfile(location) && !is404();
     }
 
     waitUntilFixerReady() {
@@ -27,7 +27,7 @@ export default class TabsFixer extends Fixer {
 
         container.remove();
 
-        if (!await settings.keepProfilePageIcons.getValue()) {
+        if (!await settings.keepProfilePageIcons) {
             for (const icon of tabs.querySelectorAll("svg")) {
                 icon.style.display = "none";
             }

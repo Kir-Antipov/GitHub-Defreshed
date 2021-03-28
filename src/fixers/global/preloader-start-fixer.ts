@@ -10,8 +10,8 @@ export default class PreloaderStartFixer extends Fixer {
 
     async isApplieble() {
         return (
-            (!this.wasShown || await settings.engine.getValue() === Engine.Pjax) &&
-            await settings.usePreloader.getValue()
+            (!this.wasShown || await settings.engine === Engine.Pjax) &&
+            await settings.usePreloader
         );
     }
 

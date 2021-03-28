@@ -10,7 +10,7 @@ import Fixer from "@fixers/fixer";
  */
 export default class BlockOrReportFixer extends Fixer {
     async isApplieble(location: string) {
-        return await settings.defreshProfilePage.getValue() && isProfile(location) && !is404();
+        return await settings.defreshProfilePage && isProfile(location) && !is404();
     }
 
     async waitUntilFixerReady() {

@@ -18,8 +18,8 @@ interface HTMLEmojiPickerElement extends HTMLElement {
 export default class StatusFixer extends Fixer {
     async isApplieble(location: string) {
         return (
-            await settings.defreshProfilePage.getValue() &&
-            await settings.defreshProfilePageUserStatus.getValue() &&
+            await settings.defreshProfilePage &&
+            await settings.defreshProfilePageUserStatus &&
             isProfile(location) &&
             !is404()
         );

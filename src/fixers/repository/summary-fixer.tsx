@@ -28,7 +28,7 @@ export default class SummaryFixer extends Fixer {
                     {this.createCommitsSummaryElement(backupContainer)}
                     {this.createBranchesSummaryElement(backupContainer)}
                     {this.createPackagesSummaryElement(location)}
-                    {this.createReleasesSummaryElement(location, await settings.treatTagsAsReleases.getValue(), await settings.showLatestReleasePopup.getValue())}
+                    {this.createReleasesSummaryElement(location, await settings.treatTagsAsReleases, await settings.showLatestReleasePopup)}
                     {this.createContributorsSummaryElement(location)}
                     {this.createLicenseSummaryElement()}
                 </SummaryContainer>
