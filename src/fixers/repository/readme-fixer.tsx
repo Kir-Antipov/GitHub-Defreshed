@@ -3,6 +3,8 @@ import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady, checkIfElementsReady } from "@utils/wait-until-ready";
 import { BookIcon } from "@primer/octicons-react";
 import Fixer from "@fixers/fixer";
+import settings from "@utils/settings";
+import ReadmeHeaderType from "@utils/readme-header-type";
 
 /**
  * Returns the classic look of the README.
@@ -19,14 +21,33 @@ export default class ReadmeFixer extends Fixer {
         );
     }
 
-    apply() {
+    async apply() {
         const readme = document.querySelector("#readme");
         readme.className = "Box md js-code-block-container Box--condensed";
 
-        const header = readme.querySelector(".Box-header");
+        const header = readme.firstElementChild;
         header.className = "Box-header d-flex flex-items-center flex-justify-between";
 
-        const title = readme.querySelector(".Box-title.pr-3");
-        title.prepend(<BookIcon />);
+        const title = readme.querySelector(".Box-title");
+        const titleContainer = title.parentElement;
+        switch (await settings.readmeHeaderType) {
+            case ReadmeHeaderType.New:
+                break;
+
+            case ReadmeHeaderType.CombinedNew:
+            case ReadmeHeaderType.CombinedOld:
+                const icon = titleContainer.querySelector("details svg");
+                icon.replaceWith(<BookIcon />);
+                break;
+
+            case ReadmeHeaderType.Old:
+                titleContainer.querySelector("details")?.remove();
+                title.className = "Box-title";
+                title.prepend(<BookIcon />);
+                break;
+
+            default:
+                break;
+        }
     }
 }

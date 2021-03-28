@@ -2,6 +2,7 @@ import CompatibilityCSSFixer from "./css/compatibility-css-fixer";
 import OldSchoolCSSFixer from "./css/old-school-css-fixer";
 import LightHeaderCSSFixer from "./css/light-header-css-fixer";
 import PreloaderCSSFixer from "./css/preloader-css-fixer";
+import CombinedOldReadmeCSSFixer from "./css/combined-old-readme-css-fixer";
 import PreloaderStartFixer from "./global/preloader-start-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
@@ -38,6 +39,7 @@ const fixers: Fixer[] = [
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
     new LightHeaderCSSFixer(),
+    new CombinedOldReadmeCSSFixer(),
     new ScriptSettingsFixer(),
     new PreloaderStartFixer(),
     new HeaderFixer(),
