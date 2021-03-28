@@ -27,6 +27,7 @@ export default class ReadmeFixer extends Fixer {
 
         const header = readme.firstElementChild;
         header.className = "Box-header d-flex flex-items-center flex-justify-between";
+        header.removeAttribute("style");
 
         const title = readme.querySelector(".Box-title");
         const titleContainer = title.parentElement;
