@@ -15,11 +15,11 @@ export default class TabsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) nav", "main:nth-child(1) div.js-profile-editable-area > :not(.js-user-profile-bio)[class]");
+        return waitUntilElementsReady("main:nth-child(1) nav", "main:nth-child(1) div.js-profile-editable-area > :not(.js-user-profile-bio)[class]:not(.vcard-details):last-of-type");
     }
 
     async apply(location: string) {
-        const container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.js-user-profile-bio)[class]");
+        const container = document.querySelector<HTMLElement>("main div.js-profile-editable-area > :not(.js-user-profile-bio)[class]:not(.vcard-details):last-of-type");
 
         const tabs = document.querySelector<HTMLElement>("main nav");
         tabs.style.overflow = "hidden";
