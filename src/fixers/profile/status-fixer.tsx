@@ -37,10 +37,10 @@ export default class StatusFixer extends Fixer {
         const isBusy = !!statusContainer.querySelector(".user-status-busy");
         const dialog = statusContainer.querySelector<HTMLElement>("details-dialog");
 
-        this.fixDialog(dialog);
         statusContainer.replaceWith(
             <StatusContainer {...{ emoji, text, isBusy, dialog }} />
         );
+        this.fixDialog(dialog);
 
         const avatar = document.querySelector("main img.avatar");
         if (avatar) {
@@ -65,9 +65,13 @@ export default class StatusFixer extends Fixer {
      * Initiates loading of editor's content.
      */
     private fixDialogFragments(dialog: HTMLElement) {
-        for (const fragment of [...dialog.querySelectorAll("include-fragment")]) {
-            fragment.setAttribute("src", fragment.getAttribute("data-url"));
-        }
+        const fragmentPoker = () => {
+            for (const fragment of [...dialog.querySelectorAll("include-fragment[data-url]")]) {
+                fragment.setAttribute("src", fragment.getAttribute("data-url"));
+            }
+            dialog.parentElement.removeEventListener("click", fragmentPoker);
+        };
+        dialog.parentElement.addEventListener("click", fragmentPoker);
     }
 
     /**
