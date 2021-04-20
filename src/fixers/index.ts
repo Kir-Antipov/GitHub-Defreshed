@@ -4,6 +4,7 @@ import LightHeaderCSSFixer from "./css/light-header-css-fixer";
 import PreloaderCSSFixer from "./css/preloader-css-fixer";
 import StickyReadmeHeaderCSSFixer from "./css/sticky-readme-header-css-fixer";
 import CombinedOldReadmeCSSFixer from "./css/combined-old-readme-css-fixer";
+import ToolbarCSSFixer from "./css/toolbar-css-fixer";
 import PreloaderStartFixer from "./global/preloader-start-fixer";
 import ScriptSettingsFixer from "./settings/script-settings-fixer";
 import ContainerFixer from "./repository/container-fixer";
@@ -40,6 +41,7 @@ const fixers: Fixer[] = [
     new OldSchoolCSSFixer(),
     new LightHeaderCSSFixer(),
     new CombinedOldReadmeCSSFixer(),
+    new ToolbarCSSFixer(),
     new StickyReadmeHeaderCSSFixer(),
     new ScriptSettingsFixer(),
     new PreloaderStartFixer(),

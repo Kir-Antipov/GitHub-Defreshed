@@ -1,3 +1,7 @@
+:root {
+    --box-header-padding: 8px 12px;
+}
+
 .Box {
     border-radius: $border-radius !important;
 
@@ -14,7 +18,7 @@
 }
 
 .Box-row, .Box-header, .Box-body {
-    padding: 8px 12px;
+    padding: var(--box-header-padding);
 }
 
 .Box-header .ml-n1 {

@@ -2,6 +2,7 @@ import config from "@config";
 import Engine from "@utils/engine";
 import ReadmeHeaderType from "./readme-header-type";
 import SettingsProperty from "./settings-property";
+import ToolbarType from "./toolbar-type";
 
 /**
  * Represents script settings.
@@ -22,6 +23,7 @@ class Settings extends Array<SettingsProperty> {
     enableStickyReadmeHeader = new SettingsProperty("enableStickyReadmeHeader", "Enable sticky readme header", "This will make readme header sticky.", false);
     readmeHeaderType = new SettingsProperty("readmeHeaderType", "Readme header's type", `"${ReadmeHeaderType.New}" represents the latest header design.\n"${ReadmeHeaderType.CombinedNew}" represents the latest header design, but with a book octicon in use.\n"${ReadmeHeaderType.CombinedOld}" represents an old school design, but with the new functionality.\n"${ReadmeHeaderType.Old}" represents an old school design.`, ReadmeHeaderType.CombinedOld, [ReadmeHeaderType.New, ReadmeHeaderType.CombinedNew, ReadmeHeaderType.CombinedOld, ReadmeHeaderType.Old]);
     mainBranchName = new SettingsProperty("mainBranchName", "Main branch name", "Here you can specify default name of the main branch.", "main");
+    toolbarType = new SettingsProperty("toolbarType", "Toolbar type", "Adjusts the thickness of the toolbars.", ToolbarType.Slim, [ToolbarType.Slim, ToolbarType.OldSchool, ToolbarType.FatAsHeck]);
     engine = new SettingsProperty("engine", `Engine that powers ${config.displayName}`, `"${Engine.Original}" engine completely replaces the GitHub navigation system with dynamic page loading.\n"${Engine.Pjax}" engine was designed to be compatible with other scripts/extensions (e.g. "Refined GitHub") and is based on listening for pjax events.`, Engine.Pjax, [Engine.Original, Engine.Pjax]);
 
     constructor() {
