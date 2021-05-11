@@ -60,7 +60,7 @@ Just ol' buddy GitHub in person
 
 🐵 Install [Greasemonkey](https://www.greasespot.net/), [Tampermonkey](https://www.tampermonkey.net/) or any other browser extension that supports an execution of user scripts and then
 
-📦 [Install the user script](https://raw.githubusercontent.com/Kir-Antipov/GitHub-Defreshed/master/build/github-defreshed.user.js) which supports automatic updates and customization.
+📦 [Install the user script](https://github.com/Kir-Antipov/GitHub-Defreshed/releases/latest/download/github-defreshed.user.js) which supports automatic updates and customization.
 
 ## Features
 
