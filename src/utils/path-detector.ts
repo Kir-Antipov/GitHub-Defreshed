@@ -6,9 +6,7 @@ import { check as isReserved } from "github-reserved-names";
  * This method only works on repository pages.
  */
 function getRepoBranches() {
-    return [...document.querySelectorAll<HTMLSpanElement>("#ref-list-branches > .SelectMenu-list > a > span:not(.Label)")]
-        .map(x => x.innerText && x.innerText.trim())
-        .filter(x => x);
+    return document.querySelector<any>("#ref-list-branches ref-selector")?.index?.currentSearchResult ?? [];
 }
 
 /**

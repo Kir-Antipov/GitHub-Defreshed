@@ -14,7 +14,17 @@ export default class BranchesFixer extends Fixer {
         );
     }
 
-    waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) #ref-list-branches");
+    async waitUntilFixerReady() {
+        const wasLoaded = await waitUntilElementsReady("main:nth-child(1) #ref-list-branches");
+        if (!wasLoaded) {
+            return false;
+        }
+
+        const refSelector = document.querySelector<any>("#ref-list-branches ref-selector");
+        if (!refSelector.index) {
+            await customElements.whenDefined("ref-selector");
+        }
+        await refSelector.index.fetchData();
+        return true;
     }
 }
