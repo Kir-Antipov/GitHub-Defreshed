@@ -2,6 +2,7 @@ import { isRepoRoot, isRepoTree, isSingleFile } from "@utils/path-detector";
 import { is404, isRepoSetup } from "@utils/page-detector";
 import { waitUntilElementsReady } from "@utils/wait-until-ready";
 import Fixer from "@fixers/fixer";
+import sleep from "@utils/sleep";
 
 /**
  * Waits for the list of repository branches to be loaded.
@@ -22,7 +23,13 @@ export default class BranchesFixer extends Fixer {
 
         const refSelector = document.querySelector<any>("#ref-list-branches ref-selector");
         if (!refSelector.index) {
-            await customElements.whenDefined("ref-selector");
+            if (typeof customElements?.whenDefined === "function") {
+                await customElements.whenDefined("ref-selector");
+            } else {
+                while (!refSelector.index) {
+                    await sleep(50);
+                }
+            }
         }
         await refSelector.index.fetchData();
         return true;
