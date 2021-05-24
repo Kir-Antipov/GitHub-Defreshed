@@ -16,3 +16,12 @@ export function is404() {
 export function isRepoSetup() {
     return !!document.querySelector("main:nth-child(1) div.repository-content > git-clone-help");
 }
+
+/**
+ * Determines if current page is an organization page.
+ *
+ * @returns true if current page is an organization page; otherwise, false.
+ */
+export function isOrganizationPage() {
+    return !!document.querySelector("main:nth-child(1) header.orghead");
+}
