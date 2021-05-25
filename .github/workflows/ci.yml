@@ -11,6 +11,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14"
+      - name: Set up node modules
         run: npm ci
       - name: Execute tests
         run: npm test
