@@ -25,6 +25,23 @@ export default class ReadmeFixer extends Fixer {
         const readme = document.querySelector("#readme");
         readme.className = "Box md js-code-block-container Box--condensed";
 
+        // Chrome is shit, it knows nothing about CSS.
+        // Long story short: The brand new README header visually
+        // duplicates in Chrome due to "!important" styles overlapping.
+        // Although ma boi Firefox successfully resolves these issues.
+        new MutationObserver((mutations, observer) => {
+            for (const mutation of mutations) {
+                if (mutation.type === "childList") {
+                    for (const node of mutation.addedNodes) {
+                        if (node instanceof Element && node.classList.contains("is-placeholder")) {
+                            node.classList.remove("d-flex");
+                            observer.disconnect();
+                        }
+                    }
+                }
+            }
+        }).observe(readme, { childList: true });
+
         const header = readme.firstElementChild;
         header.className = "Box-header d-flex flex-items-center flex-justify-between";
         header.removeAttribute("style");
