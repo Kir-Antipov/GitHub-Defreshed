@@ -10,8 +10,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Node.js v14
       uses: actions/setup-node@v1
-        with:
-          node-version: "14"
+      with:
+        node-version: "14"
       run: npm ci
     - name: Build artifacts
       run: npm run build:release
