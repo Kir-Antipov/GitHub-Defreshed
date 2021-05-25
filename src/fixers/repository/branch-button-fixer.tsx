@@ -25,11 +25,6 @@ export default class BranchButtonFixer extends Fixer {
     apply() {
         const button = document.querySelector("#branch-select-menu");
 
-        const menu = button.querySelector("details-menu");
-        const src = menu && menu.getAttribute("src");
-        const fragment = button.querySelector("include-fragment");
-        fragment && fragment.setAttribute("src", src);
-
         const branchName = button.querySelector("span.css-truncate-target");
         branchName.parentElement.insertBefore(<BranchLabel/>, branchName);
     }
