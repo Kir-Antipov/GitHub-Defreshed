@@ -1,5 +1,6 @@
 :root {
     --box-header-padding: 8px 12px;
+    --readme-box-header-padding: 2px 12px;
 }
 
 .Box {
@@ -17,8 +18,16 @@
     border-top-right-radius: $border-radius !important;
 }
 
-.Box-row, .Box-header, .Box-body {
+.Box-row, .Box-body {
     padding: var(--box-header-padding);
+}
+
+.Box-header {
+    padding: var(--box-header-padding) !important;
+}
+
+#readme > .Box-header {
+    padding: var(--readme-box-header-padding) !important;
 }
 
 .Box-header .ml-n1 {
