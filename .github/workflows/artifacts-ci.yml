@@ -1,0 +1,29 @@
+name: artifacts-ci
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js v14
+      uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      run: npm ci
+    - name: Build artifacts
+      run: npm run build:release
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: build-artifacts
+        path: build
+    - name: Build debug artifacts
+      run: npm run build:debug
+    - name: Upload debug artifacts
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: build-artifacts_debug
+        path: build
