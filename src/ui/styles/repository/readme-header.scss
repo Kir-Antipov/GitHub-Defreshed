@@ -1,0 +1,13 @@
+#readme > .Box-header .btn-octicon {
+    padding: 0 !important;
+    margin-right: 0 !important;
+
+    &:hover {
+        background-color: transparent !important;
+        border-color: transparent !important;
+
+        .octicon {
+            color: var(--color-text-link);
+        }
+    }
+}

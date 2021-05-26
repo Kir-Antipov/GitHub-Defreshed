@@ -1,6 +1,5 @@
 :root {
     --box-header-padding: 8px 12px;
-    --readme-box-header-padding: 2px 12px;
 }
 
 .Box {
@@ -9,28 +8,21 @@
     &-header {
         margin: 0;
         border: none;
+        padding: var(--box-header-padding) !important;
         border-bottom: 1px solid var(--color-border-primary);
+
+        .ml-n1 {
+            margin-left: 0 !important;
+            margin-right: -8px !important;
+        }
+    }
+
+    &-row, &-body {
+        padding: var(--box-header-padding);
     }
 }
 
 .Box-header, :not(li).Box-row:first-of-type, .Box--danger li.Box-row:first-of-type {
     border-top-left-radius: $border-radius !important;
     border-top-right-radius: $border-radius !important;
-}
-
-.Box-row, .Box-body {
-    padding: var(--box-header-padding);
-}
-
-.Box-header {
-    padding: var(--box-header-padding) !important;
-}
-
-#readme > .Box-header {
-    padding: var(--readme-box-header-padding) !important;
-}
-
-.Box-header .ml-n1 {
-    margin-left: 0 !important;
-    margin-right: -8px !important;
 }

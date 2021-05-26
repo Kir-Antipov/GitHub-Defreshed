@@ -15,11 +15,9 @@ export default class ToolbarCSSFixer extends Fixer {
         switch (await settings.toolbarType) {
             case ToolbarType.OldSchool:
                 document.documentElement.style.setProperty("--box-header-padding", "10px 12px");
-                document.documentElement.style.setProperty("--readme-box-header-padding", "4px 12px");
                 break;
             case ToolbarType.FatAsHeck:
                 document.documentElement.style.setProperty("--box-header-padding", "16px");
-                document.documentElement.style.setProperty("--readme-box-header-padding", "10px 16px");
                 break;
             default:
                 break;
