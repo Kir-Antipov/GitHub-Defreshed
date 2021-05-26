@@ -1,6 +1,7 @@
 // Fixes aggressive rounding of avatars
 .avatar, .avatar-user {
     border-radius: $border-radius !important;
+    box-shadow: none !important;
 }
 
 body:not(.page-profile) .avatar,

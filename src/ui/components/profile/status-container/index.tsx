@@ -15,18 +15,15 @@ const StatusContainer: FC<StatusContainerProps> = ({ emoji, text, isBusy, dialog
         <DetailsTag
             className={[
                 "user-status-container", "border", "position-relative", "hide-sm", "bg-white", "hide-md",
-                dialog
-                    ? ["details-reset", "details-overlay", "details-overlay-dark"]
-                    : null
+                dialog && ["details-reset", "details-overlay", "details-overlay-dark"],
+                isBusy && "color-border-warning",
             ]}
         >
             <SummaryTag className="d-flex">
                 <div
                     className={[
                         "d-flex", "p-2", "width-full", "border-0", "rounded-bottom-0",
-                        isBusy
-                            ? ["user-status-container-border-busy", "bg-yellow-light", "border-yellow"]
-                            : null
+                        isBusy && "color-bg-warning",
                     ]}
                 >
                     <div className="flex-self-start mr-1 ml-1">
