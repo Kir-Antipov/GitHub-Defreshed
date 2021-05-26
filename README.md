@@ -56,7 +56,7 @@ Just ol' buddy GitHub in person
 
 📦 Install [Chrome extension](https://chrome.google.com/webstore/detail/github-defreshed/gdemlbajmchlbdfocbndaimmoiaocegp).
 
-### Any browser
+### Any browser <sup><sub><sup>(recommended for the smoothest experience)</sup></sub></sup>
 
 🐵 Install [Greasemonkey](https://www.greasespot.net/), [Tampermonkey](https://www.tampermonkey.net/) or any other browser extension that supports an execution of user scripts and then
 
