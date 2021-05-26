@@ -15,7 +15,7 @@
     "build": "npm run build:release",
     "test:lint": "eslint src/** && eslint test/**",
     "test:unit": "nyc --report-dir=./.nyc_output/coverage --reporter=html mocha test/test-*.* -r tsconfig-paths/register -r test/register",
-    "test": "npm run test:lint && npm run test:unit && npm run build:debug && npm run build:release"
+    "test": "npm run test:lint && npm run test:unit"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
