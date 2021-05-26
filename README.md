@@ -62,6 +62,10 @@ Just ol' buddy GitHub in person
 
 📦 [Install the user script](https://github.com/Kir-Antipov/GitHub-Defreshed/releases/latest/download/github-defreshed.user.js) which supports automatic updates and customization.
 
+## Bleeding-edge builds
+
+If you don't want to wait for a new version to be released, you can always get your hands on the latest bleeding-edge changes for testing, so take a look at the automated builds produced through  [GitHub Actions workflow](https://github.com/Kir-Antipov/GitHub-Defreshed/actions/workflows/ci.yml?query=event%3Apush). This workflow automatically runs every time a change is pushed to the repository, and as such, the builds it produces will generally reflect the latest snapshot of development.
+
 ## Features
 
  - Old style header
