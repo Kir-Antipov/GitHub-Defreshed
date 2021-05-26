@@ -36,6 +36,7 @@ import Fixer from "./fixer";
  * All registered fixers.
  */
 const fixers: Fixer[] = [
+    new PreloaderStartFixer(),
     new PreloaderCSSFixer(),
     new CompatibilityCSSFixer(),
     new OldSchoolCSSFixer(),
@@ -44,7 +45,6 @@ const fixers: Fixer[] = [
     new ToolbarCSSFixer(),
     new StickyReadmeHeaderCSSFixer(),
     new ScriptSettingsFixer(),
-    new PreloaderStartFixer(),
     new HeaderFixer(),
     new ContainerFixer(),
     new HelpFixer(),
