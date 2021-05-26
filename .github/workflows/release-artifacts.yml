@@ -1,0 +1,36 @@
+name: release-artifacts
+
+on:
+  release:
+     types:
+       - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js v14
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14"
+
+    - name: Set up node modules
+      run: npm ci
+
+    - name: Build debug artifacts
+      run: npm run build:debug
+    - name: Copy debug artifacts
+      run: mv ./build/github-defreshed.user.js ./github-defreshed.debug.user.js; mv ./build/github-defreshed.xpi ./github-defreshed.debug.xpi
+
+    - name: Build artifacts
+      run: npm run build:release
+    - name: Copy debug artifacts back to the build folder
+      run: mv github-defreshed.debug.user.js github-defreshed.debug.xpi ./build
+
+    - name: Upload assets to GitHub
+      uses: AButler/upload-release-assets@v2.0
+      with:
+        files: "build/*"
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
