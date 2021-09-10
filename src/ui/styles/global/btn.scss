@@ -1,9 +1,9 @@
-.btn {
+.btn:not(.add-reaction-btn) {
     border-radius: $border-radius !important;
 }
 
 .repository-content .file-navigation .btn,
-.repository-content .flex-items-start .btn {
+.repository-content .flex-items-start .btn:not(.add-reaction-btn) {
     padding: 3px 10px !important;
     font-size: 12px !important;
     line-height: 20px !important;
