@@ -29,6 +29,7 @@ import PjaxFixer from "./global/pjax-fixer";
 import LinksFixer from "./global/links-fixer";
 import WindowPopstateFixer from "./global/window-popstate-fixer";
 import NoticeFixer from "./global/notice-fixer";
+import RemoveRepoBadgeFixer from "./global/remove-repo-badge-fixer";
 import PreloaderEndFixer from "./global/preloader-end-fixer";
 import Fixer from "./fixer";
 
@@ -67,6 +68,7 @@ const fixers: Fixer[] = [
     new LinksFixer(),
     new WindowPopstateFixer(),
     new NoticeFixer(),
+    new RemoveRepoBadgeFixer(),
     new PreloaderEndFixer(),
 ];
 
