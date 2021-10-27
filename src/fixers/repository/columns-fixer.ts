@@ -18,7 +18,7 @@ export default class ColumnsFixer extends Fixer {
 
     apply() {
         const repositoryContent = document.querySelector(".repository-content");
-        const gutter = repositoryContent.querySelector(".gutter-condensed");
+        const gutter = repositoryContent.querySelector(".Layout--sidebarPosition-end");
         const inner = gutter.firstElementChild;
 
         repositoryContent.append(...inner.children);

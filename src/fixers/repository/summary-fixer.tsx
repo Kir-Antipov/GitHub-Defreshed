@@ -114,7 +114,7 @@ export default class SummaryFixer extends Fixer {
      * Creates license element for the summary block.
      */
     private createLicenseSummaryElement() {
-        const data = document.querySelector(".flex-shrink-0.col-12.col-md-3 svg.octicon-law");
+        const data = document.querySelector(".Layout-sidebar svg.octicon-law");
 
         if (data) {
             const anchor = data.parentElement as HTMLAnchorElement;
@@ -169,7 +169,7 @@ export default class SummaryFixer extends Fixer {
      * @returns Right bar's section, if any; otherwise, false.
      */
     private findRightBarSectionByName(name: string) {
-        return [...document.querySelectorAll(".flex-shrink-0.col-12.col-md-3 div.BorderGrid-cell")]
+        return [...document.querySelectorAll(".Layout-sidebar .BorderGrid-row")]
             .find(x => {
                 const link = x.querySelector("a");
                 return link && link.href.includes(name);
