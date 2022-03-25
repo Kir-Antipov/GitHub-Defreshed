@@ -22,7 +22,7 @@ export default class SummaryFixer extends Fixer {
     async apply(location: string, backupContainer: HTMLElement) {
         const langsBar = document.querySelector(".repository-content details summary div.repository-lang-stats-graph");
         document
-            .querySelector(".repository-content")
+            .querySelector(".repository-content > div")
             .prepend(
                 <SummaryContainer rounded={!langsBar}>
                     {this.createCommitsSummaryElement(backupContainer)}

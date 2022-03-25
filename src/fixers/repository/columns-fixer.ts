@@ -13,11 +13,11 @@ export default class ColumnsFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilElementsReady("main:nth-child(1) .repository-content");
+        return waitUntilElementsReady("main:nth-child(1) .repository-content > div");
     }
 
     apply() {
-        const repositoryContent = document.querySelector(".repository-content");
+        const repositoryContent = document.querySelector(".repository-content > div");
         const gutter = repositoryContent.querySelector(".Layout--sidebarPosition-end");
         const inner = gutter.firstElementChild;
 

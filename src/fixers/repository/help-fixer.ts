@@ -12,6 +12,6 @@ export default class HelpFixer extends Fixer {
     }
 
     waitUntilFixerReady() {
-        return waitUntilEntriesReady("main:nth-child(1) div.repository-content > :first-child");
+        return waitUntilEntriesReady("main:nth-child(1) div.repository-content > div > :first-child");
     }
 }

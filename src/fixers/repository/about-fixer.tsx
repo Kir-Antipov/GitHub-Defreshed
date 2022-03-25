@@ -17,7 +17,7 @@ export default class AboutFixer extends Fixer {
     }
 
     apply() {
-        const repositoryContent = document.querySelector("main .repository-content");
+        const repositoryContent = document.querySelector("main .repository-content > div");
         const cell = repositoryContent.querySelector(".BorderGrid-cell");
         const about = cell.querySelector(".f4");
         const website = cell

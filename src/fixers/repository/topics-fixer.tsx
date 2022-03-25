@@ -22,7 +22,7 @@ export default class TopicsFixer extends Fixer {
     apply() {
         const firstTopic = document.querySelector("main .repository-content .BorderGrid-cell .topic-tag");
         document
-            .querySelector("main .repository-content")
+            .querySelector("main .repository-content > div")
             .prepend(
                 <TopicsContainer>
                     {firstTopic.parentElement}

@@ -21,7 +21,7 @@ export default class EditDetailsFixer extends Fixer {
     apply() {
         const details = document.querySelector("main .repository-content .BorderGrid-row:nth-child(1) details");
         if (details) {
-            document.querySelector("main .repository-content").prepend(details);
+            document.querySelector("main .repository-content > div").prepend(details);
         }
     }
 }

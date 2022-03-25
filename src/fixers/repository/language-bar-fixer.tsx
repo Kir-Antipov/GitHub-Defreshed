@@ -29,7 +29,7 @@ export default class LanguageBarFixer extends Fixer {
             ]
             .map(this.extractLanguageData);
 
-        const container = document.querySelector(".repository-content");
+        const container = document.querySelector(".repository-content > div");
         const shouldBeOpen = await settings.openLanguagesByDefault;
 
         container.prepend(<LanguageBar open={shouldBeOpen} langs={langs}/>);
