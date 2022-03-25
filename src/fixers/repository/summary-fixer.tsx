@@ -157,7 +157,7 @@ export default class SummaryFixer extends Fixer {
             link = data.querySelector("a").href;
         } else {
             count = defaultCount;
-            link = `/${getRepoURL(location)}/${additionalPath}${pluralize(text, count)}`;
+            link = `/${getRepoURL(location)}/${additionalPath}${pluralize(text, 2)}`;
         }
 
         return <SummaryElement icon={icon} href={link} text={text} count={count} />;
